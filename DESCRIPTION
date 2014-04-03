@@ -1,0 +1,16 @@
+Package: nat.nblast
+Type: Package
+Title: Tools for assessing neuron similarity and clustering
+Version: 1.0
+Date: 2014-04-03
+Author: Greg Jefferis
+Maintainer: Greg Jefferis <jefferis@gmail.com>
+Description: This package is a collection of NBLAST-related functions.
+Depends:
+    R (>= 2.15.1),
+    nat,
+    RANN
+Suggests:
+    testthat
+License: GPL-3
+LazyData: yes
