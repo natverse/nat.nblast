@@ -16,6 +16,9 @@ nblast2(query, target, targetBinds = NULL, Reverse = FALSE, ...)
 
   \item{Reverse}{whether to use \code{query} as the target
   neuron rather than query (default=FALSE).}
+
+  \item{...}{extra arguments to pass to the distance
+  function.}
 }
 \value{
 Named list of similarity scores.

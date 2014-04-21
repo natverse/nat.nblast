@@ -8,6 +8,7 @@
 #' @param targetBinds numeric indices or names with which to subset \code{target}.
 #' @param Reverse whether to use \code{query} as the target neuron rather than query
 #'   (default=FALSE).
+#' @param ... extra arguments to pass to the distance function.
 #' @return Named list of similarity scores.
 #' @export
 #' @seealso \code{\link{WeightedNNBasedLinesetMatching}}
@@ -43,6 +44,7 @@ WeightedNNBasedLinesetDistFun<-function(nndists,dotproducts,sd=3,...){
   sapply(sd,function(sd) summaryfun(dnorm(nndists,sd=sd)*dotproducts/dnorm(0,sd=sd)))
 }
 
+#' @rdname WeightedNNBasedLinesetMatching
 WeightedNNBasedLinesetMatching <- function(...) UseMethod("WeightedNNBasedLinesetMatching")
 
 #' Compute point & tangent vector similarity score between two dotprops objects
@@ -52,9 +54,11 @@ WeightedNNBasedLinesetMatching <- function(...) UseMethod("WeightedNNBasedLinese
 #' the dot products of the direction vectors for nearest neighbour pairs.
 #' @param dp1,dp2 dotprops objects
 #' @param UseAlpha Whether to scale dot product of tangent vectors (default=F)
+#' @param ... extra arguments to pass to the distance function.
 #' @return Return value of NNDistFun passd to WeightedNNBasedLinesetMatching
 #' @export
-#' @seealso \code{\link{DotProperties}},\code{\link{WeightedNNBasedLinesetMatching}}
+#' @seealso \code{\link[nat]{dotprops}}
+#' @rdname WeightedNNBasedLinesetMatching
 WeightedNNBasedLinesetMatching.dotprops<-function(dp1,dp2,UseAlpha=FALSE,...){
   if(UseAlpha)
     WeightedNNBasedLinesetMatching(dp1$points,dp2$points,dvs1=dp1$vect,dvs2=dp2$vect,
