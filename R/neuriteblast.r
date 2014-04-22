@@ -4,7 +4,7 @@
 #' neuron with those of a list of other neurons.
 #' @param query the query neuron.
 #' @param target a \code{\link[nat]{neuronlist}} to compare neuron against.
-#'   Defaults to \code{options(nat.default.neuronlist)}.
+#'   Defaults to \code{options("nat.default.neuronlist")}.
 #' @param targetBinds numeric indices or names with which to subset \code{target}.
 #' @param Reverse whether to use \code{query} as the target neuron rather than query
 #'   (default=FALSE).
@@ -15,7 +15,7 @@
 nblast2 <- function(query, target, targetBinds=NULL, Reverse=FALSE, ...) UseMethod("nblast2")
 
 
-nblast2.dotprops <- function(query, target=option(nat.default.neuronlist), targetBinds=NULL, Reverse=FALSE, ...){
+nblast2.dotprops <- function(query, target=options("nat.default.neuronlist"), targetBinds=NULL, Reverse=FALSE, ...){
   if(is.null(targetBinds))
     targetBinds=seq_along(target)
   else if(is.character(targetBinds))
