@@ -1,4 +1,6 @@
 # nat.nblast
+[![Build Status](https://travis-ci.org/jefferislab/nat.nblast.svg)](https://travis-ci.org/jefferislab/nat.nblast)
+
 Additional data for use with the [NeuroAnatomy Toolbox](https://github.com/jefferis/nat) (nat)
 
 ## Installation
