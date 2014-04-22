@@ -52,10 +52,10 @@ WeightedNNBasedLinesetMatching <- function(...) UseMethod("WeightedNNBasedLinese
 #' UseAlpha determines whether the alpha values (eig1-eig2)/sum(eig1:3)
 #' are passed on to WeightedNNBasedLinesetMatching. These will be used to scale
 #' the dot products of the direction vectors for nearest neighbour pairs.
-#' @param dp1,dp2 dotprops objects
+#' @param dp1,dp2 dotprops objects to compare.
 #' @param UseAlpha Whether to scale dot product of tangent vectors (default=F)
 #' @param ... extra arguments to pass to the distance function.
-#' @return Return value of NNDistFun passd to WeightedNNBasedLinesetMatching
+#' @return Value of NNDistFun passd to WeightedNNBasedLinesetMatching
 #' @export
 #' @seealso \code{\link[nat]{dotprops}}
 #' @rdname WeightedNNBasedLinesetMatching
