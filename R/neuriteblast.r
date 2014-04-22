@@ -45,6 +45,7 @@ WeightedNNBasedLinesetDistFun<-function(nndists,dotproducts,sd=3,...){
 }
 
 #' @rdname WeightedNNBasedLinesetMatching
+#' @importFrom RANN nn2
 WeightedNNBasedLinesetMatching <- function(...) UseMethod("WeightedNNBasedLinesetMatching")
 
 #' Compute point & tangent vector similarity score between two dotprops objects
