@@ -9,7 +9,7 @@ WeightedNNBasedLinesetMatching(...)
   ...)
 }
 \arguments{
-  \item{dp1,dp2}{dotprops objects}
+  \item{dp1,dp2}{dotprops objects to compare.}
 
   \item{UseAlpha}{Whether to scale dot product of tangent
   vectors (default=F)}
@@ -18,8 +18,7 @@ WeightedNNBasedLinesetMatching(...)
   function.}
 }
 \value{
-Return value of NNDistFun passd to
-WeightedNNBasedLinesetMatching
+Value of NNDistFun passd to WeightedNNBasedLinesetMatching
 }
 \description{
 UseAlpha determines whether the alpha values
