@@ -14,7 +14,7 @@
 #' @seealso \code{\link{WeightedNNBasedLinesetMatching}}
 nblast2 <- function(query, target, targetBinds=NULL, Reverse=FALSE, ...) UseMethod("nblast2")
 
-
+#' @export
 nblast2.dotprops <- function(query, target=options("nat.default.neuronlist"), targetBinds=NULL, Reverse=FALSE, ...){
   if(is.null(targetBinds))
     targetBinds=seq_along(target)
