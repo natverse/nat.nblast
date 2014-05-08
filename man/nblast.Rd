@@ -9,7 +9,7 @@ nblast(query, target, targetBinds = NULL, Reverse = FALSE, ...)
 
   \item{target}{a \code{\link[nat]{neuronlist}} to compare
   neuron against.  Defaults to
-  \code{options(nat.default.neuronlist)}.}
+  \code{options("nat.default.neuronlist")}.}
 
   \item{targetBinds}{numeric indices or names with which to
   subset \code{target}.}

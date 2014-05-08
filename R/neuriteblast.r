@@ -4,7 +4,7 @@
 #' neuron with those of a list of other neurons.
 #' @param query the query neuron.
 #' @param target a \code{\link[nat]{neuronlist}} to compare neuron against.
-#'   Defaults to \code{options(nat.default.neuronlist)}.
+#'   Defaults to \code{options("nat.default.neuronlist")}.
 #' @param targetBinds numeric indices or names with which to subset \code{target}.
 #' @param Reverse whether to use \code{query} as the target neuron rather than query
 #'   (default=FALSE).
@@ -45,6 +45,8 @@ WeightedNNBasedLinesetDistFun<-function(nndists,dotproducts,sd=3,...){
 }
 
 #' @rdname WeightedNNBasedLinesetMatching
+#' @importFrom RANN nn2
+#' @export
 WeightedNNBasedLinesetMatching <- function(...) UseMethod("WeightedNNBasedLinesetMatching")
 
 #' Compute point & tangent vector similarity score between two dotprops objects
@@ -149,4 +151,50 @@ dotprod=function(a,b){
   c=a*b
   if(length(dim(c))>1) 	rowSums(c)
   else sum(c)
+}
+
+# Originally from AnalysisSuite PotentialSynapases.R
+normbyrow=function(a){
+  # returns euclidean norm (by row if reqd)
+  c=a*a
+  if(length(dim(c))>1) 	sqrt(rowSums(c))
+  else sqrt(sum(c))
+}
+
+findDirectionVectorsFromParents<-function(d1,d2,idxArray,ReturnAllIndices=FALSE,Verbose=FALSE){
+  # rather than dropping root points, just use the vector from them rather than to them
+  if(Verbose) cat(".")
+  p1=.CleanupParentArray(d1[,"Parent"])
+  p2=.CleanupParentArray(d2[,"Parent"])
+  parentPointsArray=cbind(p1[idxArray[,1]],p2[idxArray[,2]])
+  # find any points with bad parents and instead use their offspring
+  if(any(parentPointsArray[,1]<1 | parentPointsArray[,2]<1)){
+    stop ("Some points do not have a parent: therefore impossible to calculate direction vector")
+  }
+  dvs=cbind(d1[idxArray[,1],c("X","Y","Z"),drop=FALSE]-d1[parentPointsArray[,1],c("X","Y","Z"),drop=FALSE],
+            d2[idxArray[,2],c("X","Y","Z"),drop=FALSE]-d2[parentPointsArray[,2],c("X","Y","Z"),drop=FALSE])
+
+  if(ReturnAllIndices){
+    attr(dvs,"idxArray")=idxArray
+    attr(dvs,"parentPointsArray")=parentPointsArray
+  }
+  dvs
+}
+
+.CleanupParentArray<-function(pa){
+  # takes a list of parents for points and replaces any <1
+  # with the first offspring of that point
+  #if(length(dim(pa))>1) apply(pa,2,.CleanupParentArray)
+  pointsNeedingWork<-which(pa<1)
+  if(length(pointsNeedingWork)<1) return( pa )
+  for(p in pointsNeedingWork){
+    wp=which(pa==p)
+    if(length(wp)>1){
+      warning(cat("more than 1 point in .CleanupParentArray, choosing first from:",wp))
+      pa[p]=wp[1]
+    } else if(length(wp)<1){
+      warning("no points to choose in .CleanupParentArray using original value")
+    } else pa[p]=wp
+  }
+  pa
 }

@@ -1,5 +1,7 @@
 # nat.nblast
-Additional data for use with the [NeuroAnatomy Toolbox](https://github.com/jefferis/nat) (nat)
+[![Build Status](https://travis-ci.org/jefferislab/nat.nblast.svg)](https://travis-ci.org/jefferislab/nat.nblast)
+
+Very preliminary attempt to clean up the neuron search tools originally developed as part of the [AnalysisSuite](https://github.com/jefferis/AnalysisSuite) codebase. These tools are designed to be an addon for the [NeuroAnatomy Toolbox](https://github.com/jefferis/nat) (nat) package.
 
 ## Installation
 There is currently no released version on CRAN.
