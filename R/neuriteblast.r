@@ -44,6 +44,7 @@ WeightedNNBasedLinesetDistFun<-function(nndists,dotproducts,sd=3,...){
   sapply(sd,function(sd) summaryfun(dnorm(nndists,sd=sd)*dotproducts/dnorm(0,sd=sd)))
 }
 
+
 #' @rdname WeightedNNBasedLinesetMatching
 WeightedNNBasedLinesetMatching <- function(...) UseMethod("WeightedNNBasedLinesetMatching")
 
@@ -144,9 +145,50 @@ WeightedNNBasedLinesetMatching.default<-function(n1,n2,dvs1=NULL,dvs2=NULL,alpha
   NNDistFun(nnn1$nn.dists,dps,...)
 }
 
+
 dotprod=function(a,b){
   # expects 2 matrices with n cols each
   c=a*b
   if(length(dim(c))>1) 	rowSums(c)
   else sum(c)
+}
+
+
+lodsby2dhist <- function(nndists, dotprods, returnsum=TRUE, smat=NULL, Return=c('weightedlodtable', 'sum', 'elements')) {
+  Return <- match.arg(Return)
+
+  if(missing(dotprods)) {
+    if(!is.list(nndists))
+      stop("must provide nndists and dotprods or a list with both")
+    dotprods <- nndists[[2]]
+    nndists <- nndists[[1]]
+  }
+  if(length(nndists)!= length(dotprods))
+    stop("nndists and dotprods must have the same length.")
+
+  c1 <- findInterval(nndists, attr(smat,"distbreaks"), all.inside=TRUE)
+  # NB use of all.inside fixes NAs that would otherwise result
+  # when dot product falls outside (0,1) due to floating point errors
+  c2 <- findInterval(dotprods, attr(smat,"dotprodbreaks"), all.inside=TRUE)
+
+  if(Return == 'elements') return(smat[cbind(c1,c2)])
+
+  nlc1 <- length(attr(smat, "distbreaks")) - 1
+  nlc2 <- length(attr(smat, "dotprodbreaks")) - 1
+
+  this.countstable <- fast2dintegertable(c1, c2, nlc1, nlc2)
+
+  weightedlodtable <- smat*this.countstable
+  if(Return == 'sum') return(sum(weightedlodtable))
+  weightedlodtable
+}
+
+
+fast2dintegertable <- function(a, b, nlevelsa=max(a), nlevelsb=max(b)) {
+  # Fast 2D cross-tabulation (joint histogram) for two integer inputs
+
+  nlevelsab <- nlevelsa*nlevelsb
+  if(nlevelsab > .Machine$integer.max) stop("Number of levels exceeds integer type.")
+  ab <- (a - 1) * nlevelsb + b
+  matrix(tabulate(ab, nlevelsab), ncol=nlevelsb, nrow=nlevelsa, byrow=T)
 }
