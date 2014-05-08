@@ -154,7 +154,7 @@ dotprod=function(a,b){
 }
 
 
-lodsby2dhist <- function(nndists, dotprods, returnsum=TRUE, smat=NULL, Return=c('weightedlodtable', 'sum', 'elements')) {
+lodsby2dhist <- function(nndists, dotprods, returnsum=TRUE, smat=get(getOption('nat.nblast.defaultsmat')), Return=c('weightedlodtable', 'sum', 'elements')) {
   Return <- match.arg(Return)
 
   if(missing(dotprods)) {
