@@ -1,8 +1,8 @@
-\name{nblast2}
-\alias{nblast2}
+\name{nblast}
+\alias{nblast}
 \title{Produce similarity score for neuron morphologies}
 \usage{
-nblast2(query, target, targetBinds = NULL, Reverse = FALSE, ...)
+nblast(query, target, targetBinds = NULL, Reverse = FALSE, ...)
 }
 \arguments{
   \item{query}{the query neuron.}

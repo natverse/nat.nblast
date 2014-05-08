@@ -12,10 +12,10 @@
 #' @return Named list of similarity scores.
 #' @export
 #' @seealso \code{\link{WeightedNNBasedLinesetMatching}}
-nblast2 <- function(query, target, targetBinds=NULL, Reverse=FALSE, ...) UseMethod("nblast2")
+nblast <- function(query, target, targetBinds=NULL, Reverse=FALSE, ...) UseMethod("nblast")
 
 
-nblast2.dotprops <- function(query, target=option(nat.default.neuronlist), targetBinds=NULL, Reverse=FALSE, ...){
+nblast.dotprops <- function(query, target=getOption(nat.default.neuronlist), targetBinds=NULL, Reverse=FALSE, ...){
   if(is.null(targetBinds))
     targetBinds=seq_along(target)
   else if(is.character(targetBinds))

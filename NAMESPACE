@@ -1,2 +1,2 @@
 S3method(WeightedNNBasedLinesetMatching,dotprops)
-export(nblast2)
+export(nblast)
