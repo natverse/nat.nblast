@@ -14,7 +14,7 @@
 #' @seealso \code{\link{WeightedNNBasedLinesetMatching}}
 nblast <- function(query, target, targetBinds=NULL, Reverse=FALSE, ...) UseMethod("nblast")
 
-
+#' @S3method nblast dotprops
 nblast.dotprops <- function(query, target=getOption(nat.default.neuronlist), targetBinds=NULL, Reverse=FALSE, ...){
   if(is.null(targetBinds))
     targetBinds=seq_along(target)
