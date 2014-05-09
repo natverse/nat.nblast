@@ -2,7 +2,8 @@
 \alias{nblast}
 \title{Produce similarity score for neuron morphologies}
 \usage{
-nblast(query, target, targetBinds = NULL, Reverse = FALSE, ...)
+nblast(query, target, smat = get(getOption("nat.nblast.defaultsmat")),
+  version = c("2", "1"), ...)
 }
 \arguments{
   \item{query}{the query neuron.}
@@ -11,11 +12,8 @@ nblast(query, target, targetBinds = NULL, Reverse = FALSE, ...)
   neuron against.  Defaults to
   \code{options("nat.default.neuronlist")}.}
 
-  \item{targetBinds}{numeric indices or names with which to
-  subset \code{target}.}
-
-  \item{Reverse}{whether to use \code{query} as the target
-  neuron rather than query (default=FALSE).}
+  \item{version}{the version of the algorithm to use (the
+  default, 2, is the latest).}
 
   \item{...}{extra arguments to pass to the distance
   function.}
@@ -24,11 +22,7 @@ nblast(query, target, targetBinds = NULL, Reverse = FALSE, ...)
 Named list of similarity scores.
 }
 \description{
-An updated version of the NBLAST algorithm that compares
-the morphology of a neuron with those of a list of other
-neurons.
-}
-\seealso{
-\code{\link{WeightedNNBasedLinesetMatching}}
+Uses the NBLAST algorithm that compares the morphology of
+two neurons.
 }
 

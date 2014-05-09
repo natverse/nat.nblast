@@ -1,7 +1,34 @@
 #' Produce similarity score for neuron morphologies
 #'
-#' An updated version of the NBLAST algorithm that compares the morphology of a
-#' neuron with those of a list of other neurons.
+#' Uses the NBLAST algorithm that compares the morphology of two neurons.
+#'
+#' @param query the query neuron.
+#' @param target a \code{\link[nat]{neuronlist}} to compare neuron against.
+#'   Defaults to \code{options("nat.default.neuronlist")}.
+#' @param version the version of the algorithm to use (the default, 2, is
+#'   the latest).
+#' @param ... extra arguments to pass to the distance function.
+#' @return Named list of similarity scores.
+#' @export
+nblast <- function(query, target, smat=get(getOption("nat.nblast.defaultsmat")), version=c('2', '1'), ...) {
+  version <- match.arg(version)
+  if(version != 1) stop("Only version 1 of the algorithm is currently implemented.")
+
+  # Deal with being passed advanced arguments
+  args <- match.call(expand.dots=TRUE)
+  targetBinds <- NULL
+  Reverse <- FALSE
+  if(!is.null(args[['targetBinds']])) targetBinds <- args[['targetBinds']]
+  if(!is.null(args[['Reverse']])) Reverse <- args[['Reverse']]
+
+  NeuriteBlast(query=query, target=target, smat=smat, targetBinds=targetBinds, Reverse=Reverse, ...)
+}
+
+#' Produce similarity score for neuron morphologies
+#'
+#' A low-level version of the NBLAST algorithm that compares the morphology of a
+#' neuron with those of a list of other neurons. For most use cases, one
+#' probably would wish to use \code{\link{nblast()}} instead.
 #' @param query the query neuron.
 #' @param target a \code{\link[nat]{neuronlist}} to compare neuron against.
 #'   Defaults to \code{options("nat.default.neuronlist")}.
@@ -12,10 +39,7 @@
 #' @return Named list of similarity scores.
 #' @export
 #' @seealso \code{\link{WeightedNNBasedLinesetMatching}}
-nblast <- function(query, target, targetBinds=NULL, Reverse=FALSE, ...) UseMethod("nblast")
-
-#' @S3method nblast dotprops
-nblast.dotprops <- function(query, target=getOption(nat.default.neuronlist), targetBinds=NULL, Reverse=FALSE, ...){
+NeuriteBlast <- function(query, target=getOption(nat.default.neuronlist), targetBinds=NULL, Reverse=FALSE, ...){
   if(is.null(targetBinds))
     targetBinds=seq_along(target)
   else if(is.character(targetBinds))
@@ -27,9 +51,9 @@ nblast.dotprops <- function(query, target=getOption(nat.default.neuronlist), tar
     dbn=target[[targetBinds[i]]]
     if(!is.null(dbn)){
       if(Reverse)
-        score=try(WeightedNNBasedLinesetMatching.dotprops(query,dbn,...))
+        score=try(WeightedNNBasedLinesetMatching(query,dbn,...))
       else
-        score=try(WeightedNNBasedLinesetMatching.dotprops(dbn,query,...))
+        score=try(WeightedNNBasedLinesetMatching(dbn,query,...))
       if(!inherits(score,'try-error'))
         scores[i]=score
     }
