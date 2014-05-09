@@ -13,19 +13,21 @@
 #' @export
 nblast <- function(query, target, smat=get(getOption("nat.nblast.defaultsmat")), version=c('2', '1'), ...) {
   version <- match.arg(version)
-  if(version != 1) stop("Only version 1 of the algorithm is currently implemented.")
 
   # Convert target to neuronlist if passed a single object
   if("dotprops" %in% class(target)) target <- neuronlist(target)
 
   # Deal with being passed advanced arguments
-  args <- match.call(expand.dots=TRUE)
-  targetBinds <- NULL
-  Reverse <- FALSE
-  if(!is.null(args[['targetBinds']])) targetBinds <- args[['targetBinds']]
-  if(!is.null(args[['Reverse']])) Reverse <- args[['Reverse']]
+  arguments <- match.call(expand.dots=TRUE)
 
-  NeuriteBlast(query=query, target=target, smat=smat, targetBinds=targetBinds, Reverse=Reverse, ...)
+  # Use lodsby2dhist for NBLAST v2 if not specified by user
+  if(is.null(arguments[['NNDistFun']]) && (version == '2')) arguments[['NNDistFun']] <- lodsby2dhist
+  # UseAlpha for NBLAST v2 if not specified by user
+  if(is.null(arguments[['UseAlpha']]) && (version == '2')) arguments[['UseAlpha']] <- TRUE
+
+  if(!is.null(arguments[['version']])) arguments[['version']] <- NULL
+  arguments[[1]] <- NeuriteBlast
+  eval(arguments)
 }
 
 #' Produce similarity score for neuron morphologies
