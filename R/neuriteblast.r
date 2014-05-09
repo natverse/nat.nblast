@@ -14,6 +14,9 @@ nblast <- function(query, target, smat=get(getOption("nat.nblast.defaultsmat")),
   version <- match.arg(version)
   if(version != 1) stop("Only version 1 of the algorithm is currently implemented.")
 
+  # Convert target to neuronlist if passed a single object
+  if("dotprops" %in% class(target)) target <- neuronlist(target)
+
   # Deal with being passed advanced arguments
   args <- match.call(expand.dots=TRUE)
   targetBinds <- NULL
