@@ -230,7 +230,7 @@ findDirectionVectorsFromParents<-function(d1,d2,idxArray,ReturnAllIndices=FALSE,
 }
 
 
-lodsby2dhist <- function(nndists, dotprods, returnsum=TRUE, smat=get(getOption('nat.nblast.defaultsmat')), Return=c('weightedlodtable', 'sum', 'elements')) {
+lodsby2dhist <- function(nndists, dotprods, smat=get(getOption('nat.nblast.defaultsmat')), Return=c('sum', 'weightedlodtable', 'elements')) {
   Return <- match.arg(Return)
 
   if(missing(dotprods)) {
