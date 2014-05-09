@@ -12,6 +12,8 @@ nblast(query, target, smat = get(getOption("nat.nblast.defaultsmat")),
   neuron against.  Defaults to
   \code{options("nat.default.neuronlist")}.}
 
+  \item{smat}{the score matrix to use.}
+
   \item{version}{the version of the algorithm to use (the
   default, 2, is the latest).}
 

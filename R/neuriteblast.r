@@ -5,6 +5,7 @@
 #' @param query the query neuron.
 #' @param target a \code{\link[nat]{neuronlist}} to compare neuron against.
 #'   Defaults to \code{options("nat.default.neuronlist")}.
+#' @param smat the score matrix to use.
 #' @param version the version of the algorithm to use (the default, 2, is
 #'   the latest).
 #' @param ... extra arguments to pass to the distance function.
@@ -31,7 +32,7 @@ nblast <- function(query, target, smat=get(getOption("nat.nblast.defaultsmat")),
 #'
 #' A low-level version of the NBLAST algorithm that compares the morphology of a
 #' neuron with those of a list of other neurons. For most use cases, one
-#' probably would wish to use \code{\link{nblast()}} instead.
+#' probably would wish to use \code{\link{nblast}} instead.
 #' @param query the query neuron.
 #' @param target a \code{\link[nat]{neuronlist}} to compare neuron against.
 #'   Defaults to \code{options("nat.default.neuronlist")}.

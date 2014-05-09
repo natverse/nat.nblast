@@ -28,7 +28,7 @@ Named list of similarity scores.
 A low-level version of the NBLAST algorithm that compares
 the morphology of a neuron with those of a list of other
 neurons. For most use cases, one probably would wish to use
-\code{\link{nblast()}} instead.
+\code{\link{nblast}} instead.
 }
 \seealso{
 \code{\link{WeightedNNBasedLinesetMatching}}
