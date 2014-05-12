@@ -49,28 +49,34 @@ nblast <- function(query, target, smat=get(getOption("nat.nblast.defaultsmat")),
 #'   (default=FALSE).
 #' @param ... extra arguments to pass to the distance function.
 #' @return Named list of similarity scores.
+#' @importFrom nat is.neuronlist
+#' @importFrom nat nlapply
 #' @export
 #' @seealso \code{\link{WeightedNNBasedLinesetMatching}}
 NeuriteBlast <- function(query, target=getOption("nat.default.neuronlist"), targetBinds=NULL, Reverse=FALSE, ...){
-  if(is.null(targetBinds))
-    targetBinds=seq_along(target)
-  else if(is.character(targetBinds))
-    targetBinds=charmatch(targetBinds,names(target))
-  scores=rep(NA,length(targetBinds))
+  if(nat:::is.neuronlist(query)) {
+    scores <- sapply(query, NeuriteBlast, target=target, targetBinds=targetBinds, Reverse=FALSE, ...=...)
+  } else {
+    if(is.null(targetBinds))
+      targetBinds=seq_along(target)
+    else if(is.character(targetBinds))
+      targetBinds=charmatch(targetBinds,names(target))
+    scores=rep(NA,length(targetBinds))
 
-  for(i in seq_along(targetBinds)){
-    # targetBinds[i] is numeric index in target of current target neuron
-    dbn=target[[targetBinds[i]]]
-    if(!is.null(dbn)){
-      if(Reverse)
-        score=try(WeightedNNBasedLinesetMatching(query,dbn,...))
-      else
-        score=try(WeightedNNBasedLinesetMatching(dbn,query,...))
-      if(!inherits(score,'try-error'))
-        scores[i]=score
+    for(i in seq_along(targetBinds)){
+      # targetBinds[i] is numeric index in target of current target neuron
+      dbn=target[[targetBinds[i]]]
+      if(!is.null(dbn)){
+        if(Reverse)
+          score=try(WeightedNNBasedLinesetMatching(query,dbn,...))
+        else
+          score=try(WeightedNNBasedLinesetMatching(dbn,query,...))
+        if(!inherits(score,'try-error'))
+          scores[i]=score
+      }
     }
+    names(scores)=names(target)[targetBinds]
   }
-  names(scores)=names(target)[targetBinds]
   scores
 }
 
