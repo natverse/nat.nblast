@@ -50,11 +50,10 @@ nblast <- function(query, target, smat=get(getOption("nat.nblast.defaultsmat")),
 #' @param ... extra arguments to pass to the distance function.
 #' @return Named list of similarity scores.
 #' @importFrom nat is.neuronlist
-#' @importFrom nat nlapply
 #' @export
 #' @seealso \code{\link{WeightedNNBasedLinesetMatching}}
 NeuriteBlast <- function(query, target=getOption("nat.default.neuronlist"), targetBinds=NULL, Reverse=FALSE, ...){
-  if(nat:::is.neuronlist(query)) {
+  if(nat::is.neuronlist(query)) {
     scores <- sapply(query, NeuriteBlast, target=target, targetBinds=targetBinds, Reverse=FALSE, ...=...)
   } else {
     if(is.null(targetBinds))
