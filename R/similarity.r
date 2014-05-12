@@ -10,6 +10,7 @@
 #' @param ... extra arguments to pass to \code{\link[rgl]{plot3d}}.
 #' @return \code{showSimilarity} is called for the side effect of drawing the plot; a vector of object IDs is returned.
 #' @export
+#' @importFrom rgl plot3d
 showSimilarity <- function(n1, n2, smat=get(getOption('nat.nblast.defaultsmat')), cols=colorRampPalette(c('#0000FF', '#FF0000')), col='black', AbsoluteScale=FALSE, PlotVectors=TRUE, ...) {
   res <- WeightedNNBasedLinesetMatching.dotprops(n1, n2, NNDistFun=lodsby2dhist, smat=smat, Return='elements')
 
