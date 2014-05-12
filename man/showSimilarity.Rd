@@ -3,8 +3,8 @@
 \title{Display two neurons with segments coloured by similarity}
 \usage{
 showSimilarity(n1, n2, smat = get(getOption("nat.nblast.defaultsmat")),
-  cols = colorRampPalette(c("#0000FF", "#FF0000")), AbsoluteScale = FALSE,
-  PlotVectors = TRUE, ...)
+  cols = colorRampPalette(c("#0000FF", "#FF0000")), col = "black",
+  AbsoluteScale = FALSE, PlotVectors = TRUE, ...)
 }
 \arguments{
   \item{n1}{a neuron to compare and colour.}
@@ -15,6 +15,9 @@ showSimilarity(n1, n2, smat = get(getOption("nat.nblast.defaultsmat")),
 
   \item{cols}{the function to use to colour the segments
   (e.g. \code{\link{heat.colors}}).}
+
+  \item{col}{the colour with which to draw the comparison
+  neuron.}
 
   \item{AbsoluteScale}{logical indicating whether the
   colours should be calculated based on the minimum and
