@@ -21,12 +21,9 @@ nblast <- function(query, target, smat=get(getOption("nat.nblast.defaultsmat")),
   # Convert target to neuronlist if passed a single object
   if("dotprops" %in% class(target)) target <- neuronlist(target)
 
-  # Deal with being passed advanced arguments
-  arguments <- match.call(expand.dots=TRUE)
-
   if(version == '2') {
     NNDistFun <- lodsby2dhist
-    if(is.null(UseAlpha)) UseAlpha <- TRUE
+    if(is.null(UseAlpha)) UseAlpha <- FALSE
   } else if(version == '1') {
     NNDistFun <- WeightedNNBasedLinesetDistFun
     if(is.null(UseAlpha)) UseAlpha <- FALSE
