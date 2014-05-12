@@ -2,7 +2,7 @@
 \alias{NeuriteBlast}
 \title{Produce similarity score for neuron morphologies}
 \usage{
-NeuriteBlast(query, target = getOption(nat.default.neuronlist),
+NeuriteBlast(query, target = getOption("nat.default.neuronlist"),
   targetBinds = NULL, Reverse = FALSE, ...)
 }
 \arguments{

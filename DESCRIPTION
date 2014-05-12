@@ -7,9 +7,11 @@ Author: Greg Jefferis
 Maintainer: Greg Jefferis <jefferis@gmail.com>
 Description: This package is a collection of NBLAST-related functions.
 Depends:
-    R (>= 2.15.1)
+    R (>= 2.15.1),
+    rgl
 Imports:
-    RANN
+    RANN,
+    nat
 Suggests:
     testthat
 License: GPL-3
