@@ -18,7 +18,7 @@
 #' @importFrom nat neuronlist
 nblast <- function(query, target, smat=get(getOption("nat.nblast.defaultsmat")), version=c(2, 1), UseAlpha=NULL) {
   version <- as.character(version)
-  version <- match.arg(version)
+  version <- match.arg(version, c('2', '1'))
 
   # Convert target to neuronlist if passed a single object
   if("dotprops" %in% class(target)) target <- neuronlist(target)
