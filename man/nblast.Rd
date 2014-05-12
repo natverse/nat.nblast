@@ -3,7 +3,7 @@
 \title{Produce similarity score for neuron morphologies}
 \usage{
 nblast(query, target, smat = get(getOption("nat.nblast.defaultsmat")),
-  version = c("2", "1"), ...)
+  version = c("2", "1"), UseAlpha = NULL)
 }
 \arguments{
   \item{query}{the query neuron.}
@@ -17,14 +17,17 @@ nblast(query, target, smat = get(getOption("nat.nblast.defaultsmat")),
   \item{version}{the version of the algorithm to use (the
   default, 2, is the latest).}
 
-  \item{...}{extra arguments to pass to the distance
-  function.}
+  \item{UseAlpha}{whether to consider local directions in
+  the similarity calculation. The default value,
+  \code{NULL} ensures that the canonical setting for each
+  version of NBLAST is used.}
 }
 \value{
 Named list of similarity scores.
 }
 \description{
 Uses the NBLAST algorithm that compares the morphology of
-two neurons.
+two neurons. For more control over the parameters of the
+algorithm, see the arguments of \code{\link{NeuriteBlast}}.
 }
 

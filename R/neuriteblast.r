@@ -1,17 +1,21 @@
 #' Produce similarity score for neuron morphologies
 #'
-#' Uses the NBLAST algorithm that compares the morphology of two neurons.
+#' Uses the NBLAST algorithm that compares the morphology of two neurons. For
+#' more control over the parameters of the algorithm, see the arguments of
+#' \code{\link{NeuriteBlast}}.
 #'
 #' @param query the query neuron.
 #' @param target a \code{\link[nat]{neuronlist}} to compare neuron against.
 #'   Defaults to \code{options("nat.default.neuronlist")}.
 #' @param smat the score matrix to use.
-#' @param version the version of the algorithm to use (the default, 2, is
-#'   the latest).
-#' @param ... extra arguments to pass to the distance function.
+#' @param version the version of the algorithm to use (the default, 2, is the
+#'   latest).
+#' @param UseAlpha whether to consider local directions in the similarity
+#'   calculation. The default value, \code{NULL} ensures that the canonical
+#'   setting for each version of NBLAST is used.
 #' @return Named list of similarity scores.
 #' @export
-nblast <- function(query, target, smat=get(getOption("nat.nblast.defaultsmat")), version=c('2', '1'), ...) {
+nblast <- function(query, target, smat=get(getOption("nat.nblast.defaultsmat")), version=c('2', '1'), UseAlpha=NULL) {
   version <- match.arg(version)
 
   # Convert target to neuronlist if passed a single object
@@ -20,14 +24,17 @@ nblast <- function(query, target, smat=get(getOption("nat.nblast.defaultsmat")),
   # Deal with being passed advanced arguments
   arguments <- match.call(expand.dots=TRUE)
 
-  # Use lodsby2dhist for NBLAST v2 if not specified by user
-  if(is.null(arguments[['NNDistFun']]) && (version == '2')) arguments[['NNDistFun']] <- lodsby2dhist
-  # UseAlpha for NBLAST v2 if not specified by user
-  if(is.null(arguments[['UseAlpha']]) && (version == '2')) arguments[['UseAlpha']] <- TRUE
+  if(version == '2') {
+    NNDistFun <- lodsby2dhist
+    if(is.null(UseAlpha)) UseAlpha <- TRUE
+  } else if(version == '1') {
+    NNDistFun <- WeightedNNBasedLinesetDistFun
+    if(is.null(UseAlpha)) UseAlpha <- FALSE
+  } else {
+    stop("Only NBLAST versions 1 and 2 are currently implemented. For more advanced control, see NeuriteBlast.")
+  }
 
-  if(!is.null(arguments[['version']])) arguments[['version']] <- NULL
-  arguments[[1]] <- NeuriteBlast
-  eval(arguments)
+  NeuriteBlast(query=query, target=target, NNDistFun=NNDistFun, UseAlpha=UseAlpha)
 }
 
 #' Produce similarity score for neuron morphologies
