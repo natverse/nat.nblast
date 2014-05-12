@@ -15,6 +15,7 @@
 #'   setting for each version of NBLAST is used.
 #' @return Named list of similarity scores.
 #' @export
+#' @importFrom nat neuronlist
 nblast <- function(query, target, smat=get(getOption("nat.nblast.defaultsmat")), version=c('2', '1'), UseAlpha=NULL) {
   version <- match.arg(version)
 
