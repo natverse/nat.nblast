@@ -3,7 +3,7 @@
 \title{Produce similarity score for neuron morphologies}
 \usage{
 nblast(query, target, smat = get(getOption("nat.nblast.defaultsmat")),
-  version = c("2", "1"), UseAlpha = NULL)
+  version = c(2, 1), UseAlpha = NULL)
 }
 \arguments{
   \item{query}{the query neuron.}
