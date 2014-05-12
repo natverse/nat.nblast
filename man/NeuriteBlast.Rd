@@ -27,7 +27,7 @@ Named list of similarity scores.
 \description{
 A low-level version of the NBLAST algorithm that compares
 the morphology of a neuron with those of a list of other
-neurons. For most use cases, one probably would wish to use
+neurons. For most use cases, one would probably wish to use
 \code{\link{nblast}} instead.
 }
 \seealso{
