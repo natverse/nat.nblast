@@ -52,7 +52,7 @@ nblast <- function(query, target, smat=get(getOption("nat.nblast.defaultsmat")),
 #' @return Named list of similarity scores.
 #' @export
 #' @seealso \code{\link{WeightedNNBasedLinesetMatching}}
-NeuriteBlast <- function(query, target=getOption(nat.default.neuronlist), targetBinds=NULL, Reverse=FALSE, ...){
+NeuriteBlast <- function(query, target=getOption("nat.default.neuronlist"), targetBinds=NULL, Reverse=FALSE, ...){
   if(is.null(targetBinds))
     targetBinds=seq_along(target)
   else if(is.character(targetBinds))
