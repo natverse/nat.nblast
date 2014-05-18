@@ -30,4 +30,8 @@ Uses the NBLAST algorithm that compares the morphology of
 two neurons. For more control over the parameters of the
 algorithm, see the arguments of \code{\link{NeuriteBlast}}.
 }
+\examples{
+data(kcs20,package='nat')
+nblast(kcs20[[1]],kcs20)
+}
 

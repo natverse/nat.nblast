@@ -16,6 +16,9 @@
 #' @return Named list of similarity scores.
 #' @export
 #' @importFrom nat neuronlist
+#' @examples
+#' data(kcs20,package='nat')
+#' nblast(kcs20[[1]],kcs20)
 nblast <- function(query, target, smat=get(getOption("nat.nblast.defaultsmat")), version=c(2, 1), UseAlpha=NULL) {
   version <- as.character(version)
   version <- match.arg(version, c('2', '1'))
