@@ -12,6 +12,8 @@
 #'   algorithm. Ignored when \code{version=2}.
 #' @param version the version of the algorithm to use (the default, 2, is the
 #'   latest).
+#' @param normalised whether to divide scores by the self-match score of the
+#'   query
 #' @param UseAlpha whether to consider local directions in the similarity
 #'   calculation (default: FALSE).
 #' @return Named list of similarity scores.
@@ -20,7 +22,8 @@
 #' @examples
 #' data(kcs20,package='nat')
 #' nblast(kcs20[[1]],kcs20)
-nblast <- function(query, target, smat=NULL, sd=3, version=c(2, 1), UseAlpha=FALSE) {
+nblast <- function(query, target, smat=NULL, sd=3, version=c(2, 1), normalised=FALSE,
+                   UseAlpha=FALSE) {
   version <- as.character(version)
   version <- match.arg(version, c('2', '1'))
 
@@ -36,9 +39,11 @@ nblast <- function(query, target, smat=NULL, sd=3, version=c(2, 1), UseAlpha=FAL
       }
     }
     if(is.character(smat)) smat=get(smat)
-    NeuriteBlast(query=query, target=target, NNDistFun=lodsby2dhist, smat=smat, UseAlpha=UseAlpha)
+    NeuriteBlast(query=query, target=target, NNDistFun=lodsby2dhist, smat=smat, UseAlpha=UseAlpha,
+                 normalised=normalised)
   } else if(version == '1') {
-    NeuriteBlast(query=query, target=target, NNDistFun=WeightedNNBasedLinesetDistFun, UseAlpha=UseAlpha, sd=sd)
+    NeuriteBlast(query=query, target=target, NNDistFun=WeightedNNBasedLinesetDistFun, UseAlpha=UseAlpha,
+                 sd=sd, normalised=normalised)
   } else {
     stop("Only NBLAST versions 1 and 2 are currently implemented. For more advanced control, see NeuriteBlast.")
   }
@@ -52,17 +57,21 @@ nblast <- function(query, target, smat=NULL, sd=3, version=c(2, 1), UseAlpha=FAL
 #' @param query the query neuron.
 #' @param target a \code{\link[nat]{neuronlist}} to compare neuron against.
 #'   Defaults to \code{options("nat.default.neuronlist")}.
-#' @param targetBinds numeric indices or names with which to subset \code{target}.
-#' @param Reverse whether to use \code{query} as the target neuron rather than query
-#'   (default=FALSE).
+#' @param targetBinds numeric indices or names with which to subset
+#'   \code{target}.
+#' @param Reverse whether to use \code{query} as the target neuron rather than
+#'   query (default=FALSE).
+#' @param normalised whether to divide scores by the self-match score of the
+#'   query
 #' @param ... extra arguments to pass to the distance function.
 #' @return Named list of similarity scores.
 #' @importFrom nat is.neuronlist
 #' @export
 #' @seealso \code{\link{WeightedNNBasedLinesetMatching}}
-NeuriteBlast <- function(query, target=getOption("nat.default.neuronlist"), targetBinds=NULL, Reverse=FALSE, ...){
+NeuriteBlast <- function(query, target=getOption("nat.default.neuronlist"),
+                         targetBinds=NULL, Reverse=FALSE, normalised=FALSE, ...){
   if(nat::is.neuronlist(query)) {
-    scores <- sapply(query, NeuriteBlast, target=target, targetBinds=targetBinds, Reverse=FALSE, ...=...)
+    scores <- sapply(query, NeuriteBlast, target=target, targetBinds=targetBinds, Reverse=FALSE, normalised=FALSE, ...=...)
   } else {
     if(is.null(targetBinds))
       targetBinds=seq_along(target)
@@ -83,6 +92,9 @@ NeuriteBlast <- function(query, target=getOption("nat.default.neuronlist"), targ
       }
     }
     names(scores)=names(target)[targetBinds]
+  }
+  if(normalised){
+    scores=scores/NeuriteBlast(query, query, ...)
   }
   scores
 }
