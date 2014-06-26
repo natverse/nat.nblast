@@ -4,7 +4,7 @@
 \title{Produce similarity score for neuron morphologies}
 \usage{
 nblast(query, target, smat = get(getOption("nat.nblast.defaultsmat")),
-  version = c(2, 1), UseAlpha = NULL)
+  version = c(2, 1), UseAlpha = FALSE)
 }
 \arguments{
 \item{query}{the query neuron.}
@@ -18,8 +18,7 @@ Defaults to \code{options("nat.default.neuronlist")}.}
 latest).}
 
 \item{UseAlpha}{whether to consider local directions in the similarity
-calculation. The default value, \code{NULL} ensures that the canonical
-setting for each version of NBLAST is used.}
+calculation (default: FALSE).}
 }
 \value{
 Named list of similarity scores.

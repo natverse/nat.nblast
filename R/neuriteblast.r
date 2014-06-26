@@ -11,15 +11,15 @@
 #' @param version the version of the algorithm to use (the default, 2, is the
 #'   latest).
 #' @param UseAlpha whether to consider local directions in the similarity
-#'   calculation. The default value, \code{NULL} ensures that the canonical
-#'   setting for each version of NBLAST is used.
+#'   calculation (default: FALSE).
 #' @return Named list of similarity scores.
 #' @export
 #' @importFrom nat neuronlist
 #' @examples
 #' data(kcs20,package='nat')
 #' nblast(kcs20[[1]],kcs20)
-nblast <- function(query, target, smat=get(getOption("nat.nblast.defaultsmat")), version=c(2, 1), UseAlpha=NULL) {
+nblast <- function(query, target, smat=get(getOption("nat.nblast.defaultsmat")),
+                   version=c(2, 1), UseAlpha=FALSE) {
   version <- as.character(version)
   version <- match.arg(version, c('2', '1'))
 
@@ -28,10 +28,8 @@ nblast <- function(query, target, smat=get(getOption("nat.nblast.defaultsmat")),
 
   if(version == '2') {
     NNDistFun <- lodsby2dhist
-    if(is.null(UseAlpha)) UseAlpha <- FALSE
   } else if(version == '1') {
     NNDistFun <- WeightedNNBasedLinesetDistFun
-    if(is.null(UseAlpha)) UseAlpha <- FALSE
   } else {
     stop("Only NBLAST versions 1 and 2 are currently implemented. For more advanced control, see NeuriteBlast.")
   }
