@@ -27,14 +27,12 @@ nblast <- function(query, target, smat=get(getOption("nat.nblast.defaultsmat")),
   if("dotprops" %in% class(target)) target <- neuronlist(target)
 
   if(version == '2') {
-    NNDistFun <- lodsby2dhist
+    NeuriteBlast(query=query, target=target, NNDistFun=lodsby2dhist, smat=smat, UseAlpha=UseAlpha)
   } else if(version == '1') {
-    NNDistFun <- WeightedNNBasedLinesetDistFun
+    NeuriteBlast(query=query, target=target, NNDistFun=WeightedNNBasedLinesetDistFun, UseAlpha=UseAlpha)
   } else {
     stop("Only NBLAST versions 1 and 2 are currently implemented. For more advanced control, see NeuriteBlast.")
   }
-
-  NeuriteBlast(query=query, target=target, NNDistFun=NNDistFun, UseAlpha=UseAlpha)
 }
 
 #' Produce similarity score for neuron morphologies
@@ -244,7 +242,7 @@ findDirectionVectorsFromParents<-function(d1,d2,idxArray,ReturnAllIndices=FALSE,
 }
 
 
-lodsby2dhist <- function(nndists, dotprods, smat=get(getOption('nat.nblast.defaultsmat')), Return=c('sum', 'weightedlodtable', 'elements')) {
+lodsby2dhist <- function(nndists, dotprods, smat, Return=c('sum', 'weightedlodtable', 'elements')) {
   Return <- match.arg(Return)
 
   if(missing(dotprods)) {
