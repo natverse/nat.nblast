@@ -19,9 +19,8 @@ Neuron similarity, search and clustering tools
 \section{Package Options}{
 
 
-  There is one package option \code{nat.nblast.defaultsmat} which is set to
-  \code{'smat.fcwb'} when the package is loaded if it has not already been
-  set by someone else.
+  There is one package option \code{nat.nblast.defaultsmat} which is
+  \code{NULL} by default.
 }
 \references{
 Costa, M., Ostrovsky, A.D., Manton, J.D., Prohaska, S., and
