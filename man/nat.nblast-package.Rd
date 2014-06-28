@@ -5,10 +5,23 @@
 \alias{nat.nblast-package}
 \title{Neuron similarity, search and clustering tools}
 \description{
-The main entry point for similarity and search functions is
-\code{\link{nblast}}. The current version (2) depends on a scoring matrix.
-Default matrices trained using Drosophila neurons are distributed with this
-package (see \code{\link{smat.fcwb}})
+Neuron similarity, search and clustering tools
+}
+\section{Search}{
+
+
+  The main entry point for similarity and search functions is
+  \code{\link{nblast}}. The current version (2) depends on a scoring matrix.
+  Default matrices trained using Drosophila neurons are distributed with this
+  package (see \code{\link{smat.fcwb}})
+}
+
+\section{Package Options}{
+
+
+  There is one package option \code{nat.nblast.defaultsmat} which is set to
+  \code{'smat.fcwb'} when the package is loaded if it has not already been
+  set by someone else.
 }
 \references{
 Costa, M., Ostrovsky, A.D., Manton, J.D., Prohaska, S., and
