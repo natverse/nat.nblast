@@ -3,7 +3,8 @@
 \alias{nblast}
 \title{Produce similarity score for neuron morphologies}
 \usage{
-nblast(query, target, smat = NULL, version = c(2, 1), UseAlpha = FALSE)
+nblast(query, target, smat = NULL, sd = 3, version = c(2, 1),
+  UseAlpha = FALSE)
 }
 \arguments{
 \item{query}{the query neuron.}
@@ -12,6 +13,9 @@ nblast(query, target, smat = NULL, version = c(2, 1), UseAlpha = FALSE)
 Defaults to \code{options("nat.default.neuronlist")}.}
 
 \item{smat}{the scoring matrix to use.}
+
+\item{sd}{Standard deviation to use in distance dependence of nblast v1
+algorithm. Ignored when \code{version=2}.}
 
 \item{version}{the version of the algorithm to use (the default, 2, is the
 latest).}

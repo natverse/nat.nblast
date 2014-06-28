@@ -8,6 +8,8 @@
 #' @param target a \code{\link[nat]{neuronlist}} to compare neuron against.
 #'   Defaults to \code{options("nat.default.neuronlist")}.
 #' @param smat the scoring matrix to use.
+#' @param sd Standard deviation to use in distance dependence of nblast v1
+#'   algorithm. Ignored when \code{version=2}.
 #' @param version the version of the algorithm to use (the default, 2, is the
 #'   latest).
 #' @param UseAlpha whether to consider local directions in the similarity
@@ -18,7 +20,7 @@
 #' @examples
 #' data(kcs20,package='nat')
 #' nblast(kcs20[[1]],kcs20)
-nblast <- function(query, target, smat=NULL, version=c(2, 1), UseAlpha=FALSE) {
+nblast <- function(query, target, smat=NULL, sd=3, version=c(2, 1), UseAlpha=FALSE) {
   version <- as.character(version)
   version <- match.arg(version, c('2', '1'))
 
@@ -36,7 +38,7 @@ nblast <- function(query, target, smat=NULL, version=c(2, 1), UseAlpha=FALSE) {
     if(is.character(smat)) smat=get(smat)
     NeuriteBlast(query=query, target=target, NNDistFun=lodsby2dhist, smat=smat, UseAlpha=UseAlpha)
   } else if(version == '1') {
-    NeuriteBlast(query=query, target=target, NNDistFun=WeightedNNBasedLinesetDistFun, UseAlpha=UseAlpha)
+    NeuriteBlast(query=query, target=target, NNDistFun=WeightedNNBasedLinesetDistFun, UseAlpha=UseAlpha, sd=sd)
   } else {
     stop("Only NBLAST versions 1 and 2 are currently implemented. For more advanced control, see NeuriteBlast.")
   }
@@ -86,7 +88,7 @@ NeuriteBlast <- function(query, target=getOption("nat.default.neuronlist"), targ
 }
 
 
-WeightedNNBasedLinesetDistFun<-function(nndists,dotproducts,sd=3,...){
+WeightedNNBasedLinesetDistFun<-function(nndists,dotproducts,sd,...){
   summaryfun=function(x) 1-mean(sqrt(x),na.rm=T)
   sapply(sd,function(sd) summaryfun(dnorm(nndists,sd=sd)*dotproducts/dnorm(0,sd=sd)))
 }
