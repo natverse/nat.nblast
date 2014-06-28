@@ -10,22 +10,22 @@
 #'
 #' \itemize{
 #'
-#' \item \code{smat} was trained using nearest-neighbour distance and the
+#' \item \code{smat.fcwb} was trained using nearest-neighbour distance and the
 #' tangent vector defined by the first eigen vector of the k=5 nearest
 #' neighbours.
 #'
-#' \item \code{smat_alpha} was defined as for \code{smat} but weighted by the
-#' factor \code{alpha} defined as (l1-l2)/(l1+l2+l3) where l1,l2,l3 are the
-#' three eigen values.
+#' \item \code{smat_alpha.fcwb} was defined as for \code{smat.fcwb} but weighted
+#' by the factor \code{alpha} defined as (l1-l2)/(l1+l2+l3) where l1,l2,l3 are
+#' the three eigen values.
 #'
 #' }
 #'
-#' Most work on the flyircuit dataset has been carried out using the \code{smat}
-#' scoring matrix although the \code{smat_alpha} matrix which emphasises the
-#' significance of matches between linear regions of the neuron (such as axons)
-#' may have some advantages.
+#' Most work on the flyircuit dataset has been carried out using the
+#' \code{smat.fcwb} scoring matrix although the \code{smat_alpha.fcwb} matrix
+#' which emphasises the significance of matches between linear regions of the
+#' neuron (such as axons) may have some advantages.
 #'
-#' @name smat
-#' @aliases smat_alpha
+#' @name smat.fcwb
+#' @aliases smat_alpha.fcwb
 #' @docType data
 NULL

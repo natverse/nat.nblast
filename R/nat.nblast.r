@@ -3,7 +3,7 @@
 #' The main entry point for similarity and search functions is
 #' \code{\link{nblast}}. The current version (2) depends on a scoring matrix.
 #' Default matrices trained using Drosophila neurons are distributed with this
-#' package (see \code{\link{smat}})
+#' package (see \code{\link{smat.fcwb}})
 #'
 #' @references Costa, M., Ostrovsky, A.D., Manton, J.D., Prohaska, S., and
 #'   Jefferis, G.S.X.E. (2014). NBLAST: Rapid, sensitive comparison of neuronal
@@ -13,5 +13,5 @@
 #' @aliases nat.nblast
 #' @docType package
 #' @keywords package
-#' @seealso \code{\link{nblast}}, \code{\link{smat}}
+#' @seealso \code{\link{nblast}}, \code{\link{smat.fcwb}}
 NULL
