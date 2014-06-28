@@ -2,7 +2,7 @@
   op <- options()
 
   op.nat.nblast <- list(
-    nat.nblast.defaultsmat = 'smat.fcwb'
+    #nat.nblast.defaultsmat = 'smat.fcwb'
   )
   # only set if not already set
   toset <- !(names(op.nat.nblast) %in% names(op))

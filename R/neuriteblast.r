@@ -7,7 +7,7 @@
 #' @param query the query neuron.
 #' @param target a \code{\link[nat]{neuronlist}} to compare neuron against.
 #'   Defaults to \code{options("nat.default.neuronlist")}.
-#' @param smat the score matrix to use.
+#' @param smat the scoring matrix to use.
 #' @param version the version of the algorithm to use (the default, 2, is the
 #'   latest).
 #' @param UseAlpha whether to consider local directions in the similarity
@@ -18,8 +18,7 @@
 #' @examples
 #' data(kcs20,package='nat')
 #' nblast(kcs20[[1]],kcs20)
-nblast <- function(query, target, smat=get(getOption("nat.nblast.defaultsmat")),
-                   version=c(2, 1), UseAlpha=FALSE) {
+nblast <- function(query, target, smat=NULL, version=c(2, 1), UseAlpha=FALSE) {
   version <- as.character(version)
   version <- match.arg(version, c('2', '1'))
 
@@ -27,6 +26,14 @@ nblast <- function(query, target, smat=get(getOption("nat.nblast.defaultsmat")),
   if("dotprops" %in% class(target)) target <- neuronlist(target)
 
   if(version == '2') {
+    if(is.null(smat)) {
+      smat=getOption("nat.nblast.defaultsmat")
+      if(is.null(smat)) {
+        if(UseAlpha) smat=smat_alpha.fcwb
+        else smat=smat.fcwb
+      }
+    }
+    if(is.character(smat)) smat=get(smat)
     NeuriteBlast(query=query, target=target, NNDistFun=lodsby2dhist, smat=smat, UseAlpha=UseAlpha)
   } else if(version == '1') {
     NeuriteBlast(query=query, target=target, NNDistFun=WeightedNNBasedLinesetDistFun, UseAlpha=UseAlpha)
