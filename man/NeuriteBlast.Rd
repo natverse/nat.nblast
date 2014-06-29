@@ -6,7 +6,7 @@
 NeuriteBlast(query, target, targetBinds = NULL, normalised = FALSE, ...)
 }
 \arguments{
-\item{query}{the query neuron.}
+\item{query}{either a single query neuron or a \code{\link[nat]{neuronlist}}}
 
 \item{target}{a \code{neuronlist} to compare neuron against.}
 

@@ -60,7 +60,7 @@ nblast <- function(query, target=getOption("nat.default.neuronlist"),
 #' A low-level version of the NBLAST algorithm that compares the morphology of a
 #' neuron with those of a list of other neurons. For most use cases, one would
 #' probably wish to use \code{\link{nblast}} instead.
-#' @param query the query neuron.
+#' @param query either a single query neuron or a \code{\link[nat]{neuronlist}}
 #' @param target a \code{neuronlist} to compare neuron against.
 #' @param targetBinds numeric indices or names with which to subset
 #'   \code{target}.
