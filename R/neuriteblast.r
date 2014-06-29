@@ -69,8 +69,8 @@ nblast <- function(query, target, smat=NULL, sd=3, version=c(2, 1), normalised=F
 NeuriteBlast <- function(query, target=getOption("nat.default.neuronlist"),
                          targetBinds=NULL, normalised=FALSE, ...){
   if(nat::is.neuronlist(query)) {
-    scores <- sapply(query, NeuriteBlast, target=target,
-                     targetBinds=targetBinds, normalised=FALSE, ...=...)
+    return(sapply(query, NeuriteBlast, target=target,
+                     targetBinds=targetBinds, normalised=normalised, ...=...))
   } else {
     if(is.null(targetBinds))
       targetBinds=seq_along(target)
@@ -90,7 +90,7 @@ NeuriteBlast <- function(query, target=getOption("nat.default.neuronlist"),
     names(scores)=names(target)[targetBinds]
   }
   if(normalised){
-    scores=scores/NeuriteBlast(query, query, ...)
+    scores=scores/NeuriteBlast(query, neuronlist(query), normalised=FALSE, ...)
   }
   scores
 }
