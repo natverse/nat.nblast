@@ -4,7 +4,7 @@
 \title{Produce similarity score for neuron morphologies}
 \usage{
 NeuriteBlast(query, target = getOption("nat.default.neuronlist"),
-  targetBinds = NULL, Reverse = FALSE, normalised = FALSE, ...)
+  targetBinds = NULL, normalised = FALSE, ...)
 }
 \arguments{
 \item{query}{the query neuron.}
@@ -14,9 +14,6 @@ Defaults to \code{options("nat.default.neuronlist")}.}
 
 \item{targetBinds}{numeric indices or names with which to subset
 \code{target}.}
-
-\item{Reverse}{whether to use \code{query} as the target neuron rather than
-query (default=FALSE).}
 
 \item{normalised}{whether to divide scores by the self-match score of the
 query}

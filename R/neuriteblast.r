@@ -59,8 +59,6 @@ nblast <- function(query, target, smat=NULL, sd=3, version=c(2, 1), normalised=F
 #'   Defaults to \code{options("nat.default.neuronlist")}.
 #' @param targetBinds numeric indices or names with which to subset
 #'   \code{target}.
-#' @param Reverse whether to use \code{query} as the target neuron rather than
-#'   query (default=FALSE).
 #' @param normalised whether to divide scores by the self-match score of the
 #'   query
 #' @param ... extra arguments to pass to the distance function.
@@ -69,9 +67,10 @@ nblast <- function(query, target, smat=NULL, sd=3, version=c(2, 1), normalised=F
 #' @export
 #' @seealso \code{\link{WeightedNNBasedLinesetMatching}}
 NeuriteBlast <- function(query, target=getOption("nat.default.neuronlist"),
-                         targetBinds=NULL, Reverse=FALSE, normalised=FALSE, ...){
+                         targetBinds=NULL, normalised=FALSE, ...){
   if(nat::is.neuronlist(query)) {
-    scores <- sapply(query, NeuriteBlast, target=target, targetBinds=targetBinds, Reverse=FALSE, normalised=FALSE, ...=...)
+    scores <- sapply(query, NeuriteBlast, target=target,
+                     targetBinds=targetBinds, normalised=FALSE, ...=...)
   } else {
     if(is.null(targetBinds))
       targetBinds=seq_along(target)
@@ -83,10 +82,7 @@ NeuriteBlast <- function(query, target=getOption("nat.default.neuronlist"),
       # targetBinds[i] is numeric index in target of current target neuron
       dbn=target[[targetBinds[i]]]
       if(!is.null(dbn)){
-        if(Reverse)
-          score=try(WeightedNNBasedLinesetMatching(query,dbn,...))
-        else
-          score=try(WeightedNNBasedLinesetMatching(dbn,query,...))
+        score=try(WeightedNNBasedLinesetMatching(dbn,query,...))
         if(!inherits(score,'try-error'))
           scores[i]=score
       }
