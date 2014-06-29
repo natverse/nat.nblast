@@ -3,7 +3,7 @@ Type: Package
 Title: Tools for assessing neuron similarity and clustering
 Version: 1.0
 Date: 2014-04-03
-Author: Greg Jefferis
+Author: Greg Jefferis and James Manton
 Maintainer: Greg Jefferis <jefferis@gmail.com>
 Description: This package is a collection of NBLAST-related functions.
 Depends:
