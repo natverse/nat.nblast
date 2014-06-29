@@ -26,3 +26,11 @@ test_that("we can calculate normalised nblast v2 scores", {
   scores.norm=scale(scores, scale=c(scores[1,1],scores[2,2]), center = FALSE)
   expect_equivalent(nblast(testneurons[1:2], testneurons, normalised=TRUE), scores.norm)
 })
+
+test_that("we can calculate scores using getOption('nat.default.neuronlist')", {
+  op=options(nat.default.neuronlist='testneurons')
+  on.exit(options(op))
+  scores <- nblast(testneurons[1:2], testneurons, version=2)
+  expect_equal(nblast(testneurons[1:2], version=2), scores)
+})
+

@@ -6,7 +6,7 @@
 #'
 #' @param query the query neuron.
 #' @param target a \code{\link[nat]{neuronlist}} to compare neuron against.
-#'   Defaults to \code{options("nat.default.neuronlist")}.
+#'   Defaults to \code{options("nat.default.neuronlist")}. See \code{\link{nat-package}}.
 #' @param smat the scoring matrix to use.
 #' @param sd Standard deviation to use in distance dependence of nblast v1
 #'   algorithm. Ignored when \code{version=2}.
@@ -17,15 +17,21 @@
 #' @param UseAlpha whether to consider local directions in the similarity
 #'   calculation (default: FALSE).
 #' @return Named list of similarity scores.
+#' @seealso \code{\link{nat-package}}
 #' @export
 #' @importFrom nat neuronlist
 #' @examples
 #' data(kcs20,package='nat')
 #' nblast(kcs20[[1]],kcs20)
-nblast <- function(query, target, smat=NULL, sd=3, version=c(2, 1), normalised=FALSE,
+nblast <- function(query, target=getOption("nat.default.neuronlist"),
+                   smat=NULL, sd=3, version=c(2, 1), normalised=FALSE,
                    UseAlpha=FALSE) {
   version <- as.character(version)
   version <- match.arg(version, c('2', '1'))
+
+  if(is.character(target)) target=get(target)
+  if(is.null(target)) stop("No target neurons provided. Please set them directly",
+                           "or use option('nat.default.neuronlist')")
 
   # Convert target to neuronlist if passed a single object
   if("dotprops" %in% class(target)) target <- neuronlist(target)
@@ -55,8 +61,7 @@ nblast <- function(query, target, smat=NULL, sd=3, version=c(2, 1), normalised=F
 #' neuron with those of a list of other neurons. For most use cases, one would
 #' probably wish to use \code{\link{nblast}} instead.
 #' @param query the query neuron.
-#' @param target a \code{\link[nat]{neuronlist}} to compare neuron against.
-#'   Defaults to \code{options("nat.default.neuronlist")}.
+#' @param target a \code{neuronlist} to compare neuron against.
 #' @param targetBinds numeric indices or names with which to subset
 #'   \code{target}.
 #' @param normalised whether to divide scores by the self-match score of the
@@ -66,7 +71,7 @@ nblast <- function(query, target, smat=NULL, sd=3, version=c(2, 1), normalised=F
 #' @importFrom nat is.neuronlist
 #' @export
 #' @seealso \code{\link{WeightedNNBasedLinesetMatching}}
-NeuriteBlast <- function(query, target=getOption("nat.default.neuronlist"),
+NeuriteBlast <- function(query, target,
                          targetBinds=NULL, normalised=FALSE, ...){
   if(nat::is.neuronlist(query)) {
     return(sapply(query, NeuriteBlast, target=target,

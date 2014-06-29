@@ -3,14 +3,12 @@
 \alias{NeuriteBlast}
 \title{Produce similarity score for neuron morphologies}
 \usage{
-NeuriteBlast(query, target = getOption("nat.default.neuronlist"),
-  targetBinds = NULL, normalised = FALSE, ...)
+NeuriteBlast(query, target, targetBinds = NULL, normalised = FALSE, ...)
 }
 \arguments{
 \item{query}{the query neuron.}
 
-\item{target}{a \code{\link[nat]{neuronlist}} to compare neuron against.
-Defaults to \code{options("nat.default.neuronlist")}.}
+\item{target}{a \code{neuronlist} to compare neuron against.}
 
 \item{targetBinds}{numeric indices or names with which to subset
 \code{target}.}

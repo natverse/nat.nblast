@@ -3,14 +3,14 @@
 \alias{nblast}
 \title{Produce similarity score for neuron morphologies}
 \usage{
-nblast(query, target, smat = NULL, sd = 3, version = c(2, 1),
-  normalised = FALSE, UseAlpha = FALSE)
+nblast(query, target = getOption("nat.default.neuronlist"), smat = NULL,
+  sd = 3, version = c(2, 1), normalised = FALSE, UseAlpha = FALSE)
 }
 \arguments{
 \item{query}{the query neuron.}
 
 \item{target}{a \code{\link[nat]{neuronlist}} to compare neuron against.
-Defaults to \code{options("nat.default.neuronlist")}.}
+Defaults to \code{options("nat.default.neuronlist")}. See \code{\link{nat-package}}.}
 
 \item{smat}{the scoring matrix to use.}
 
@@ -37,5 +37,8 @@ more control over the parameters of the algorithm, see the arguments of
 \examples{
 data(kcs20,package='nat')
 nblast(kcs20[[1]],kcs20)
+}
+\seealso{
+\code{\link{nat-package}}
 }
 
