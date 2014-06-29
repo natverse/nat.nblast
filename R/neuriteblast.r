@@ -1,13 +1,18 @@
-#' Produce similarity score for neuron morphologies
+#' Calculate similarity score for neuron morphologies
 #'
 #' Uses the NBLAST algorithm that compares the morphology of two neurons. For
 #' more control over the parameters of the algorithm, see the arguments of
 #' \code{\link{NeuriteBlast}}.
 #'
+#' @details when \code{smat=NULL} options("nat.nblast.defaultsmat") will be
+#'   checked and if NULL, then \code{smat.fcwb} or \code{smat_alpha.fcwb} will
+#'   be used depending on the value of \code{UseAlpha}.
+#'
 #' @param query the query neuron.
 #' @param target a \code{\link[nat]{neuronlist}} to compare neuron against.
-#'   Defaults to \code{options("nat.default.neuronlist")}. See \code{\link{nat-package}}.
-#' @param smat the scoring matrix to use.
+#'   Defaults to \code{options("nat.default.neuronlist")}. See
+#'   \code{\link{nat-package}}.
+#' @param smat the scoring matrix to use (see details)
 #' @param sd Standard deviation to use in distance dependence of nblast v1
 #'   algorithm. Ignored when \code{version=2}.
 #' @param version the version of the algorithm to use (the default, 2, is the
@@ -57,7 +62,7 @@ nblast <- function(query, target=getOption("nat.default.neuronlist"),
 
 #' Produce similarity score for neuron morphologies
 #'
-#' A low-level version of the NBLAST algorithm that compares the morphology of a
+#' A low-level entry point to the NBLAST algorithm that compares the morphology of a
 #' neuron with those of a list of other neurons. For most use cases, one would
 #' probably wish to use \code{\link{nblast}} instead.
 #' @param query either a single query neuron or a \code{\link[nat]{neuronlist}}
