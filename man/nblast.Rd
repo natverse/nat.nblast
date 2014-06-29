@@ -4,7 +4,7 @@
 \title{Produce similarity score for neuron morphologies}
 \usage{
 nblast(query, target, smat = NULL, sd = 3, version = c(2, 1),
-  UseAlpha = FALSE)
+  normalised = FALSE, UseAlpha = FALSE)
 }
 \arguments{
 \item{query}{the query neuron.}
@@ -19,6 +19,9 @@ algorithm. Ignored when \code{version=2}.}
 
 \item{version}{the version of the algorithm to use (the default, 2, is the
 latest).}
+
+\item{normalised}{whether to divide scores by the self-match score of the
+query}
 
 \item{UseAlpha}{whether to consider local directions in the similarity
 calculation (default: FALSE).}
