@@ -8,10 +8,10 @@
 #' @param AbsoluteScale logical indicating whether the colours should be calculated based on the minimum and maximum similarities for the neuron (\code{AbsoluteScale = FALSE}) or on the minimum and maximum possible for all neurons.
 #' @param PlotVectors logical indicating whether the vectors of the \code{dotprops} representation should be plotted. If \code{FALSE}, only the points are plotted.
 #' @param ... extra arguments to pass to \code{\link[rgl]{plot3d}}.
-#' @return \code{showSimilarity} is called for the side effect of drawing the plot; a vector of object IDs is returned.
+#' @return \code{show_similarity} is called for the side effect of drawing the plot; a vector of object IDs is returned.
 #' @export
 #' @importFrom rgl plot3d
-showSimilarity <- function(n1, n2, smat=get(getOption('nat.nblast.defaultsmat')), cols=colorRampPalette(c('#0000FF', '#FF0000')), col='black', AbsoluteScale=FALSE, PlotVectors=TRUE, ...) {
+show_similarity <- function(n1, n2, smat=get(getOption('nat.nblast.defaultsmat')), cols=colorRampPalette(c('#0000FF', '#FF0000')), col='black', AbsoluteScale=FALSE, PlotVectors=TRUE, ...) {
   res <- WeightedNNBasedLinesetMatching.dotprops(n1, n2, NNDistFun=lodsby2dhist, smat=smat, Return='elements')
 
   if(AbsoluteScale) {
