@@ -4,7 +4,7 @@ testneurons <- readRDS('testdata/testneurons.rds')
 
 test_that("nblast v2 produces expected scores", {
   scores <- nblast(testneurons[[1]], testneurons, version=2)
-  scores.expected <- structure(c(31524.5213308596, -31627.7351772194, -34222.9007476271, -17201.5091863945, -34665.5897659894), .Names = c("5HT1bMARCM-F000001_seg001", "5HT1bMARCM-F000002_seg001", "5HT1bMARCM-F000003_seg001", "5HT1bMARCM-F000004_seg001", "5HT1bMARCM-F000005_seg001"))
+  scores.expected <- structure(c(43518.2468824115, -34509.2778341796, -36608.1290149345, -18366.0246697251, -36782.7167494325), .Names = c("5HT1bMARCM-F000001_seg001", "5HT1bMARCM-F000002_seg001", "5HT1bMARCM-F000003_seg001", "5HT1bMARCM-F000004_seg001", "5HT1bMARCM-F000005_seg001"))
 
   expect_equal(scores, scores.expected)
 })
@@ -17,7 +17,7 @@ test_that("nblast v2 with alpha produces expected scores", {
 
 test_that("nblast v2 handles a neuronlist as query", {
   scores <- nblast(testneurons[1:2], testneurons, version=2)
-  scores.expected <- structure(c(31524.5213308596, -31627.7351772194, -34222.9007476271, -17201.5091863945, -34665.5897659894, -14151.9043135782, 22201.6453549707, -20996.9159401486, -21406.6691003314, -21534.3940349266), .Dim = c(5L, 2L), .Dimnames = list(c("5HT1bMARCM-F000001_seg001", "5HT1bMARCM-F000002_seg001", "5HT1bMARCM-F000003_seg001", "5HT1bMARCM-F000004_seg001", "5HT1bMARCM-F000005_seg001"), c("5HT1bMARCM-F000001_seg001", "5HT1bMARCM-F000002_seg001")))
+  scores.expected <- structure(c(43518.2468824115, -34509.2778341796, -36608.1290149345, -18366.0246697251, -36782.7167494325, -14764.1401323446, 30648.4172626457, -22373.118229109, -22772.3018332237, -22918.5324546932), .Dim = c(5L, 2L), .Dimnames = list(c("5HT1bMARCM-F000001_seg001", "5HT1bMARCM-F000002_seg001", "5HT1bMARCM-F000003_seg001", "5HT1bMARCM-F000004_seg001", "5HT1bMARCM-F000005_seg001"), c("5HT1bMARCM-F000001_seg001", "5HT1bMARCM-F000002_seg001")))
   expect_equal(scores, scores.expected)
 })
 
