@@ -25,6 +25,6 @@ return An object of class matrix or dist (as determined by the form
 Return a subset of a distance matrix stored in a file-backed matrix
 }
 \seealso{
-Other scoremats: \code{\link{hclustn}}
+Other scoremats: \code{\link{nhclust}}
 }
 

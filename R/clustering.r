@@ -29,7 +29,7 @@
 #' # names of neurons in 3 groups
 #' subset(hckcs, k=3)
 #' }
-hclustn <- function(neuron_names, method='ward', scoremat=NULL, distfun=as.dist, ..., maxneurons=4000) {
+nhclust <- function(neuron_names, method='ward', scoremat=NULL, distfun=as.dist, ..., maxneurons=4000) {
   subdistmat <- sub_dist_mat(neuron_names, scoremat, maxneurons=maxneurons)
   if(min(subdistmat) < 0)
     stop("Negative distances not allowed. Are you sure this is a distance matrix?")
