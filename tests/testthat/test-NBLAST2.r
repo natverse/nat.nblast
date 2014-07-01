@@ -32,5 +32,7 @@ test_that("we can calculate scores using getOption('nat.default.neuronlist')", {
   on.exit(options(op))
   scores <- nblast(testneurons[1:2], testneurons, version=2)
   expect_equal(nblast(testneurons[1:2], version=2), scores)
-})
 
+  options(nat.default.neuronlist='testneuronsrhubarb')
+  expect_error(nblast(testneurons[1:2], version=2))
+})

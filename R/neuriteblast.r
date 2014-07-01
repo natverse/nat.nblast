@@ -34,7 +34,9 @@ nblast <- function(query, target=getOption("nat.default.neuronlist"),
   version <- as.character(version)
   version <- match.arg(version, c('2', '1'))
 
-  if(is.character(target)) target=get(target)
+  if(is.character(target)) {
+    target=get(target, envir = parent.frame())
+  }
   if(is.null(target)) stop("No target neurons provided. Please set them directly",
                            "or use option('nat.default.neuronlist')")
 
