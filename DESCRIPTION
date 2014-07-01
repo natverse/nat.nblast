@@ -11,7 +11,9 @@ Depends:
     rgl
 Imports:
     RANN,
-    nat
+    nat,
+    bigmemory,
+    ff
 Suggests:
     testthat
 License: GPL-3
