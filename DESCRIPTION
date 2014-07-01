@@ -13,7 +13,8 @@ Imports:
     RANN,
     nat,
     bigmemory,
-    ff
+    ff,
+    dendroextras
 Suggests:
     testthat
 License: GPL-3
