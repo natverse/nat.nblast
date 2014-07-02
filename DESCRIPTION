@@ -11,7 +11,10 @@ Depends:
     rgl
 Imports:
     RANN,
-    nat
+    nat,
+    bigmemory,
+    ff,
+    dendroextras
 Suggests:
     testthat
 License: GPL-3
