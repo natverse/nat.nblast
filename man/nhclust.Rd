@@ -34,7 +34,7 @@ distance matrices and R.
 \examples{
 \dontrun{
 data(kcs20, package='nat')
-hckcs=hclustn(names(kcs20))
+hckcs=nhclust(names(kcs20))
 # dividide hclust object into 3 groups
 library(dendroextras)
 plot(colour_clusters(hckcs, k=3))

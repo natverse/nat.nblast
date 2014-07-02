@@ -79,7 +79,7 @@ sub_score_mat <- function(query, target, scoremat=NULL, distance=FALSE, normalis
 
 #' Return a subset of a distance matrix stored in a file-backed matrix
 #'
-#' @inheritParams hclustn
+#' @inheritParams nhclust
 #' @param form the type of object to return.
 #' @param maxneurons set this to a sensible value to avoid loading huge (order
 #'   N^2) distances directly into memory.
