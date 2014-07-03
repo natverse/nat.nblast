@@ -72,3 +72,27 @@ plot3d.hclust <- function(x, dps=getOption('nat.default.neuronlist'), k=NULL, h=
   }
   plot3d(dps[neurons], col=col[kgroups], ...)
 }
+
+
+#' Return the labels of items in 1 or more groups cut from hclust object
+#'
+#' @details Only one of \code{h} and \code{k} should be supplied.
+#'
+#' @inheritParams dendroextras::slice
+#' @param groups a vector of which groups to inspect.
+#'
+#' @return A character vector of labels of selected items
+#' @export
+#' @importFrom dendroextras slice
+subset.hclust <- function(x, k=NULL, h=NULL, groups=NULL, ...) {
+  kgroups=slice(x, k, h)
+
+  neurons=names(kgroups)
+
+  if(!is.null(groups)){
+    matching=kgroups%in%groups
+    kgroups=kgroups[matching]
+    neurons=neurons[matching]
+  }
+  neurons
+}

@@ -2,6 +2,7 @@
 
 S3method(WeightedNNBasedLinesetMatching,dotprops)
 S3method(plot3d,hclust)
+S3method(subset,hclust)
 export(NeuriteBlast)
 export(WeightedNNBasedLinesetMatching)
 export(nblast)
