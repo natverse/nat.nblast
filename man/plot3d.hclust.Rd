@@ -3,7 +3,7 @@
 \alias{plot3d.hclust}
 \title{Methods to identify and plot groups of neurons cut from an hclust object}
 \usage{
-\method{plot3d}{hclust}(x, db = getOption("nat.default.neuronlist"),
+\method{plot3d}{hclust}(x, db = get(getOption("nat.default.neuronlist")),
   k = NULL, h = NULL, groups = NULL, col = rainbow, ...)
 }
 \arguments{

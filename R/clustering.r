@@ -55,7 +55,7 @@ nhclust <- function(neuron_names, method='ward', scoremat=NULL, distfun=as.dist,
 #' @seealso
 #' \code{\link{nhclust}, \link[rgl]{plot3d}, \link{slice}, \link{colour_clusters}}
 #' @importFrom dendroextras slice
-plot3d.hclust <- function(x, db=getOption('nat.default.neuronlist'), k=NULL, h=NULL, groups=NULL, col=rainbow, ...) {
+plot3d.hclust <- function(x, db=get(getOption('nat.default.neuronlist')), k=NULL, h=NULL, groups=NULL, col=rainbow, ...) {
   # Cut the dendrogram into k groups of neurons. Note that these will now have
   # the neurons in dendrogram order
   kgroups <- slice(x,k,h)
