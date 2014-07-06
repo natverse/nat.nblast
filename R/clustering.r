@@ -69,7 +69,9 @@ plot3d.hclust <- function(x, k=NULL, h=NULL, groups=NULL, col=rainbow, ...) {
     kgroups <- kgroups[matching]
     neurons <- neurons[matching]
   }
-  plot3d(neurons, col=col[kgroups], ...)
+  # NB we need to substitute right away to ensure that the non-standard
+  # evaluation of col does not fail with a lookup problem for kgroups
+  plot3d(neurons, col=substitute(col[kgroups]), ..., SUBSTITUTE=FALSE)
 }
 
 
