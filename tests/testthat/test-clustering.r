@@ -13,9 +13,14 @@ test_that("nhclust with default arguments clusters appropriately", {
 test_that("plot3d.hclust", {
   hc <- nhclust(names(testneurons), scoremat=test_score_mat)
   open3d()
-  plot3d(hc, k=3, db=testneurons)
+
+  expect_equal(attr(plot3d(hc, k=3, db=testneurons),'df')$col,
+               c("#FF0000FF", "#FF0000FF", "#00FF00FF", "#0000FFFF", "#0000FFFF"))
   clear3d()
   plot3d(hc, h=2, db=testneurons)
+  clear3d()
+  expect_equal(attr(plot3d(hc, h=2, db=testneurons, col='red'),'df')$col,
+               rep("red", 5))
   rgl.close()
 })
 

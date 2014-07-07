@@ -70,7 +70,7 @@ plot3d.hclust <- function(x, k=NULL, h=NULL, groups=NULL, col=rainbow, ...) {
   k <- max(kgroups)
   if(is.function(col))
     col <- col(k)
-
+  else if(length(col)==1) col=rep(col,k)
   neurons <- names(kgroups)
 
   if(!is.null(groups)){
