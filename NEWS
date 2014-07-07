@@ -1,3 +1,11 @@
+nat.nblast 1.2
+==============
+* add nhclust, plot3d.hclust, subset.hclust to help cluster/plot based on
+  nblast scores (all ported from flycircuit package).
+* rename showSimilarity -> show_similarity
+* dev: make sure tests run during check()
+* test: update baselines given score matrix changes in 1.1
+
 nat.nblast 1.1
 ==============
 * fix: make smat.fcwb the default scoring matrix (rather than smat_alpha) when
