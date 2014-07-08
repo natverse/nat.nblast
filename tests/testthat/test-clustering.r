@@ -24,3 +24,13 @@ test_that("plot3d.hclust", {
   rgl.close()
 })
 
+test_that('we can use diagonal attribute on a score matrix',{
+  library(ff)
+  library(nat)
+  scores=nblast(kcs20, kcs20)
+  scoresff=as.ff(scores)
+  scoresffd=scoresff
+  attr(scoresffd,'diagonal')=diag(scores)
+  expect_equal(diag(scores), diagonal(scoresffd))
+  expect_error(diagonal(scores[1:10,1:8]))
+})
