@@ -62,6 +62,51 @@ nblast <- function(query, target=getOption("nat.default.neuronlist"),
   }
 }
 
+#' Wrapper function to compute all by all NBLAST scores for a set of neurons
+#'
+#' Calls \code{nblast} to compute the actual scores. Can accept either a
+#' neuronlist or neuron names as a character vector. This is a thin wrapper
+#' around nblast and its main advantage is the option of "mean" normalisation
+#' for forward and reverse scores which is the most sensible input to give to a
+#' clustering algorithm as well as the choice of returning a distance matrix.
+#'
+#' Section TODO: It would be a good idea in the future to implement a parallel
+#' version of this function.
+#' @param x Input neurons (neuronlist or character vector)
+#' @param smat the scoring matrix to use (see details of \code{\link{nblast}}
+#'   for meaning of default \code{NULL} value)
+#' @param ... Additional arguments for methods or \code{nblast}
+#' @export
+#' @seealso \code{\link{nblast}, \link{sub_score_mat}}
+#' @examples
+#' library(nat)
+#' kcs20.distmat=nblast_allbyall(kcs20, normalisation='mean',distance=TRUE)
+#' kcs20.hclust=hclust(as.dist(kcs20.distmat))
+#' plot(kcs20.hclust)
+nblast_allbyall<-function(x, ...) UseMethod("nblast_allbyall")
+
+#' @rdname nblast_allbyall
+#' @param db A neuronlist or a character vector naming one. Defaults to value of
+#'   options("nat.default.neuronlist")
+#' @export
+nblast_allbyall.character<-function(x, smat=NULL, db=getOption("nat.default.neuronlist"), ...){
+  if(is.character(db)) {
+    db=get(db, envir = parent.frame())
+  }
+  nblast_allbyall(db[x], smat=smat, ...)
+}
+
+#' @rdname nblast_allbyall
+#' @inheritParams sub_score_mat
+#' @export
+nblast_allbyall.neuronlist<-function(x, smat=NULL, distance=FALSE,
+                                     normalisation=c("mean","normalised","raw"),
+                                     ...){
+  normalisation=match.arg(normalisation)
+  scores=nblast(x, x, smat=smat, normalised=FALSE, ...)
+  sub_score_mat(scoremat=scores, distance = distance, normalisation=normalisation)
+}
+
 #' Produce similarity score for neuron morphologies
 #'
 #' A low-level entry point to the NBLAST algorithm that compares the morphology of a
