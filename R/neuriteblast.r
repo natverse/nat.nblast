@@ -80,8 +80,8 @@ nblast <- function(query, target=getOption("nat.default.neuronlist"),
 #' @seealso \code{\link{nblast}, \link{sub_score_mat}}
 #' @examples
 #' library(nat)
-#' kcs20.distmat=nblast_allbyall(kcs20, normalisation='mean',distance=TRUE)
-#' kcs20.hclust=hclust(as.dist(kcs20.distmat))
+#' kcs20.scoremat=nblast_allbyall(kcs20, normalisation='raw')
+#' kcs20.hclust=nhclust(scoremat=kcs20.scoremat)
 #' plot(kcs20.hclust)
 nblast_allbyall<-function(x, ...) UseMethod("nblast_allbyall")
 
