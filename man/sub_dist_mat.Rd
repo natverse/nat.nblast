@@ -24,6 +24,10 @@ return An object of class matrix or dist (as determined by the form
 \description{
 Return a subset of a distance matrix stored in a file-backed matrix
 }
+\details{
+Note that if \code{neuron_names} is missing then the rownames of
+  \code{scoremat} will be used.
+}
 \seealso{
 Other scoremats: \code{\link{nhclust}}
 }

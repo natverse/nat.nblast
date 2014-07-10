@@ -79,6 +79,9 @@ sub_score_mat <- function(query, target, scoremat=NULL, distance=FALSE, normalis
 
 #' Return a subset of a distance matrix stored in a file-backed matrix
 #'
+#' @details Note that if \code{neuron_names} is missing then the rownames of
+#'   \code{scoremat} will be used.
+#'
 #' @inheritParams nhclust
 #' @param form the type of object to return.
 #' @param maxneurons set this to a sensible value to avoid loading huge (order
@@ -89,6 +92,11 @@ sub_score_mat <- function(query, target, scoremat=NULL, distance=FALSE, normalis
 #' @family scoremats
 sub_dist_mat <- function(neuron_names, scoremat=NULL, form=c('matrix', 'dist'), maxneurons=NA){
   form <- match.arg(form)
+  if(missing(neuron_names)){
+    if(nrow(scoremat)!=ncol(scoremat))
+      stop("scoremat must be square if neuron_names is missing")
+    neuron_names=rownames(scoremat)
+  }
   if(!is.na(maxneurons) && length(neuron_names) > maxneurons) {
     stop("Too many neurons! Use maxneurons to override if you're sure.")
   }
