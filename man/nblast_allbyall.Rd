@@ -35,10 +35,14 @@ If \code{distance=TRUE} then this cannot be raw.}
 Calls \code{nblast} to compute the actual scores. Can accept either a
 neuronlist or neuron names as a character vector. This is a thin wrapper
 around nblast and its main advantage is the option of "mean" normalisation
-for forward and reverse scores which is the most sensible input to give to a
+for forward and reverse scores, which is the most sensible input to give to a
 clustering algorithm as well as the choice of returning a distance matrix.
 }
 \details{
+Note that \code{nat} already provides a function \code{\link{nhclust}} for
+clustering, which is a wrapper for R's \code{hclust} function. \code{nhclust}
+actually expects \bold{raw} scores as input.
+
 Section TODO: It would be a good idea in the future to implement a parallel
 version of this function.
 }
@@ -49,6 +53,6 @@ kcs20.hclust=nhclust(scoremat=kcs20.scoremat)
 plot(kcs20.hclust)
 }
 \seealso{
-\code{\link{nblast}, \link{sub_score_mat}}
+\code{\link{nblast}, \link{sub_score_mat}, \link{nhclust}}
 }
 
