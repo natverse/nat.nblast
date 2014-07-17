@@ -11,7 +11,7 @@ nblast_allbyall(x, ...)
   db = getOption("nat.default.neuronlist"), ...)
 
 \method{nblast_allbyall}{neuronlist}(x, smat = NULL, distance = FALSE,
-  normalisation = c("mean", "normalised", "raw"), ...)
+  normalisation = c("raw", "normalised", "mean"), ...)
 }
 \arguments{
 \item{x}{Input neurons (neuronlist or character vector)}
@@ -48,7 +48,7 @@ version of this function.
 }
 \examples{
 library(nat)
-kcs20.scoremat=nblast_allbyall(kcs20, normalisation='raw')
+kcs20.scoremat=nblast_allbyall(kcs20)
 kcs20.hclust=nhclust(scoremat=kcs20.scoremat)
 plot(kcs20.hclust)
 }
