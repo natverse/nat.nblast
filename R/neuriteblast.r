@@ -64,18 +64,20 @@ nblast <- function(query, target=getOption("nat.default.neuronlist"),
 
 #' Wrapper function to compute all by all NBLAST scores for a set of neurons
 #'
-#' Calls \code{nblast} to compute the actual scores. Can accept either a
-#' neuronlist or neuron names as a character vector. This is a thin wrapper
-#' around nblast and its main advantage is the option of "mean" normalisation
-#' for forward and reverse scores, which is the most sensible input to give to a
-#' clustering algorithm as well as the choice of returning a distance matrix.
+#' @description Calls \code{nblast} to compute the actual scores. Can accept
+#'   either a neuronlist or neuron names as a character vector. This is a thin
+#'   wrapper around nblast and its main advantage is the option of "mean"
+#'   normalisation for forward and reverse scores, which is the most sensible
+#'   input to give to a clustering algorithm as well as the choice of returning
+#'   a distance matrix.
 #'
-#' Note that \code{nat} already provides a function \code{\link{nhclust}} for
-#' clustering, which is a wrapper for R's \code{hclust} function. \code{nhclust}
-#' actually expects \bold{raw} scores as input.
+#' @details Note that \code{nat} already provides a function
+#'   \code{\link{nhclust}} for clustering, which is a wrapper for R's
+#'   \code{hclust} function. \code{nhclust} actually expects \bold{raw} scores
+#'   as input.
 #'
-#' Section TODO: It would be a good idea in the future to implement a parallel
-#' version of this function.
+#' @section TODO: It would be a good idea in the future to implement a parallel
+#'   version of this function.
 #' @param x Input neurons (neuronlist or character vector)
 #' @param smat the scoring matrix to use (see details of \code{\link{nblast}}
 #'   for meaning of default \code{NULL} value)
