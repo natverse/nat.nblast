@@ -109,6 +109,12 @@ subset.hclust <- function(x, k=NULL, h=NULL, groups=NULL, ...) {
 
 
 sclust <- function(x, num_clusters, ...) {
+  if(is.null(sigma)) {
+    sigma <- optimal_sigma(distances, num_clusters=num_clusters, ...)
+    message("Sigma set to ", sigma)
+  }
+  message("Sigma: ", sigma)
+  #affinity <- exp(-sigma * distances)
   affinity <- x + abs(min(x))
   d <- 1 / sqrt(rowSums(affinity))
   laplacian <- d * affinity %*% diag(d)
@@ -116,10 +122,24 @@ sclust <- function(x, num_clusters, ...) {
   norm_eigen_mat <- eigen_mat / sqrt(rowSums(eigen_mat^2))
   clustering <- kmeans(norm_eigen_mat, num_clusters, ...)
   clustering$labels <- rownames(x)
+  clustering$sigma <- sigma
   class(clustering) <- 'sclust'
   clustering
 }
 
+optimal_sigma <- function(x, num_clusters, num_intervals=10, num_iterations=3, sigma_range=0:sum(x), ...) {
+  sigma_intervals <- split(sigma_range, cut(sigma_range, num_intervals))
+  sigmas <- sapply(sigma_intervals, mean)
+  sum_squares <- unlist(sapply(sigmas, function(sigma) {
+    tryCatch({ sum(sclust(x, n=num_clusters, sigma=sigma, ...)$withinss) }, error = function(e) { NA })
+  }))
+  if(num_iterations == 1) {
+    return(sigmas[which(sum_squares == min(sum_squares, na.rm=TRUE))])
+  } else {
+    best_interval <- sigma_intervals[[which(sum_squares == min(sum_squares, na.rm=TRUE))]]
+    return(optimal_sigma(x, num_clusters=num_clusters, num_intervals=num_intervals, num_iterations=num_iterations - 1, sigma_range=best_interval))
+  }
+}
 
 plot3d.sclust <- function(x, col=rainbow, ...) {
   k <- length(x$size)
