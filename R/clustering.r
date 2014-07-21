@@ -106,3 +106,24 @@ subset.hclust <- function(x, k=NULL, h=NULL, groups=NULL, ...) {
   }
   neurons
 }
+
+
+sclust <- function(x, num_clusters, ...) {
+  affinity <- x + abs(min(x))
+  d <- 1 / sqrt(rowSums(affinity))
+  laplacian <- d * affinity %*% diag(d)
+  eigen_mat <- eigen(laplacian, symmetric = T)$vectors[, 1:num_clusters]
+  norm_eigen_mat <- eigen_mat / sqrt(rowSums(eigen_mat^2))
+  clustering <- kmeans(norm_eigen_mat, num_clusters, ...)
+  clustering$labels <- rownames(x)
+  class(clustering) <- 'sclust'
+  clustering
+}
+
+
+plot3d.sclust <- function(x, col=rainbow, ...) {
+  k <- length(x$size)
+  if(is.function(col)) col <- col(k)
+  else if(length(col)==1) col=rep(col,k)
+  nat:::plot3d.character(x$labels, col=col[x$cluster], ..., SUBSTITUTE=FALSE)
+}
