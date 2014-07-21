@@ -108,6 +108,15 @@ subset.hclust <- function(x, k=NULL, h=NULL, groups=NULL, ...) {
 }
 
 
+#' Cluster NBLAST scores using spectral clustering
+#'
+#' @param x the NBLAST score matrix to cluster.
+#' @param num_clusters the number of desired clusters.
+#' @param ... extra arguments to pass to \code{\link{kmeans}}.
+#'
+#' @return A object of class \code{sclust} containing the final k-mean
+#'   clustering object, along with a vector of labels.
+#' @export
 sclust <- function(x, num_clusters, ...) {
   affinity <- x + abs(min(x))
   d <- 1 / sqrt(rowSums(affinity))
@@ -121,6 +130,14 @@ sclust <- function(x, num_clusters, ...) {
 }
 
 
+#' Plot the results of a spectral clustering
+#'
+#' @param x an \code{\link{sclust}} object.
+#' @param col colours for groups (directly specified or a function).
+#' @param ... additional arguments for \code{plot3d}
+#'
+#' @return A list of rgl IDs for plotted objects (see \code{\link[rgl]{plot3d}}).
+#' @export
 plot3d.sclust <- function(x, col=rainbow, ...) {
   k <- length(x$size)
   if(is.function(col)) col <- col(k)
