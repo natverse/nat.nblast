@@ -33,7 +33,7 @@ nhclust <- function(neuron_names, method='ward', scoremat=NULL, distfun=as.dist,
   subdistmat <- sub_dist_mat(neuron_names, scoremat, maxneurons=maxneurons)
   if(min(subdistmat) < 0)
     stop("Negative distances not allowed. Are you sure this is a distance matrix?")
-  hclust(as.dist(subdistmat), method=method, ...)
+  hclust(distfun(subdistmat), method=method, ...)
 }
 
 
