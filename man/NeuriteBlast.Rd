@@ -3,7 +3,8 @@
 \alias{NeuriteBlast}
 \title{Produce similarity score for neuron morphologies}
 \usage{
-NeuriteBlast(query, target, targetBinds = NULL, normalised = FALSE, ...)
+NeuriteBlast(query, target, targetBinds = NULL, normalised = FALSE,
+  OmitFailures = NA, ...)
 }
 \arguments{
 \item{query}{either a single query neuron or a \code{\link[nat]{neuronlist}}}
@@ -17,14 +18,22 @@ NeuriteBlast(query, target, targetBinds = NULL, normalised = FALSE, ...)
 query}
 
 \item{...}{extra arguments to pass to the distance function.}
+
+\item{OmitFailures}{Whether to omit neurons for which \code{FUN} gives an
+error. The default value (\code{NA}) will result in nblast stopping with an
+error message the moment there is an eror. For other values, see details.}
 }
 \value{
 Named list of similarity scores.
 }
 \description{
-A low-level entry point to the NBLAST algorithm that compares the morphology of a
-neuron with those of a list of other neurons. For most use cases, one would
-probably wish to use \code{\link{nblast}} instead.
+A low-level entry point to the NBLAST algorithm that compares the morphology
+of a neuron with those of a list of other neurons. For most use cases, one
+would probably wish to use \code{\link{nblast}} instead.
+}
+\details{
+For detailed description of the \code{OmitFailures} argument, see
+  the details section of \code{\link{nblast}}.
 }
 \seealso{
 \code{\link{WeightedNNBasedLinesetMatching}}

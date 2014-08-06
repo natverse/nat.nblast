@@ -4,7 +4,8 @@
 \title{Calculate similarity score for neuron morphologies}
 \usage{
 nblast(query, target = getOption("nat.default.neuronlist"), smat = NULL,
-  sd = 3, version = c(2, 1), normalised = FALSE, UseAlpha = FALSE)
+  sd = 3, version = c(2, 1), normalised = FALSE, UseAlpha = FALSE,
+  OmitFailures = NA)
 }
 \arguments{
 \item{query}{the query neuron.}
@@ -26,6 +27,10 @@ query}
 
 \item{UseAlpha}{whether to consider local directions in the similarity
 calculation (default: FALSE).}
+
+\item{OmitFailures}{Whether to omit neurons for which \code{FUN} gives an
+error. The default value (\code{NA}) will result in nblast stopping with an
+error message the moment there is an eror. For other values, see details.}
 }
 \value{
 Named list of similarity scores.
@@ -39,6 +44,17 @@ more control over the parameters of the algorithm, see the arguments of
 when \code{smat=NULL} options("nat.nblast.defaultsmat") will be
   checked and if NULL, then \code{smat.fcwb} or \code{smat_alpha.fcwb} will
   be used depending on the value of \code{UseAlpha}.
+
+  When \code{OmitFailures} is not \code{NA}, individual nblast calls will be
+  wrapped in \code{try} to ensure that failure for any single neuron does not
+  abort the whole nblast call. When \code{OmitFailures=FALSE}, missing values
+  will be left as \code{NA}. \code{OmitFailures=TRUE} is not (yet)
+  implemented. If you want to drop scores for neurons that failed you will
+  need to set \code{OmitFailures=FALSE} and then use \code{\link{na.omit}} or
+  similar to post-process the scores.
+
+  Note thatn when \code{OmitFailures=FALSE} error messages will not be
+  printed because the call is wrapped as \code{try(expr, silent=TRUE)}.
 }
 \examples{
 data(kcs20,package='nat')

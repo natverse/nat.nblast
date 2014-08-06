@@ -36,3 +36,17 @@ test_that("we can calculate scores using getOption('nat.default.neuronlist')", {
   options(nat.default.neuronlist='testneuronsrhubarb')
   expect_error(nblast(testneurons[1:2], version=2))
 })
+
+test_that("we can handle OmitFailures", {
+  testneurons.err=testneurons
+  testneurons.err[[2]]='rhubarb'
+  expect_error(nblast(testneurons.err[1:2], testneurons))
+  scores <- nblast(testneurons[1:2], testneurons, version=2)
+  scores.err=scores
+  scores.err[,2]=NA_real_
+  expect_equal(nblast(testneurons.err[1:2], testneurons, OmitFailures = FALSE),
+               scores.err)
+  expect_error(nblast(testneurons.err[1:2], testneurons, OmitFailures = TRUE),
+               "not yet implemented")
+
+})

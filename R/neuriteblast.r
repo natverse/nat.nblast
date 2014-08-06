@@ -8,6 +8,17 @@
 #'   checked and if NULL, then \code{smat.fcwb} or \code{smat_alpha.fcwb} will
 #'   be used depending on the value of \code{UseAlpha}.
 #'
+#'   When \code{OmitFailures} is not \code{NA}, individual nblast calls will be
+#'   wrapped in \code{try} to ensure that failure for any single neuron does not
+#'   abort the whole nblast call. When \code{OmitFailures=FALSE}, missing values
+#'   will be left as \code{NA}. \code{OmitFailures=TRUE} is not (yet)
+#'   implemented. If you want to drop scores for neurons that failed you will
+#'   need to set \code{OmitFailures=FALSE} and then use \code{\link{na.omit}} or
+#'   similar to post-process the scores.
+#'
+#'   Note thatn when \code{OmitFailures=FALSE} error messages will not be
+#'   printed because the call is wrapped as \code{try(expr, silent=TRUE)}.
+#'
 #' @param query the query neuron.
 #' @param target a \code{\link[nat]{neuronlist}} to compare neuron against.
 #'   Defaults to \code{options("nat.default.neuronlist")}. See
@@ -21,6 +32,9 @@
 #'   query
 #' @param UseAlpha whether to consider local directions in the similarity
 #'   calculation (default: FALSE).
+#' @param OmitFailures Whether to omit neurons for which \code{FUN} gives an
+#'   error. The default value (\code{NA}) will result in nblast stopping with an
+#'   error message the moment there is an eror. For other values, see details.
 #' @return Named list of similarity scores.
 #' @seealso \code{\link{nat-package}}
 #' @export
@@ -30,7 +44,7 @@
 #' nblast(kcs20[[1]],kcs20)
 nblast <- function(query, target=getOption("nat.default.neuronlist"),
                    smat=NULL, sd=3, version=c(2, 1), normalised=FALSE,
-                   UseAlpha=FALSE) {
+                   UseAlpha=FALSE, OmitFailures=NA) {
   version <- as.character(version)
   version <- match.arg(version, c('2', '1'))
 
@@ -52,11 +66,12 @@ nblast <- function(query, target=getOption("nat.default.neuronlist"),
       }
     }
     if(is.character(smat)) smat=get(smat)
-    NeuriteBlast(query=query, target=target, NNDistFun=lodsby2dhist, smat=smat, UseAlpha=UseAlpha,
-                 normalised=normalised)
+    NeuriteBlast(query=query, target=target, NNDistFun=lodsby2dhist, smat=smat,
+                 UseAlpha=UseAlpha, normalised=normalised, OmitFailures=OmitFailures)
   } else if(version == '1') {
-    NeuriteBlast(query=query, target=target, NNDistFun=WeightedNNBasedLinesetDistFun, UseAlpha=UseAlpha,
-                 sd=sd, normalised=normalised)
+    NeuriteBlast(query=query, target=target, NNDistFun=WeightedNNBasedLinesetDistFun,
+                 UseAlpha=UseAlpha, sd=sd, normalised=normalised,
+                 OmitFailures=OmitFailures)
   } else {
     stop("Only NBLAST versions 1 and 2 are currently implemented. For more advanced control, see NeuriteBlast.")
   }
@@ -115,9 +130,12 @@ nblast_allbyall.neuronlist<-function(x, smat=NULL, distance=FALSE,
 
 #' Produce similarity score for neuron morphologies
 #'
-#' A low-level entry point to the NBLAST algorithm that compares the morphology of a
-#' neuron with those of a list of other neurons. For most use cases, one would
-#' probably wish to use \code{\link{nblast}} instead.
+#' A low-level entry point to the NBLAST algorithm that compares the morphology
+#' of a neuron with those of a list of other neurons. For most use cases, one
+#' would probably wish to use \code{\link{nblast}} instead.
+#'
+#' @details For detailed description of the \code{OmitFailures} argument, see
+#'   the details section of \code{\link{nblast}}.
 #' @param query either a single query neuron or a \code{\link[nat]{neuronlist}}
 #' @param target a \code{neuronlist} to compare neuron against.
 #' @param targetBinds numeric indices or names with which to subset
@@ -125,29 +143,41 @@ nblast_allbyall.neuronlist<-function(x, smat=NULL, distance=FALSE,
 #' @param normalised whether to divide scores by the self-match score of the
 #'   query
 #' @param ... extra arguments to pass to the distance function.
+#' @inheritParams nblast
 #' @return Named list of similarity scores.
 #' @importFrom nat is.neuronlist
 #' @export
 #' @seealso \code{\link{WeightedNNBasedLinesetMatching}}
-NeuriteBlast <- function(query, target,
-                         targetBinds=NULL, normalised=FALSE, ...){
+NeuriteBlast <- function(query, target, targetBinds=NULL, normalised=FALSE,
+                         OmitFailures=NA, ...){
+  if(isTRUE(OmitFailures))
+    stop("OmitFailures=TRUE is not yet implemented!\n",
+         "Use OmitFailures=FALSE and handle NAs to taste.")
+
   if(nat::is.neuronlist(query)) {
-    return(sapply(query, NeuriteBlast, target=target,
-                     targetBinds=targetBinds, normalised=normalised, ...=...))
+    return(sapply(query, NeuriteBlast, target=target, targetBinds=targetBinds,
+                  normalised=normalised, OmitFailures=OmitFailures, ...=...))
   } else {
     if(is.null(targetBinds))
       targetBinds=seq_along(target)
     else if(is.character(targetBinds))
       targetBinds=charmatch(targetBinds,names(target))
-    scores=rep(NA,length(targetBinds))
+    scores=rep(NA_real_, length(targetBinds))
+    FUN = if(is.na(OmitFailures)) {
+      # will error out if something goes wrong
+      WeightedNNBasedLinesetMatching
+    } else {
+      function(...) {
+        score=try(WeightedNNBasedLinesetMatching(...), silent = TRUE)
+        if(inherits(score,'try-error')) NA_real_ else score
+      }
+    }
 
     for(i in seq_along(targetBinds)){
       # targetBinds[i] is numeric index in target of current target neuron
       dbn=target[[targetBinds[i]]]
       if(!is.null(dbn)){
-        score=try(WeightedNNBasedLinesetMatching(dbn,query,...))
-        if(!inherits(score,'try-error'))
-          scores[i]=score
+        scores[i]=FUN(dbn, query, ...)
       }
     }
     names(scores)=names(target)[targetBinds]
