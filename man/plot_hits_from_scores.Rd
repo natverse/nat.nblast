@@ -4,7 +4,7 @@
 \title{Display NBLAST hits for a neuron in 3D, given scores}
 \usage{
 plot_hits_from_scores(nblast_results, neurons, threshold = NULL,
-  col = heat.colors, ...)
+  number = NULL, col = heat.colors, ...)
 }
 \arguments{
 \item{nblast_results}{a vector of NBLAST scores.}
@@ -13,6 +13,8 @@ plot_hits_from_scores(nblast_results, neurons, threshold = NULL,
 
 \item{threshold}{an optional number which, if given, prevents scores below
 this number from being displayed.}
+
+\item{number}{an optional number of neurons to plot.}
 
 \item{col}{the colour palette with which to plot the neurons.}
 

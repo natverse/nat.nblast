@@ -3,7 +3,8 @@
 \alias{plot_hits}
 \title{Calculate and display NBLAST hits for a neuron in 3D}
 \usage{
-plot_hits(query, target, threshold = NULL, col = heat.colors, ...)
+plot_hits(query, target, threshold = NULL, number = NULL,
+  col = heat.colors, ...)
 }
 \arguments{
 \item{query}{the query neuron.}
@@ -12,6 +13,8 @@ plot_hits(query, target, threshold = NULL, col = heat.colors, ...)
 
 \item{threshold}{an optional number which, if given, prevents scores below
 this number from being displayed.}
+
+\item{number}{an optional number of neurons to plot.}
 
 \item{col}{the colour palette with which to plot the neurons.}
 
