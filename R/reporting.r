@@ -15,3 +15,30 @@ plot_hits_from_scores <- function(nblast_results, neurons, threshold=NULL, col=h
   plot3d(neurons[names(nblast_results)], col=col, ...)
 }
 
+
+#' Calculate and display NBLAST hits for a neuron in 3D
+#'
+#' @param query the query neuron.
+#' @param target a \code{neuronlist} to compare against.
+#' @param threshold an optional number which, if given, prevents scores below
+#'   this number from being displayed.
+#' @param col the colour palette with which to plot the neurons.
+#' @param ... extra parameters to pass to plot3d.
+#'
+#' @return A list of rgl IDs (invisibly).
+#' @importFrom digest digest
+#' @export
+plot_hits <- function(query, target, threshold=NULL, col=heat.colors, ...) {
+  if(!all(sapply(c('cached_nblast_results', 'cached_query_digest', 'cached_target_digest'), exists, reporting.env)) || (get('cached_query_digest', reporting.env) != digest(query)) || (get('cached_target_digest', reporting.env) != digest(target))) {
+    nblast_results <- nblast(query, target)
+    assign('cached_nblast_results', nblast_results, reporting.env)
+    assign('cached_query_digest', digest(query), reporting.env)
+    assign('cached_target_digest', digest(target), reporting.env)
+    message("Calculating new NBLAST results...")
+  } else {
+    nblast_results <- get('cached_nblast_results', reporting.env)
+    message("Using cached NBLAST results...")
+  }
+  plot3d(query, col='black', lwd=2)
+  plot_hits_from_scores(nblast_results, target, threshold=threshold, col=col, ...=...)
+}

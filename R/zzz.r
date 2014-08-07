@@ -9,4 +9,7 @@
   if(any(toset)) options(op.nat.nblast[toset])
 
   invisible()
+
+  # Create an environment for storing cached versions of NBLAST results for reporting
+  reporting.env <- new.env()
 }
