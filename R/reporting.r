@@ -45,3 +45,26 @@ plot_hits <- function(query, target, threshold=NULL, number=NULL, col=heat.color
   plot3d(query, col='black', lwd=2)
   plot_hits_from_scores(nblast_results, target, threshold=threshold, col=col, ...=...)
 }
+
+
+#' Display NBLAST hits for neurons in 3D, given scores
+#'
+#' @param nblast_results a matrix of NBLAST scores.
+#' @param neurons a neuronlist of neurons to plot from.
+#' @param threshold an optional number which, if given, prevents scores below
+#'   this number from being displayed.
+#' @param number an optional number of neurons to plot.
+#' @param col the colour palette with which to plot the neurons.
+#' @param ... extra parameters to pass to plot3d.
+#'
+#' @return \code{NULL}.
+#' @export
+plot_hits_from_matrix <- function(nblast_results, neurons, threshold=NULL, number=NULL, col=heat.colors, ...) {
+  queries <- colnames(nblast_results)
+  targets <- rownames(nblast_results)
+  for(query in queries) {
+    plot3d(neurons[query], col='black', lwd=2)
+    scores <- nblast_results[, query]
+    plot_hits_from_scores(scores, neurons=neurons, threshold=threshold, number=number, col=col, ...=...)
+  }
+}
