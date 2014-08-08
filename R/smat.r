@@ -17,7 +17,7 @@ calc_dists_dotprods<-function(querynl, targetnl, subset, ignoreSelf=TRUE, ...){
 }
 
 makeprobmat<-function(nndists, dotprods, distbreaks, dotprodbreaks=seq(0, 1, by=0.1),
-                      ReturnCounts=TRUE){
+                      ReturnCounts=FALSE){
   if(missing(distbreaks)) distbreaks=c(0,0.75,1.5,2,2.5,3,3.5,4,5,6,7,8,9,10,12,14,16,20,25,30,40,500)
   if(missing(dotprods)){
     if(is.list(nndists) && length(nndists[[1]])==2){
