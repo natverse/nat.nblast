@@ -44,6 +44,16 @@
 #' @examples
 #' data(kcs20,package='nat')
 #' nblast(kcs20[[1]],kcs20)
+#'
+#' \dontrun{
+#' # Parallelise NBLASTing across 4 cores using doMC package
+#' library(doMC)
+#' registerDoMC(4)
+#' nblast(kcs20, kcs20, .parallel=TRUE)
+#'
+#' # NBLAST as normal (i.e. single-threaded), but display a progress bar
+#' nblast(kcs20, kcs20, .progress="text")
+#' }
 nblast <- function(query, target=getOption("nat.default.neuronlist"),
                    smat=NULL, sd=3, version=c(2, 1), normalised=FALSE,
                    UseAlpha=FALSE, OmitFailures=NA, ...) {
