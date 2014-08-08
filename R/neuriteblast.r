@@ -147,7 +147,7 @@ nblast_allbyall.neuronlist<-function(x, smat=NULL, distance=FALSE,
 #' @param simplify whether to simplify the scores from a list to a vector.
 #'   \code{TRUE} by default. The only time you might want to set this false is
 #'   if you are collecting something other than simple scores from the search
-#'   function.
+#'   function. See \code{\link{simplify2array}} for further details.
 #' @param ... extra arguments to pass to the distance function.
 #' @inheritParams nblast
 #' @return Named list of similarity scores.

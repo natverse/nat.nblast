@@ -20,7 +20,7 @@ query}
 \item{simplify}{whether to simplify the scores from a list to a vector.
 \code{TRUE} by default. The only time you might want to set this false is
 if you are collecting something other than simple scores from the search
-function.}
+function. See \code{\link{simplify2array}} for further details.}
 
 \item{...}{extra arguments to pass to the distance function.}
 
