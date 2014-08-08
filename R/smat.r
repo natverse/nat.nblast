@@ -1,5 +1,19 @@
 # Make scoring matrices
 
+calc_dists_dotprods<-function(query, target, subset, ignoreSelf=TRUE){
+  if(missing(target)) target=query
+  if(missing(subset)) {
+    subset=expand.grid(query=names(target), target=names(target), stringsAsFactors = FALSE)
+  } else {
+    if(!is.data.frame(subset) || !all(sapply(s,is.character)))
+      stop("subset must be a data.frame with two character columns specifying",
+           " query and target neurons by name, with one row for each pair")
+  }
+  if(ignoreSelf)
+    subset=subset(subset, target!=query)
+  subset
+}
+
 makeprobmat<-function(nndists, dotprods, distbreaks, dotprodbreaks=seq(0, 1, by=0.1),
                       ReturnCounts=TRUE){
   if(missing(distbreaks)) distbreaks=c(0,0.75,1.5,2,2.5,3,3.5,4,5,6,7,8,9,10,12,14,16,20,25,30,40,500)
