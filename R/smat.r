@@ -53,7 +53,7 @@ calc_dists_dotprods <- function(query_neurons, target_neurons, subset, ignoreSel
   if(missing(subset)) {
     subset <- expand.grid(query=names(target_neurons), target=names(target_neurons), stringsAsFactors=FALSE)
   } else {
-    if(!is.data.frame(subset) || !all(sapply(s, is.character)))
+    if(!is.data.frame(subset) || !all(sapply(subset, is.character)))
       stop("Subset must be a data.frame with two character columns specifying query and target neurons by name, with one row for each pair.")
   }
   if(ignoreSelf)
