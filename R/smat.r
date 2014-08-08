@@ -57,7 +57,7 @@ calc_dists_dotprods <- function(query_neurons, target_neurons, subset, ignoreSel
       stop("Subset must be a data.frame with two character columns specifying query and target neurons by name, with one row for each pair.")
   }
   if(ignoreSelf)
-    subset <- subset(subset, target!=query)
+    subset <- subset[subset$target != subset$query, ]
   collect_one_pair <- function(query, target, ...)
     NeuriteBlast(query_neurons[[query]], target_neurons[target], NNDistFun=list, ...)
   mlply(subset, collect_one_pair, ...)
