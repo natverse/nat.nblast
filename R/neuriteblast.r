@@ -19,6 +19,15 @@
 #'   Note thatn when \code{OmitFailures=FALSE} error messages will not be
 #'   printed because the call is wrapped as \code{try(expr, silent=TRUE)}.
 #'
+#'   Internally, the \code{\link{plyr}} package is used to provide options for
+#'   parallelising NBLASTs and displaying progress. To display a progress bar as
+#'   the scores are computed, add \code{.progress="text"} to the arguments
+#'   (non-text progress bars are available -- see
+#'   \code{\link[plyr]{create_progress_bar}}). To parallelise across cores, add
+#'   \code{.parallel=TRUE} to the arguments. Note that cores should be
+#'   registered with the doMC package beforehand (see
+#'   \code{\link[doMC]{registerDoMC}} and example below).
+#'
 #' @param query the query neuron.
 #' @param target a \code{\link[nat]{neuronlist}} to compare neuron against.
 #'   Defaults to \code{options("nat.default.neuronlist")}. See
@@ -44,6 +53,16 @@
 #' @examples
 #' data(kcs20,package='nat')
 #' nblast(kcs20[[1]],kcs20)
+#'
+#' # NBLAST as normal (i.e. single-threaded), but display a progress bar
+#' nblast(kcs20, kcs20, .progress="text")
+#'
+#' \dontrun{
+#' # Parallelise NBLASTing across 4 cores using doMC package
+#' library(doMC)
+#' registerDoMC(4)
+#' nblast(kcs20, kcs20, .parallel=TRUE)
+#' }
 nblast <- function(query, target=getOption("nat.default.neuronlist"),
                    smat=NULL, sd=3, version=c(2, 1), normalised=FALSE,
                    UseAlpha=FALSE, OmitFailures=NA, ...) {

@@ -58,10 +58,29 @@ when \code{smat=NULL} options("nat.nblast.defaultsmat") will be
 
   Note thatn when \code{OmitFailures=FALSE} error messages will not be
   printed because the call is wrapped as \code{try(expr, silent=TRUE)}.
+
+  Internally, the \code{\link{plyr}} package is used to provide options for
+  parallelising NBLASTs and displaying progress. To display a progress bar as
+  the scores are computed, add \code{.progress="text"} to the arguments
+  (non-text progress bars are available -- see
+  \code{\link[plyr]{create_progress_bar}}). To parallelise across cores, add
+  \code{.parallel=TRUE} to the arguments. Note that cores should be
+  registered with the doMC package beforehand (see
+  \code{\link[doMC]{registerDoMC}} and example below).
 }
 \examples{
 data(kcs20,package='nat')
 nblast(kcs20[[1]],kcs20)
+
+# NBLAST as normal (i.e. single-threaded), but display a progress bar
+nblast(kcs20, kcs20, .progress="text")
+
+\dontrun{
+# Parallelise NBLASTing across 4 cores using doMC package
+library(doMC)
+registerDoMC(4)
+nblast(kcs20, kcs20, .parallel=TRUE)
+}
 }
 \seealso{
 \code{\link{nat-package}}
