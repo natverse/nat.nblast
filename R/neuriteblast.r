@@ -172,15 +172,10 @@ NeuriteBlast <- function(query, target, targetBinds=NULL, normalised=FALSE,
         if(inherits(score,'try-error')) NA_real_ else score
       }
     }
-
-    for(i in seq_along(targetBinds)){
-      # targetBinds[i] is numeric index in target of current target neuron
-      dbn=target[[targetBinds[i]]]
-      if(!is.null(dbn)){
-        scores[i]=FUN(dbn, query, ...)
-      }
-    }
+    scores=plyr::llply(targetBinds, function(i, ...) FUN(target[[targetBinds[i]]], query, ...), ... )
     names(scores)=names(target)[targetBinds]
+    # unlist if these are simple numbers
+    if(is.numeric(scores[[1]])) scores=unlist(scores)
   }
   if(normalised){
     scores=scores/NeuriteBlast(query, neuronlist(query), normalised=FALSE, ...)
