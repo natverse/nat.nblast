@@ -14,7 +14,8 @@ Imports:
     nat (>= 1.5.7),
     bigmemory,
     ff,
-    dendroextras
+    dendroextras,
+    plyr
 Suggests:
     testthat
 License: GPL-3

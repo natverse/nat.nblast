@@ -35,6 +35,8 @@
 #' @param OmitFailures Whether to omit neurons for which \code{FUN} gives an
 #'   error. The default value (\code{NA}) will result in nblast stopping with an
 #'   error message the moment there is an eror. For other values, see details.
+#' @param ... Additional arguments for NeuriteBlast or the individual comparison
+#'   functions (expert use only).
 #' @return Named list of similarity scores.
 #' @seealso \code{\link{nat-package}}
 #' @export
@@ -44,7 +46,7 @@
 #' nblast(kcs20[[1]],kcs20)
 nblast <- function(query, target=getOption("nat.default.neuronlist"),
                    smat=NULL, sd=3, version=c(2, 1), normalised=FALSE,
-                   UseAlpha=FALSE, OmitFailures=NA) {
+                   UseAlpha=FALSE, OmitFailures=NA, ...) {
   version <- as.character(version)
   version <- match.arg(version, c('2', '1'))
 
@@ -67,11 +69,11 @@ nblast <- function(query, target=getOption("nat.default.neuronlist"),
     }
     if(is.character(smat)) smat=get(smat)
     NeuriteBlast(query=query, target=target, NNDistFun=lodsby2dhist, smat=smat,
-                 UseAlpha=UseAlpha, normalised=normalised, OmitFailures=OmitFailures)
+                 UseAlpha=UseAlpha, normalised=normalised, OmitFailures=OmitFailures, ...)
   } else if(version == '1') {
     NeuriteBlast(query=query, target=target, NNDistFun=WeightedNNBasedLinesetDistFun,
                  UseAlpha=UseAlpha, sd=sd, normalised=normalised,
-                 OmitFailures=OmitFailures)
+                 OmitFailures=OmitFailures, ...)
   } else {
     stop("Only NBLAST versions 1 and 2 are currently implemented. For more advanced control, see NeuriteBlast.")
   }
@@ -142,6 +144,10 @@ nblast_allbyall.neuronlist<-function(x, smat=NULL, distance=FALSE,
 #'   \code{target}.
 #' @param normalised whether to divide scores by the self-match score of the
 #'   query
+#' @param simplify whether to simplify the scores from a list to a vector.
+#'   \code{TRUE} by default. The only time you might want to set this false is
+#'   if you are collecting something other than simple scores from the search
+#'   function. See \code{\link{simplify2array}} for further details.
 #' @param ... extra arguments to pass to the distance function.
 #' @inheritParams nblast
 #' @return Named list of similarity scores.
@@ -149,14 +155,17 @@ nblast_allbyall.neuronlist<-function(x, smat=NULL, distance=FALSE,
 #' @export
 #' @seealso \code{\link{WeightedNNBasedLinesetMatching}}
 NeuriteBlast <- function(query, target, targetBinds=NULL, normalised=FALSE,
-                         OmitFailures=NA, ...){
+                         OmitFailures=NA, simplify=TRUE, ...){
   if(isTRUE(OmitFailures))
     stop("OmitFailures=TRUE is not yet implemented!\n",
          "Use OmitFailures=FALSE and handle NAs to taste.")
 
   if(nat::is.neuronlist(query)) {
-    return(sapply(query, NeuriteBlast, target=target, targetBinds=targetBinds,
-                  normalised=normalised, OmitFailures=OmitFailures, ...=...))
+    res=plyr::llply(query, NeuriteBlast, target=target, targetBinds=targetBinds,
+                  normalised=normalised, OmitFailures=OmitFailures, simplify=simplify, ...=...)
+    if (!identical(simplify, FALSE) && length(res))
+      res=simplify2array(res, higher = (simplify == "array"))
+    return(res)
   } else {
     if(is.null(targetBinds))
       targetBinds=seq_along(target)
@@ -172,17 +181,15 @@ NeuriteBlast <- function(query, target, targetBinds=NULL, normalised=FALSE,
         if(inherits(score,'try-error')) NA_real_ else score
       }
     }
-
-    for(i in seq_along(targetBinds)){
-      # targetBinds[i] is numeric index in target of current target neuron
-      dbn=target[[targetBinds[i]]]
-      if(!is.null(dbn)){
-        scores[i]=FUN(dbn, query, ...)
-      }
-    }
+    scores=plyr::llply(targetBinds, function(i, ...) FUN(target[[targetBinds[i]]], query, ...), ... )
     names(scores)=names(target)[targetBinds]
+    # unlist if these are simple numbers
+    if (!identical(simplify, FALSE) && length(scores))
+      scores=simplify2array(scores, higher = (simplify == "array"))
   }
+
   if(normalised){
+    if(is.list(scores)) stop("Cannot normalise results when they are not a single number")
     scores=scores/NeuriteBlast(query, neuronlist(query), normalised=FALSE, ...)
   }
   scores
