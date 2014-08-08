@@ -1,9 +1,9 @@
 # Make scoring matrices
 
-calc_dists_dotprods<-function(query, target, subset, ignoreSelf=TRUE){
-  if(missing(target)) target=query
+calc_dists_dotprods<-function(querynl, targetnl, subset, ignoreSelf=TRUE, ...){
+  if(missing(targetnl)) target=querynl
   if(missing(subset)) {
-    subset=expand.grid(query=names(target), target=names(target), stringsAsFactors = FALSE)
+    subset=expand.grid(query=names(targetnl), target=names(targetnl), stringsAsFactors = FALSE)
   } else {
     if(!is.data.frame(subset) || !all(sapply(s,is.character)))
       stop("subset must be a data.frame with two character columns specifying",
@@ -12,6 +12,7 @@ calc_dists_dotprods<-function(query, target, subset, ignoreSelf=TRUE){
   if(ignoreSelf)
     subset=subset(subset, target!=query)
   subset
+  mlply(subset, function(query, target, ...) NeuriteBlast(querynl[[query]], targetnl[target], NNDistFun=list, ...), ...)
 }
 
 makeprobmat<-function(nndists, dotprods, distbreaks, dotprodbreaks=seq(0, 1, by=0.1),
