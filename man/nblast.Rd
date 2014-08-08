@@ -5,7 +5,7 @@
 \usage{
 nblast(query, target = getOption("nat.default.neuronlist"), smat = NULL,
   sd = 3, version = c(2, 1), normalised = FALSE, UseAlpha = FALSE,
-  OmitFailures = NA)
+  OmitFailures = NA, ...)
 }
 \arguments{
 \item{query}{the query neuron.}
@@ -31,6 +31,9 @@ calculation (default: FALSE).}
 \item{OmitFailures}{Whether to omit neurons for which \code{FUN} gives an
 error. The default value (\code{NA}) will result in nblast stopping with an
 error message the moment there is an eror. For other values, see details.}
+
+\item{...}{Additional arguments for NeuriteBlast or the individual comparison
+functions (expert use only).}
 }
 \value{
 Named list of similarity scores.

@@ -35,6 +35,8 @@
 #' @param OmitFailures Whether to omit neurons for which \code{FUN} gives an
 #'   error. The default value (\code{NA}) will result in nblast stopping with an
 #'   error message the moment there is an eror. For other values, see details.
+#' @param ... Additional arguments for NeuriteBlast or the individual comparison
+#'   functions (expert use only).
 #' @return Named list of similarity scores.
 #' @seealso \code{\link{nat-package}}
 #' @export
@@ -44,7 +46,7 @@
 #' nblast(kcs20[[1]],kcs20)
 nblast <- function(query, target=getOption("nat.default.neuronlist"),
                    smat=NULL, sd=3, version=c(2, 1), normalised=FALSE,
-                   UseAlpha=FALSE, OmitFailures=NA) {
+                   UseAlpha=FALSE, OmitFailures=NA, ...) {
   version <- as.character(version)
   version <- match.arg(version, c('2', '1'))
 
@@ -67,11 +69,11 @@ nblast <- function(query, target=getOption("nat.default.neuronlist"),
     }
     if(is.character(smat)) smat=get(smat)
     NeuriteBlast(query=query, target=target, NNDistFun=lodsby2dhist, smat=smat,
-                 UseAlpha=UseAlpha, normalised=normalised, OmitFailures=OmitFailures)
+                 UseAlpha=UseAlpha, normalised=normalised, OmitFailures=OmitFailures, ...)
   } else if(version == '1') {
     NeuriteBlast(query=query, target=target, NNDistFun=WeightedNNBasedLinesetDistFun,
                  UseAlpha=UseAlpha, sd=sd, normalised=normalised,
-                 OmitFailures=OmitFailures)
+                 OmitFailures=OmitFailures, ...)
   } else {
     stop("Only NBLAST versions 1 and 2 are currently implemented. For more advanced control, see NeuriteBlast.")
   }
