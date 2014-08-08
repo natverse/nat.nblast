@@ -3,13 +3,15 @@
 \alias{plot_hits_from_matrix}
 \title{Display NBLAST hits for neurons in 3D, given scores}
 \usage{
-plot_hits_from_matrix(nblast_results, neurons, threshold = NULL,
-  number = NULL, col = heat.colors, ...)
+plot_hits_from_matrix(nblast_results, query_neurons, target_neurons,
+  threshold = NULL, number = NULL, col = heat.colors, ...)
 }
 \arguments{
 \item{nblast_results}{a matrix of NBLAST scores.}
 
-\item{neurons}{a neuronlist of neurons to plot from.}
+\item{query_neurons}{a neuronlist of neurons to plot queries from.}
+
+\item{target_neurons}{a neuronlist of neurons to plot targets from.}
 
 \item{threshold}{an optional number which, if given, prevents scores below
 this number from being displayed.}
