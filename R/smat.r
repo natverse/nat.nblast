@@ -46,6 +46,7 @@ create_smat <- function(matching_neurons, nonmatching_neurons, ignoreSelf=TRUE, 
 #'
 #' @return A list, for each query neuron, of vectors containing distances and
 #'   dot products for each target neuron.
+#' @importFrom plyr mlply
 #' @export
 calc_dists_dotprods <- function(query_neurons, target_neurons, subset, ignoreSelf=TRUE, ...) {
   if(missing(target_neurons)) target_neurons <- query_neurons
