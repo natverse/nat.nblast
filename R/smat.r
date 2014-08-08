@@ -1,3 +1,35 @@
+#' Create a score matrix given matching and non-matching sets of neurons
+#'
+#' @param matching_neurons a \code{\link[nat]{neuronlist}} of matching neurons.
+#' @param nonmatching_neurons a \code{\link[nat]{neuronlist}} of non-matching
+#'   neurons.
+#' @param ignoreSelf a Boolean indicating whether to ignore comparisons of a
+#'   neuron against itself (default \code{TRUE}).
+#' @param distbreaks a vector specifying the breaks for distances in the
+#'   probability matrix.
+#' @param dotprodbreaks a vector specifying the breaks for dot products in the
+#'   probability matrix.
+#' @param logbase the base to which the logarithm should be taken to produce the
+#'   final scores.
+#' @param fudgefac an arbitrary, small 'fudge factor' to prevent division by
+#'   zero.
+#' @param ... extra arguments to pass to \code{\link{NeuriteBlast}}.
+#'
+#' @return A matrix with columns as specified by \code{dotprodbreaks} and rows
+#'   as specified by \code{distbreaks}, containing scores for neuron segments
+#'   with the given distance and dot product.
+#' @export
+create_smat <- function(matching_neurons, nonmatching_neurons, ignoreSelf=TRUE, distbreaks, dotprodbreaks=seq(0, 1, by=0.1), logbase=2, fudgefac=1e-6, ...) {
+  matching_dists_dotprods <- calc_dists_dotprods(matching_neurons, matching_neurons, ignoreSelf=ignoreSelf, ...)
+  nonmatching_dists_dotprods <- calc_dists_dotprods(nonmatching_neurons, nonmatching_neurons, ignoreSelf=ignoreSelf, ...)
+  matching_prob_mat <- calc_prob_mat(matching_dists_dotprods, distbreaks=distbreaks, dotprodbreaks=dotprodbreaks, ReturnCounts=FALSE)
+  nonmatching_prob_mat <- calc_prob_mat(nonmatching_dists_dotprods, distbreaks=distbreaks, dotprodbreaks=dotprodbreaks, ReturnCounts=FALSE)
+  score_mat <- calc_score_matrix(matching_prob_mat, nonmatching_prob_mat, logbase=logbase, fudgefac=fudgefac)
+  score_mat
+}
+
+
+
 #' Calculate distances and dot products between two sets of neurons
 #'
 #' @param query_neurons a \code{\link[nat]{neuronlist}} to use for calculating
