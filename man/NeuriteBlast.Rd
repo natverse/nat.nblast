@@ -4,7 +4,7 @@
 \title{Produce similarity score for neuron morphologies}
 \usage{
 NeuriteBlast(query, target, targetBinds = NULL, normalised = FALSE,
-  OmitFailures = NA, ...)
+  OmitFailures = NA, simplify = TRUE, ...)
 }
 \arguments{
 \item{query}{either a single query neuron or a \code{\link[nat]{neuronlist}}}
@@ -16,6 +16,11 @@ NeuriteBlast(query, target, targetBinds = NULL, normalised = FALSE,
 
 \item{normalised}{whether to divide scores by the self-match score of the
 query}
+
+\item{simplify}{whether to simplify the scores from a list to a vector.
+\code{TRUE} by default. The only time you might want to set this false is
+if you are collecting something other than simple scores from the search
+function.}
 
 \item{...}{extra arguments to pass to the distance function.}
 

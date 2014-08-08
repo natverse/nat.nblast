@@ -142,6 +142,10 @@ nblast_allbyall.neuronlist<-function(x, smat=NULL, distance=FALSE,
 #'   \code{target}.
 #' @param normalised whether to divide scores by the self-match score of the
 #'   query
+#' @param simplify whether to simplify the scores from a list to a vector.
+#'   \code{TRUE} by default. The only time you might want to set this false is
+#'   if you are collecting something other than simple scores from the search
+#'   function.
 #' @param ... extra arguments to pass to the distance function.
 #' @inheritParams nblast
 #' @return Named list of similarity scores.
@@ -149,7 +153,7 @@ nblast_allbyall.neuronlist<-function(x, smat=NULL, distance=FALSE,
 #' @export
 #' @seealso \code{\link{WeightedNNBasedLinesetMatching}}
 NeuriteBlast <- function(query, target, targetBinds=NULL, normalised=FALSE,
-                         OmitFailures=NA, ...){
+                         OmitFailures=NA, simplify=TRUE, ...){
   if(isTRUE(OmitFailures))
     stop("OmitFailures=TRUE is not yet implemented!\n",
          "Use OmitFailures=FALSE and handle NAs to taste.")
@@ -175,9 +179,12 @@ NeuriteBlast <- function(query, target, targetBinds=NULL, normalised=FALSE,
     scores=plyr::llply(targetBinds, function(i, ...) FUN(target[[targetBinds[i]]], query, ...), ... )
     names(scores)=names(target)[targetBinds]
     # unlist if these are simple numbers
-    if(is.numeric(scores[[1]])) scores=unlist(scores)
+    if (!identical(simplify, FALSE) && length(scores))
+      scores=simplify2array(scores, higher = (simplify == "array"))
   }
+
   if(normalised){
+    if(is.list(scores)) stop("Cannot normalise results when they are not a single number")
     scores=scores/NeuriteBlast(query, neuronlist(query), normalised=FALSE, ...)
   }
   scores
