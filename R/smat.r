@@ -1,7 +1,7 @@
 # Make scoring matrices
 
 calc_dists_dotprods<-function(querynl, targetnl, subset, ignoreSelf=TRUE, ...){
-  if(missing(targetnl)) target=querynl
+  if(missing(targetnl)) targetnl=querynl
   if(missing(subset)) {
     subset=expand.grid(query=names(targetnl), target=names(targetnl), stringsAsFactors = FALSE)
   } else {
