@@ -161,8 +161,11 @@ NeuriteBlast <- function(query, target, targetBinds=NULL, normalised=FALSE,
          "Use OmitFailures=FALSE and handle NAs to taste.")
 
   if(nat::is.neuronlist(query)) {
-    return(sapply(query, NeuriteBlast, target=target, targetBinds=targetBinds,
-                  normalised=normalised, OmitFailures=OmitFailures, ...=...))
+    res=plyr::llply(query, NeuriteBlast, target=target, targetBinds=targetBinds,
+                  normalised=normalised, OmitFailures=OmitFailures, simplify=simplify, ...=...)
+    if (!identical(simplify, FALSE) && length(res))
+      res=simplify2array(res, higher = (simplify == "array"))
+    return(res)
   } else {
     if(is.null(targetBinds))
       targetBinds=seq_along(target)
