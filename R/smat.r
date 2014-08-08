@@ -11,8 +11,9 @@ calc_dists_dotprods<-function(querynl, targetnl, subset, ignoreSelf=TRUE, ...){
   }
   if(ignoreSelf)
     subset=subset(subset, target!=query)
-  subset
-  mlply(subset, function(query, target, ...) NeuriteBlast(querynl[[query]], targetnl[target], NNDistFun=list, ...), ...)
+  collect_one_pair<-function(query, target, ...)
+    NeuriteBlast(querynl[[query]], targetnl[target], NNDistFun=list, ...)
+  mlply(subset, collect_one_pair, ...)
 }
 
 makeprobmat<-function(nndists, dotprods, distbreaks, dotprodbreaks=seq(0, 1, by=0.1),
