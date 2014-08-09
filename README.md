@@ -1,7 +1,13 @@
 # nat.nblast
 [![Build Status](https://travis-ci.org/jefferislab/nat.nblast.svg)](https://travis-ci.org/jefferislab/nat.nblast)
 
-Very preliminary attempt to clean up the neuron search tools originally developed as part of the [AnalysisSuite](https://github.com/jefferis/AnalysisSuite) codebase. These tools are designed to be an addon for the [NeuroAnatomy Toolbox](https://github.com/jefferis/nat) (nat) package.
+This R package implements the NBLAST neuron similarity algorithm described in a preprint available at
+<http://dx.doi.org/10.1101/006346>.  In addition to basic pairwise comparison, the package also implements search of
+databases of neurons.  There is also suport for all x all comparison for a group of neurons, that can produce a distance
+matrix suitable for hierarchical clustering, which is also implemented in the package.
+
+These tools are designed as an addon for the [NeuroAnatomy Toolbox](https://github.com/jefferis/nat) (nat) R package, 
+which you must first install.
 
 ## Installation
 There is currently no released version on CRAN.
@@ -11,7 +17,11 @@ You can, however, download the [tar ball](https://github.com/jefferislab/nat.nbl
 and run `R CMD INSTALL` on it, or use the **devtools** package to install the development version:
 
   ```r
-# install.packages("devtools")
+# install devtools if required
+if (!require("devtools")) install.packages("devtools")
+# then install nat
+devtools::install_github("jefferis/nat")
+# then nat.nblast
 devtools::install_github("nat.nblast", "jefferislab")
 ```
 
