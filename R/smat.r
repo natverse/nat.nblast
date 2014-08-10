@@ -1,4 +1,4 @@
-#' Create a score matrix given matching and non-matching sets of neurons
+#' Create a scoring matrix given matching and non-matching sets of neurons
 #'
 #' @param matching_neurons a \code{\link[nat]{neuronlist}} of matching neurons.
 #' @param nonmatching_neurons a \code{\link[nat]{neuronlist}} of non-matching
@@ -16,8 +16,8 @@
 #' @param ... extra arguments to pass to \code{\link{NeuriteBlast}}.
 #'
 #' @return A matrix with columns as specified by \code{dotprodbreaks} and rows
-#'   as specified by \code{distbreaks}, containing scores for neuron segments
-#'   with the given distance and dot product.
+#'   as specified by \code{distbreaks}, containing log odd scores for neuron
+#'   segments with the given distance and dot product.
 #' @export
 create_smat <- function(matching_neurons, nonmatching_neurons, ignoreSelf=TRUE,
                         distbreaks, dotprodbreaks=seq(0, 1, by=0.1), logbase=2,
@@ -42,6 +42,8 @@ create_smat <- function(matching_neurons, nonmatching_neurons, ignoreSelf=TRUE,
 
 #' Calculate distances and dot products between two sets of neurons
 #'
+#' @details Distances and dot products are the raw inputs for constructing
+#'   scoring matrices for the nblast search algorithm.
 #' @param query_neurons a \code{\link[nat]{neuronlist}} to use for calculating
 #'   distances and dot products.
 #' @param target_neurons a further \code{\link[nat]{neuronlist}} to use for

@@ -30,4 +30,8 @@ A list, for each query neuron, of vectors containing distances and
 \description{
 Calculate distances and dot products between two sets of neurons
 }
+\details{
+Distances and dot products are the raw inputs for constructing
+  scoring matrices for the nblast search algorithm.
+}
 
