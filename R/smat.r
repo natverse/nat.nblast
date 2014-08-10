@@ -75,6 +75,16 @@ calc_dists_dotprods <- function(query_neurons, target_neurons, subset, ignoreSel
   mlply(subset, collect_one_pair, ...)
 }
 
+# utility function for generating random pairs of neurons
+#
+# @param x neuronlist or character vector of names
+# @param n number of random pairs to draw
+random_pairs<-function(x, n){
+  if(!is.character(x)) x=names(x)
+  q=sample.int(length(x), n, replace=T)
+  t=sapply(q, function(z) sample(seq_along(x)[-z], 1))
+  data.frame(query=x[q], target=x[t], stringsAsFactors = F)
+}
 
 #' Calculate probability matrix from distances and dot products between neuron
 #' segments
