@@ -32,8 +32,8 @@ calculation (default: FALSE).}
 error. The default value (\code{NA}) will result in nblast stopping with an
 error message the moment there is an eror. For other values, see details.}
 
-\item{...}{Additional arguments for NeuriteBlast or the individual comparison
-functions (expert use only).}
+\item{...}{Additional arguments passed to NeuriteBlast or the function used
+to compute scores from distances/dot products. (expert use only).}
 }
 \value{
 Named list of similarity scores.
@@ -63,10 +63,13 @@ when \code{smat=NULL} options("nat.nblast.defaultsmat") will be
   parallelising NBLASTs and displaying progress. To display a progress bar as
   the scores are computed, add \code{.progress="text"} to the arguments
   (non-text progress bars are available -- see
-  \code{\link[plyr]{create_progress_bar}}). To parallelise across cores, add
-  \code{.parallel=TRUE} to the arguments. Note that cores should be
-  registered with the doMC package beforehand (see
-  \code{\link[doMC]{registerDoMC}} and example below).
+  \code{\link[plyr]{create_progress_bar}}). To parallelise, add
+  \code{.parallel=TRUE} to the arguments. In order to make use of parallel
+  calculation, you must register a parallel backend that will distribute the
+  computations. There are several possible backends, the simplest of which is
+  the multicore option made available by \code{doMC}, which spreads the load
+  across cores of the same machine. Before using this, the backend must be
+  registered using \code{\link[doMC]{registerDoMC}} (see example below).
 }
 \examples{
 data(kcs20,package='nat')
