@@ -19,15 +19,25 @@
 #'   as specified by \code{distbreaks}, containing scores for neuron segments
 #'   with the given distance and dot product.
 #' @export
-create_smat <- function(matching_neurons, nonmatching_neurons, ignoreSelf=TRUE, distbreaks, dotprodbreaks=seq(0, 1, by=0.1), logbase=2, fudgefac=1e-6, ...) {
-  matching_dists_dotprods <- calc_dists_dotprods(matching_neurons, matching_neurons, ignoreSelf=ignoreSelf, ...)
-  nonmatching_dists_dotprods <- calc_dists_dotprods(nonmatching_neurons, nonmatching_neurons, ignoreSelf=ignoreSelf, ...)
-  matching_prob_mat <- calc_prob_mat(matching_dists_dotprods, distbreaks=distbreaks, dotprodbreaks=dotprodbreaks, ReturnCounts=FALSE)
-  nonmatching_prob_mat <- calc_prob_mat(nonmatching_dists_dotprods, distbreaks=distbreaks, dotprodbreaks=dotprodbreaks, ReturnCounts=FALSE)
-  score_mat <- calc_score_matrix(matching_prob_mat, nonmatching_prob_mat, logbase=logbase, fudgefac=fudgefac)
-  score_mat
+create_smat <- function(matching_neurons, nonmatching_neurons, ignoreSelf=TRUE,
+                        distbreaks, dotprodbreaks=seq(0, 1, by=0.1), logbase=2,
+                        fudgefac=1e-6, ...) {
+  matching_dists_dotprods <- calc_dists_dotprods(matching_neurons, matching_neurons,
+                                                 ignoreSelf=ignoreSelf, ...)
+  nonmatching_dists_dotprods <- calc_dists_dotprods(nonmatching_neurons,
+                                                    nonmatching_neurons,
+                                                    ignoreSelf=ignoreSelf, ...)
+  matching_prob_mat <- calc_prob_mat(matching_dists_dotprods,
+                                     distbreaks=distbreaks,
+                                     dotprodbreaks=dotprodbreaks,
+                                     ReturnCounts=FALSE)
+  nonmatching_prob_mat <- calc_prob_mat(nonmatching_dists_dotprods,
+                                        distbreaks=distbreaks,
+                                        dotprodbreaks=dotprodbreaks,
+                                        ReturnCounts=FALSE)
+  calc_score_matrix(matching_prob_mat, nonmatching_prob_mat,
+                                 logbase=logbase, fudgefac=fudgefac)
 }
-
 
 
 #' Calculate distances and dot products between two sets of neurons
