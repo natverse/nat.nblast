@@ -60,9 +60,9 @@ create_smat <- function(matching_neurons, nonmatching_neurons, ignoreSelf=TRUE,
 #'   dot products for each target neuron.
 #' @importFrom plyr mlply
 #' @export
-calc_dists_dotprods <- function(query_neurons, target_neurons, subset, ignoreSelf=TRUE, ...) {
+calc_dists_dotprods <- function(query_neurons, target_neurons, subset=NULL, ignoreSelf=TRUE, ...) {
   if(missing(target_neurons)) target_neurons <- query_neurons
-  if(missing(subset)) {
+  if(is.null(subset)) {
     subset <- expand.grid(query=names(query_neurons), target=names(target_neurons), stringsAsFactors=FALSE)
   } else {
     if(!is.data.frame(subset) || !all(sapply(subset, is.character)))

@@ -3,8 +3,8 @@
 \alias{calc_dists_dotprods}
 \title{Calculate distances and dot products between two sets of neurons}
 \usage{
-calc_dists_dotprods(query_neurons, target_neurons, subset, ignoreSelf = TRUE,
-  ...)
+calc_dists_dotprods(query_neurons, target_neurons, subset = NULL,
+  ignoreSelf = TRUE, ...)
 }
 \arguments{
 \item{query_neurons}{a \code{\link[nat]{neuronlist}} to use for calculating
