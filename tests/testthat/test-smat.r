@@ -16,6 +16,14 @@ test_that("calculation of score matrices is correct", {
   expect_equal(score_mat.expected, score_mat.actual)
 })
 
+test_that("random_pairs",{
+  expect_equal(random_pairs(kcs20, n=NA),
+               expand.grid(query=names(kcs20), target=names(kcs20), stringsAsFactors = FALSE))
+  expect_is(df<-random_pairs(kcs20, n=10), 'data.frame')
+  expect_equal(nrow(df), 10L)
+  expect_is(df$query, 'character')
+})
+
 test_that("create_smat wrapper function passes on arguments", {
   smat.expected <- structure(c(0, -8.3182108909519, -11.1402936474687, -0.420254621476833, -0.181960193657874, 0.282642512418894, 0.675549776384255, -6.45574517467861, -8.66516528624987, -11.5271663713186, -0.580326857349317, -0.173610788907039, 0.312655458083253, 0.675566810158546, 0, -9.44129133098147, -11.8319278406857, -0.819298784485771, -0.164647753087521, 0.305617207199979, 0.675569104424631, 0, -9.98495948997948, -12.3859031633819, -1.26000963427592, -0.243916155861412, 0.344935126998013, 0.675538251178387), class = "table", distbreaks = c(1, 2, 5, 10, 20, 50, 100, 500), dotprodbreaks = c(0, 0.25, 0.5, 0.75, 1), .Dim = c(7L, 4L), .Dimnames = structure(list(c("(1,2]", "(2,5]", "(5,10]", "(10,20]", "(20,50]", "(50,100]", "(100,500]" ), c("(0,0.25]", "(0.25,0.5]", "(0.5,0.75]", "(0.75,1]")), .Names = c("", "")))
   smat.calculated <- create_smat(testneurons[1:3], testneurons[1:4], distbreaks=c(1, 2, 5, 10, 20, 50, 100, 500), dotprodbreaks=seq(0, 1, 0.25))
