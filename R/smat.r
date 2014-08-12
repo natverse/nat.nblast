@@ -63,7 +63,8 @@ create_smat <- function(matching_neurons, nonmatching_neurons, ignoreSelf=TRUE,
 calc_dists_dotprods <- function(query_neurons, target_neurons, subset=NULL, ignoreSelf=TRUE, ...) {
   if(missing(target_neurons)) target_neurons <- query_neurons
   if(is.null(subset)) {
-    subset <- expand.grid(query=names(query_neurons), target=names(target_neurons), stringsAsFactors=FALSE)
+    subset <- expand.grid(query=names(query_neurons), target=names(target_neurons),
+                          stringsAsFactors=FALSE, KEEP.OUT.ATTRS = FALSE)
   } else {
     if(!is.data.frame(subset) || !all(sapply(subset, is.character)))
       stop("Subset must be a data.frame with two character columns specifying query and target neurons by name, with one row for each pair.")
@@ -88,7 +89,7 @@ calc_dists_dotprods <- function(query_neurons, target_neurons, subset=NULL, igno
 random_pairs<-function(x, n){
   if(!is.character(x)) x=names(x)
   if(is.na(n)) {
-    return(expand.grid(query=x, target=x, stringsAsFactors=FALSE))
+    return(expand.grid(query=x, target=x, stringsAsFactors=FALSE, KEEP.OUT.ATTRS = FALSE))
   }
   q=sample.int(length(x), n, replace=T)
   t=sapply(q, function(z) sample(seq_along(x)[-z], 1))
