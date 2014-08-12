@@ -75,10 +75,15 @@ calc_dists_dotprods <- function(query_neurons, target_neurons, subset, ignoreSel
   mlply(subset, collect_one_pair, ...)
 }
 
-# utility function for generating random pairs of neurons
-#
-# @param x neuronlist or character vector of names
-# @param n number of random pairs to draw
+#' Utility function for generating random pairs of neurons
+#'
+#' @param x neuronlist or character vector of names
+#' @param n number of random pairs to draw
+#' @return a data.frame with two character vector columns, query and target.
+#' @export
+#' @seealso calc_score_matrix
+#' @examples
+#' random_pairs(nat::kcs20, n=20)
 random_pairs<-function(x, n){
   if(!is.character(x)) x=names(x)
   q=sample.int(length(x), n, replace=T)
