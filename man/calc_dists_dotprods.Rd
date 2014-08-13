@@ -24,8 +24,9 @@ neuron against itself (default \code{TRUE}).}
 \item{...}{extra arguments to pass to \code{\link{NeuriteBlast}}.}
 }
 \value{
-A list, for each query neuron, of vectors containing distances and
-  dot products for each target neuron.
+A list, one element for for pair of neurons with a 2 column
+  data.frame containing one column of distances and s secon of absolute dot
+  products.
 }
 \description{
 Calculate distances and dot products between two sets of neurons

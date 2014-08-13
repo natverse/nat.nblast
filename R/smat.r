@@ -56,8 +56,9 @@ create_smat <- function(matching_neurons, nonmatching_neurons, ignoreSelf=TRUE,
 #'   neuron against itself (default \code{TRUE}).
 #' @param ... extra arguments to pass to \code{\link{NeuriteBlast}}.
 #'
-#' @return A list, for each query neuron, of vectors containing distances and
-#'   dot products for each target neuron.
+#' @return A list, one element for for pair of neurons with a 2 column
+#'   data.frame containing one column of distances and s secon of absolute dot
+#'   products.
 #' @importFrom plyr mlply
 #' @export
 calc_dists_dotprods <- function(query_neurons, target_neurons, subset=NULL, ignoreSelf=TRUE, ...) {
@@ -71,8 +72,15 @@ calc_dists_dotprods <- function(query_neurons, target_neurons, subset=NULL, igno
   }
   if(ignoreSelf)
     subset <- subset[subset$target != subset$query, ]
-  collect_one_pair <- function(query, target, ...)
-    NeuriteBlast(query_neurons[[query]], target_neurons[target], NNDistFun=list, ...)
+  # simple function to collect dists/dot products for one pair
+  collect_one_pair <- function(query, target, ...){
+    cop=NeuriteBlast(query_neurons[[query]], target_neurons[target],
+                     NNDistFun=data.frame, simplify=FALSE, ...)
+    # comes back as list of length 1
+    cop=cop[[1]]
+    names(cop)=c("nndists","dps")
+    cop
+  }
   mlply(subset, collect_one_pair, ...)
 }
 
