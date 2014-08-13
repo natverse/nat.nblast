@@ -4,7 +4,7 @@
 \title{Calculate score matrix from probability matrices for matching and
 non-matching sets of neurons}
 \usage{
-calc_score_matrix(matchmat, randmat, logbase = 2, fudgefac = 1e-06)
+calc_score_matrix(matchmat, randmat, logbase = 2, epsilon = 1e-06)
 }
 \arguments{
 \item{matchmat}{a probability matrix given by considering 'matching' neurons.}
@@ -15,8 +15,8 @@ calc_score_matrix(matchmat, randmat, logbase = 2, fudgefac = 1e-06)
 \item{logbase}{the base to which the logarithm should be taken to produce the
 final scores.}
 
-\item{fudgefac}{an arbitrary, small 'fudge factor' to prevent division by
-  zero.}
+\item{epsilon}{a pseudocount to prevent division by zero when constructing
+  the log odds ratio in the probability matrix.}
 }
 \value{
 A matrix with columns as specified by \code{dotprodbreaks} and rows

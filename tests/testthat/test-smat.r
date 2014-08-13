@@ -12,7 +12,7 @@ test_that("calculation of score matrices is correct", {
   prob_mat_1 <- calc_prob_mat(calc_dists_dotprods(testneurons[1:3], testneurons[2:5]), distbreaks=c(1, 2, 5, 10, 20, 50, 100, 500), dotprodbreaks=seq(0, 1, 0.25))
   prob_mat_2 <- calc_prob_mat(calc_dists_dotprods(testneurons[2:4], testneurons[1:4]), distbreaks=c(1, 2, 5, 10, 20, 50, 100, 500), dotprodbreaks=seq(0, 1, 0.25))
   score_mat.expected <- structure(c(5.58670412933517, 3.54392279704006, 1.44948841421627, -0.428948458404255, -0.418965476490948, 0.274653663203646, 6.47383688918051, 2.76488034723549, 3.14571143338443, 1.29716493780848, -0.41784692720237, -0.422732257032202, 0.280304729738837, 6.47001734289776, 5.66093483703527, 2.73528135640762, 1.14285516828316, -0.386306504542588, -0.426345281997543, 0.257917833825592, 6.3731606227297, 5.77988662143569, 2.30679302110432, 0.920372423679295, -0.243946421089446, -0.426020303089466, 0.331047071615182, 6.11215516036325), class = "table", distbreaks = c(1, 2, 5, 10, 20, 50, 100, 500), dotprodbreaks = c(0, 0.25, 0.5, 0.75, 1), .Dim = c(7L, 4L), .Dimnames = structure(list(c("(1,2]", "(2,5]", "(5,10]", "(10,20]", "(20,50]", "(50,100]", "(100,500]"), c("(0,0.25]", "(0.25,0.5]", "(0.5,0.75]", "(0.75,1]")), .Names = c("", "")))
-  score_mat.actual <- calc_score_matrix(prob_mat_1, prob_mat_2, logbase=4, fudgefac=2e-6)
+  score_mat.actual <- calc_score_matrix(prob_mat_1, prob_mat_2, logbase=4, epsilon=2e-6)
   expect_equal(score_mat.expected, score_mat.actual)
 })
 

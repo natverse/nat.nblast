@@ -36,9 +36,8 @@
 #'   probability matrix.
 #' @param logbase the base to which the logarithm should be taken to produce the
 #'   final scores.
-#' @param fudgefac an arbitrary, small 'fudge factor' to prevent division by
-#'   zero.
 #' @param ... extra arguments to pass to \code{\link{NeuriteBlast}}.
+#' @inheritParams calc_score_matrix
 #'
 #' @return A matrix with columns as specified by \code{dotprodbreaks} and rows
 #'   as specified by \code{distbreaks}, containing log odd scores for neuron
@@ -48,7 +47,7 @@ create_smat <- function(matching_neurons, nonmatching_neurons,
                         matching_subset=NULL, non_matching_subset=NULL,
                         ignoreSelf=TRUE, distbreaks,
                         dotprodbreaks=seq(0, 1, by=0.1), logbase=2,
-                        fudgefac=1e-6, ...) {
+                        epsilon=1e-6, ...) {
 
   match.dd <- calc_dists_dotprods(matching_neurons, subset=matching_subset,
                                   ignoreSelf=ignoreSelf, ...)
@@ -63,7 +62,7 @@ create_smat <- function(matching_neurons, nonmatching_neurons,
 
   rand.prob <- calc_prob_mat(rand.dd, distbreaks=distbreaks,
                              dotprodbreaks=dotprodbreaks, ReturnCounts=FALSE)
-  calc_score_matrix(match.prob, rand.prob, logbase=logbase, fudgefac=fudgefac)
+  calc_score_matrix(match.prob, rand.prob, logbase=logbase, epsilon=epsilon)
 }
 
 
@@ -175,14 +174,14 @@ calc_prob_mat <- function(nndists, dotprods, distbreaks, dotprodbreaks=seq(0, 1,
 #'   'random' neurons.
 #' @param logbase the base to which the logarithm should be taken to produce the
 #'   final scores.
-#' @param fudgefac an arbitrary, small 'fudge factor' to prevent division by
-#'   zero.
+#' @param epsilon a pseudocount to prevent division by zero when constructing
+#'   the log odds ratio in the probability matrix.
 #'
 #' @return A matrix with columns as specified by \code{dotprodbreaks} and rows
 #'   as specified by \code{distbreaks}, containing scores for neuron segments
 #'   with the given distance and dot product.
 #' @export
-calc_score_matrix <- function(matchmat, randmat, logbase=2, fudgefac=1e-6) {
+calc_score_matrix <- function(matchmat, randmat, logbase=2, epsilon=1e-6) {
   distbreaks <- attr(matchmat, "distbreaks")
   ndistbreaks <- length(distbreaks)
   dotprodbreaks <- attr(matchmat, "dotprodbreaks")
@@ -194,5 +193,5 @@ calc_score_matrix <- function(matchmat, randmat, logbase=2, fudgefac=1e-6) {
     distbreaks[-ndistbreaks], distbreaks[-ndistbreaks], check.attributes=FALSE)))
     stop("Mismatch between distance breaks used for match and null models.")
 
-  log((matchmat + fudgefac) / (randmat + fudgefac), logbase)
+  log((matchmat + epsilon) / (randmat + epsilon), logbase)
 }
