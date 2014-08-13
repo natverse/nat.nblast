@@ -1,8 +1,33 @@
 #' Create a scoring matrix given matching and non-matching sets of neurons
 #'
+#' @description Calculate a scoring matrix embodying the logarithm of the odds
+#'   that a matching pair of neurite segments come from a structurally related
+#'   rather than random pair of neurons. This function embodies sensible default
+#'   behaviours. More control is available by using the individual functions
+#'   listed in \bold{seealso}.
+#'
+#' @details By default \code{create_smat} will use all neurons in
+#'   \code{matching_neurons} to create the matching distribution. This is
+#'   appropriate if all of these neurons are of a single type. If you wish to
+#'   use multiple types of neurons then you will need to specify a
+#'   \code{matching_subset} to indicate which pairs of neurons are of the same
+#'   type.
+#'
+#'   By default \code{create_smat} will use a random set of pairs from
+#'   \code{non_matching_neurons} to create the null distribution. The number of
+#'   random pairs will be equal to the number of matching pairs defined by
+#'   \code{matching_neurons} This is appropriate if non_matching_neurons
+#'   contains a large collection of neurons of different types. You may wish to
+#'   set the random seed using \code{\link{set.seed}} if you want to ensure that
+#'   exactly the same (pseudo-)random pairs of neurons are used in subsequent
+#'   calls.
 #' @param matching_neurons a \code{\link[nat]{neuronlist}} of matching neurons.
 #' @param nonmatching_neurons a \code{\link[nat]{neuronlist}} of non-matching
 #'   neurons.
+#' @param matching_subset,non_matching_subset data.frames indicating which pairs
+#'   of neurons in the two input neuron lists should be used to generate the
+#'   matching and null distributions. See details for the default behaviour when
+#'   \code{NULL}.
 #' @param ignoreSelf a Boolean indicating whether to ignore comparisons of a
 #'   neuron against itself (default \code{TRUE}).
 #' @param distbreaks a vector specifying the breaks for distances in the
@@ -19,24 +44,26 @@
 #'   as specified by \code{distbreaks}, containing log odd scores for neuron
 #'   segments with the given distance and dot product.
 #' @export
-create_smat <- function(matching_neurons, nonmatching_neurons, ignoreSelf=TRUE,
-                        distbreaks, dotprodbreaks=seq(0, 1, by=0.1), logbase=2,
+create_smat <- function(matching_neurons, nonmatching_neurons,
+                        matching_subset=NULL, non_matching_subset=NULL,
+                        ignoreSelf=TRUE, distbreaks,
+                        dotprodbreaks=seq(0, 1, by=0.1), logbase=2,
                         fudgefac=1e-6, ...) {
-  matching_dists_dotprods <- calc_dists_dotprods(matching_neurons, matching_neurons,
-                                                 ignoreSelf=ignoreSelf, ...)
-  nonmatching_dists_dotprods <- calc_dists_dotprods(nonmatching_neurons,
-                                                    nonmatching_neurons,
-                                                    ignoreSelf=ignoreSelf, ...)
-  matching_prob_mat <- calc_prob_mat(matching_dists_dotprods,
-                                     distbreaks=distbreaks,
-                                     dotprodbreaks=dotprodbreaks,
-                                     ReturnCounts=FALSE)
-  nonmatching_prob_mat <- calc_prob_mat(nonmatching_dists_dotprods,
-                                        distbreaks=distbreaks,
-                                        dotprodbreaks=dotprodbreaks,
-                                        ReturnCounts=FALSE)
-  calc_score_matrix(matching_prob_mat, nonmatching_prob_mat,
-                                 logbase=logbase, fudgefac=fudgefac)
+
+  match.dd <- calc_dists_dotprods(matching_neurons, subset=matching_subset,
+                                  ignoreSelf=ignoreSelf, ...)
+  # generate random set of neuron pairs of same length as the matching set
+  if(is.null(non_matching_subset))
+    rand.subset = neuron_pairs(nonmatching_neurons, length(match.dd))
+  rand.dd <- calc_dists_dotprods(nonmatching_neurons, subset=non_matching_subset,
+                                 ignoreSelf=ignoreSelf, ...)
+
+  match.prob <- calc_prob_mat(match.dd, distbreaks=distbreaks,
+                              dotprodbreaks=dotprodbreaks, ReturnCounts=FALSE)
+
+  rand.prob <- calc_prob_mat(rand.dd, distbreaks=distbreaks,
+                             dotprodbreaks=dotprodbreaks, ReturnCounts=FALSE)
+  calc_score_matrix(match.prob, rand.prob, logbase=logbase, fudgefac=fudgefac)
 }
 
 

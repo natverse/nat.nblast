@@ -3,15 +3,20 @@
 \alias{create_smat}
 \title{Create a scoring matrix given matching and non-matching sets of neurons}
 \usage{
-create_smat(matching_neurons, nonmatching_neurons, ignoreSelf = TRUE,
-  distbreaks, dotprodbreaks = seq(0, 1, by = 0.1), logbase = 2,
-  fudgefac = 1e-06, ...)
+create_smat(matching_neurons, nonmatching_neurons, matching_subset = NULL,
+  non_matching_subset = NULL, ignoreSelf = TRUE, distbreaks,
+  dotprodbreaks = seq(0, 1, by = 0.1), logbase = 2, fudgefac = 1e-06, ...)
 }
 \arguments{
 \item{matching_neurons}{a \code{\link[nat]{neuronlist}} of matching neurons.}
 
 \item{nonmatching_neurons}{a \code{\link[nat]{neuronlist}} of non-matching
 neurons.}
+
+\item{matching_subset,non_matching_subset}{data.frames indicating which pairs
+of neurons in the two input neuron lists should be used to generate the
+matching and null distributions. See details for the default behaviour when
+\code{NULL}.}
 
 \item{ignoreSelf}{a Boolean indicating whether to ignore comparisons of a
 neuron against itself (default \code{TRUE}).}
@@ -36,6 +41,27 @@ A matrix with columns as specified by \code{dotprodbreaks} and rows
   segments with the given distance and dot product.
 }
 \description{
-Create a scoring matrix given matching and non-matching sets of neurons
+Calculate a scoring matrix embodying the logarithm of the odds
+  that a matching pair of neurite segments come from a structurally related
+  rather than random pair of neurons. This function embodies sensible default
+  behaviours. More control is available by using the individual functions
+  listed in \bold{seealso}.
+}
+\details{
+By default \code{create_smat} will use all neurons in
+  \code{matching_neurons} to create the matching distribution. This is
+  appropriate if all of these neurons are of a single type. If you wish to
+  use multiple types of neurons then you will need to specify a
+  \code{matching_subset} to indicate which pairs of neurons are of the same
+  type.
+
+  By default \code{create_smat} will use a random set of pairs from
+  \code{non_matching_neurons} to create the null distribution. The number of
+  random pairs will be equal to the number of matching pairs defined by
+  \code{matching_neurons} This is appropriate if non_matching_neurons
+  contains a large collection of neurons of different types. You may wish to
+  set the random seed using \code{\link{set.seed}} if you want to ensure that
+  exactly the same (pseudo-)random pairs of neurons are used in subsequent
+  calls.
 }
 
