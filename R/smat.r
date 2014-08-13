@@ -84,17 +84,17 @@ calc_dists_dotprods <- function(query_neurons, target_neurons, subset=NULL, igno
   mlply(subset, collect_one_pair, ...)
 }
 
-#' Utility function for generating random (or all) pairs of neurons
+#' Utility function to generate all or random pairs of neurons
 #'
 #' @param x neuronlist or character vector of names
-#' @param n number of random pairs to draw. When NA, uses expand.grid to draw
-#'   all pairs.
+#' @param n number of random pairs to draw. When NA, the default, uses
+#'   \code{expand.grid} to draw all pairs.
 #' @return a data.frame with two character vector columns, query and target.
 #' @export
-#' @seealso calc_score_matrix
+#' @seealso \code{\link{calc_score_matrix}, \link{expand.grid}}
 #' @examples
-#' random_pairs(nat::kcs20, n=20)
-random_pairs<-function(x, n){
+#' neuron_pairs(nat::kcs20, n=20)
+neuron_pairs<-function(x, n=NA){
   if(!is.character(x)) x=names(x)
   if(is.na(n)) {
     return(expand.grid(query=x, target=x, stringsAsFactors=FALSE, KEEP.OUT.ATTRS = FALSE))

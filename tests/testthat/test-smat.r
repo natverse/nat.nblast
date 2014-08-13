@@ -16,10 +16,10 @@ test_that("calculation of score matrices is correct", {
   expect_equal(score_mat.expected, score_mat.actual)
 })
 
-test_that("random_pairs",{
-  expect_equal(random_pairs(kcs20, n=NA),
+test_that("neuron_pairs",{
+  expect_equal(neuron_pairs(kcs20, n=NA),
                expand.grid(query=names(kcs20), target=names(kcs20), stringsAsFactors = FALSE, KEEP.OUT.ATTRS=FALSE))
-  expect_is(df<-random_pairs(kcs20, n=10), 'data.frame')
+  expect_is(df<-neuron_pairs(kcs20, n=10), 'data.frame')
   expect_equal(nrow(df), 10L)
   expect_is(df$query, 'character')
 })
