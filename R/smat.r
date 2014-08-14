@@ -55,7 +55,7 @@ create_smat <- function(matching_neurons, nonmatching_neurons,
                                   ignoreSelf=ignoreSelf, ...)
   # generate random set of neuron pairs of same length as the matching set
   if(is.null(non_matching_subset))
-    rand.subset = neuron_pairs(nonmatching_neurons, length(match.dd))
+    non_matching_subset = neuron_pairs(nonmatching_neurons, length(match.dd))
   rand.dd <- calc_dists_dotprods(nonmatching_neurons, subset=non_matching_subset,
                                  ignoreSelf=ignoreSelf, ...)
 
