@@ -323,7 +323,7 @@ WeightedNNBasedLinesetMatching.default<-function(n1,n2,dvs1=NULL,dvs2=NULL,alpha
     }
   }
 
-  NNDistFun(nnn1$nn.dists,dps,...)
+  NNDistFun(as.vector(nnn1$nn.dists),dps,...)
 }
 
 
