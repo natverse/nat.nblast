@@ -3,8 +3,8 @@
 #' @description Calculate a scoring matrix embodying the logarithm of the odds
 #'   that a matching pair of neurite segments come from a structurally related
 #'   rather than random pair of neurons. This function embodies sensible default
-#'   behaviours. More control is available by using the individual functions
-#'   listed in \bold{seealso}.
+#'   behaviours and is recommended for end users. More control is available by
+#'   using the individual functions listed in \bold{seealso}.
 #'
 #' @details By default \code{create_smat} will use all neurons in
 #'   \code{matching_neurons} to create the matching distribution. This is
@@ -34,15 +34,17 @@
 #'   probability matrix.
 #' @param dotprodbreaks a vector specifying the breaks for dot products in the
 #'   probability matrix.
-#' @param logbase the base to which the logarithm should be taken to produce the
-#'   final scores.
-#' @param ... extra arguments to pass to \code{\link{NeuriteBlast}}.
+#' @param ... extra arguments to pass to \code{\link{NeuriteBlast}} or options
+#'   for the call to \code{\link[plyr]{mlply}} call that actaully iterates over
+#'   neuron pairs.
 #' @inheritParams calc_score_matrix
 #'
 #' @return A matrix with columns as specified by \code{dotprodbreaks} and rows
 #'   as specified by \code{distbreaks}, containing log odd scores for neuron
 #'   segments with the given distance and dot product.
 #' @export
+#' @seealso \code{\link{calc_score_matrix}, \link{calc_prob_mat},
+#'   \link{calc_dists_dotprods}, \link{neuron_pairs}}
 create_smat <- function(matching_neurons, nonmatching_neurons,
                         matching_subset=NULL, non_matching_subset=NULL,
                         ignoreSelf=TRUE, distbreaks,

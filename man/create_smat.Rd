@@ -27,10 +27,12 @@ probability matrix.}
 \item{dotprodbreaks}{a vector specifying the breaks for dot products in the
 probability matrix.}
 
+\item{...}{extra arguments to pass to \code{\link{NeuriteBlast}} or options
+for the call to \code{\link[plyr]{mlply}} call that actaully iterates over
+neuron pairs.}
+
 \item{logbase}{the base to which the logarithm should be taken to produce the
 final scores.}
-
-\item{...}{extra arguments to pass to \code{\link{NeuriteBlast}}.}
 
 \item{epsilon}{a pseudocount to prevent division by zero when constructing
   the log odds ratio in the probability matrix.}
@@ -44,8 +46,8 @@ A matrix with columns as specified by \code{dotprodbreaks} and rows
 Calculate a scoring matrix embodying the logarithm of the odds
   that a matching pair of neurite segments come from a structurally related
   rather than random pair of neurons. This function embodies sensible default
-  behaviours. More control is available by using the individual functions
-  listed in \bold{seealso}.
+  behaviours and is recommended for end users. More control is available by
+  using the individual functions listed in \bold{seealso}.
 }
 \details{
 By default \code{create_smat} will use all neurons in
@@ -63,5 +65,9 @@ By default \code{create_smat} will use all neurons in
   set the random seed using \code{\link{set.seed}} if you want to ensure that
   exactly the same (pseudo-)random pairs of neurons are used in subsequent
   calls.
+}
+\seealso{
+\code{\link{calc_score_matrix}, \link{calc_prob_mat},
+  \link{calc_dists_dotprods}, \link{neuron_pairs}}
 }
 
