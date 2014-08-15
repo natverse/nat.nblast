@@ -19,9 +19,10 @@ final scores.}
   the log odds ratio in the probability matrix.}
 }
 \value{
-A matrix with columns as specified by \code{dotprodbreaks} and rows
-  as specified by \code{distbreaks}, containing scores for neuron segments
-  with the given distance and dot product.
+A matrix with with \code{class=c("scoringmatrix", "table")}, with
+  columns as specified by \code{dotprodbreaks} and rows as specified by
+  \code{distbreaks}, containing scores for neuron segments with the given
+  distance and dot product.
 }
 \description{
 Calculate score matrix from probability matrices for matching and

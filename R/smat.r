@@ -179,9 +179,10 @@ calc_prob_mat <- function(nndists, dotprods, distbreaks, dotprodbreaks=seq(0, 1,
 #' @param epsilon a pseudocount to prevent division by zero when constructing
 #'   the log odds ratio in the probability matrix.
 #'
-#' @return A matrix with columns as specified by \code{dotprodbreaks} and rows
-#'   as specified by \code{distbreaks}, containing scores for neuron segments
-#'   with the given distance and dot product.
+#' @return A matrix with with \code{class=c("scoringmatrix", "table")}, with
+#'   columns as specified by \code{dotprodbreaks} and rows as specified by
+#'   \code{distbreaks}, containing scores for neuron segments with the given
+#'   distance and dot product.
 #' @export
 calc_score_matrix <- function(matchmat, randmat, logbase=2, epsilon=1e-6) {
   distbreaks <- attr(matchmat, "distbreaks")
@@ -195,5 +196,7 @@ calc_score_matrix <- function(matchmat, randmat, logbase=2, epsilon=1e-6) {
     distbreaks[-ndistbreaks], distbreaks[-ndistbreaks], check.attributes=FALSE)))
     stop("Mismatch between distance breaks used for match and null models.")
 
-  log((matchmat + epsilon) / (randmat + epsilon), logbase)
+  smat=log((matchmat + epsilon) / (randmat + epsilon), logbase)
+  class(smat)=c("scoringmatrix", class(smat))
+  smat
 }
