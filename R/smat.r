@@ -55,7 +55,7 @@ create_smat <- function(matching_neurons, nonmatching_neurons,
                                   ignoreSelf=ignoreSelf, ...)
   # generate random set of neuron pairs of same length as the matching set
   if(is.null(non_matching_subset))
-    non_matching_subset = neuron_pairs(nonmatching_neurons, length(match.dd))
+    non_matching_subset = neuron_pairs(nonmatching_neurons, n=length(match.dd))
   rand.dd <- calc_dists_dotprods(nonmatching_neurons, subset=non_matching_subset,
                                  ignoreSelf=ignoreSelf, ...)
 
@@ -114,7 +114,8 @@ calc_dists_dotprods <- function(query_neurons, target_neurons, subset=NULL, igno
 
 #' Utility function to generate all or random pairs of neurons
 #'
-#' @param x neuronlist or character vector of names
+#' @param query,target either neuronlists or character vectors of names. If
+#'   target is missing, query will be used as both query and target.
 #' @param n number of random pairs to draw. When NA, the default, uses
 #'   \code{expand.grid} to draw all pairs.
 #' @return a data.frame with two character vector columns, query and target.
@@ -122,14 +123,19 @@ calc_dists_dotprods <- function(query_neurons, target_neurons, subset=NULL, igno
 #' @seealso \code{\link{calc_score_matrix}, \link{expand.grid}}
 #' @examples
 #' neuron_pairs(nat::kcs20, n=20)
-neuron_pairs<-function(x, n=NA){
-  if(!is.character(x)) x=names(x)
+neuron_pairs<-function(query, target, n=NA, includeSelf=FALSE){
+  if(!is.character(query)) query=names(query)
+  if(missing(target)) target=query
+  else if(!is.character(target)) target=names(target)
   if(is.na(n)) {
-    return(expand.grid(query=x, target=x, stringsAsFactors=FALSE, KEEP.OUT.ATTRS = FALSE))
+    return(expand.grid(query=query, target=query, stringsAsFactors=FALSE,
+                       KEEP.OUT.ATTRS = FALSE))
   }
-  q=sample.int(length(x), n, replace=T)
-  t=sapply(q, function(z) sample(seq_along(x)[-z], 1))
-  data.frame(query=x[q], target=x[t], stringsAsFactors = F)
+  # make a note of whether we need to remove self matches
+  remove_self = !includeSelf && any(query%in%target)
+  q=sample(query, n, replace=TRUE)
+  t=sapply(q, function(z) sample(if(remove_self) setdiff(target, z) else target, 1))
+  data.frame(query=q, target=t, stringsAsFactors = F)
 }
 
 #' Calculate probability matrix from distances and dot products between neuron
