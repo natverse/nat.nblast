@@ -3,13 +3,17 @@
 \alias{neuron_pairs}
 \title{Utility function to generate all or random pairs of neurons}
 \usage{
-neuron_pairs(x, n = NA)
+neuron_pairs(query, target, n = NA, ignoreSelf = TRUE)
 }
 \arguments{
-\item{x}{neuronlist or character vector of names}
+\item{query,target}{either neuronlists or character vectors of names. If
+target is missing, query will be used as both query and target.}
 
 \item{n}{number of random pairs to draw. When NA, the default, uses
 \code{expand.grid} to draw all pairs.}
+
+\item{ignoreSelf}{Logical indicating whether to omit pairs consisting of the
+same neuron (default \code{TRUE}).}
 }
 \value{
 a data.frame with two character vector columns, query and target.

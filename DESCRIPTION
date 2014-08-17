@@ -11,7 +11,7 @@ Depends:
     rgl
 Imports:
     RANN,
-    nat (>= 1.5.7),
+    nat (>= 1.5.12),
     bigmemory,
     ff,
     dendroextras,

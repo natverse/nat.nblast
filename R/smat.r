@@ -45,6 +45,25 @@
 #' @export
 #' @seealso \code{\link{calc_score_matrix}, \link{calc_prob_mat},
 #'   \link{calc_dists_dotprods}, \link{neuron_pairs}}
+#' @examples
+#' # bring in some mushroom body neurons
+#' library(nat)
+#' data(kcs20)
+#' # convert the (connected) tracings into dotprops (point and vector)
+#' # representation, resampling at 1 micron intervals along neuron
+#' fctraces20.dps=dotprops(fctraces20, resample=1)
+#' # we will use both all kcs vs all fctraces20 and fctraces20 vs fctraces20
+#' # as random_pairs to make the null distribution
+#' random_pairs=rbind(neuron_pairs(fctraces20), neuron_pairs(nat::kcs20, fctraces20))
+#' smat=create_smat(kcs20, c(kcs20, fctraces20.dps), non_matching_subset=random_pairs, .progress='text')
+#' distbreaks=attr(smat,'distbreaks')
+#' distbreaks=distbreaks[-length(distbreaks)]
+#' dotprodbreaks=attr(smat,'dotprodbreaks')[-1]
+#' # Create a function interpolating colors in the range of specified colors
+#' jet.colors <- colorRampPalette( c("blue", "green", "yellow", "red") )
+#' # 3d perspective plot of the scoring matrix
+#' persp3d(x=distbreaks, y=dotprodbreaks, z=smat, col=jet.colors(20)[cut(smat,20)],
+#' xlab='distance /um', ylab='abs dot product', zlab='log odds ratio')
 create_smat <- function(matching_neurons, nonmatching_neurons,
                         matching_subset=NULL, non_matching_subset=NULL,
                         ignoreSelf=TRUE, distbreaks,
@@ -55,7 +74,7 @@ create_smat <- function(matching_neurons, nonmatching_neurons,
                                   ignoreSelf=ignoreSelf, ...)
   # generate random set of neuron pairs of same length as the matching set
   if(is.null(non_matching_subset))
-    rand.subset = neuron_pairs(nonmatching_neurons, length(match.dd))
+    non_matching_subset = neuron_pairs(nonmatching_neurons, n=length(match.dd))
   rand.dd <- calc_dists_dotprods(nonmatching_neurons, subset=non_matching_subset,
                                  ignoreSelf=ignoreSelf, ...)
 
@@ -92,8 +111,7 @@ create_smat <- function(matching_neurons, nonmatching_neurons,
 calc_dists_dotprods <- function(query_neurons, target_neurons, subset=NULL, ignoreSelf=TRUE, ...) {
   if(missing(target_neurons)) target_neurons <- query_neurons
   if(is.null(subset)) {
-    subset <- expand.grid(query=names(query_neurons), target=names(target_neurons),
-                          stringsAsFactors=FALSE, KEEP.OUT.ATTRS = FALSE)
+    subset <- neuron_pairs(query=query_neurons, target=target_neurons)
   } else {
     if(!is.data.frame(subset) || !all(sapply(subset, is.character)))
       stop("Subset must be a data.frame with two character columns specifying query and target neurons by name, with one row for each pair.")
@@ -114,22 +132,32 @@ calc_dists_dotprods <- function(query_neurons, target_neurons, subset=NULL, igno
 
 #' Utility function to generate all or random pairs of neurons
 #'
-#' @param x neuronlist or character vector of names
+#' @param query,target either neuronlists or character vectors of names. If
+#'   target is missing, query will be used as both query and target.
 #' @param n number of random pairs to draw. When NA, the default, uses
 #'   \code{expand.grid} to draw all pairs.
+#' @param ignoreSelf Logical indicating whether to omit pairs consisting of the
+#'   same neuron (default \code{TRUE}).
 #' @return a data.frame with two character vector columns, query and target.
 #' @export
 #' @seealso \code{\link{calc_score_matrix}, \link{expand.grid}}
 #' @examples
 #' neuron_pairs(nat::kcs20, n=20)
-neuron_pairs<-function(x, n=NA){
-  if(!is.character(x)) x=names(x)
+neuron_pairs<-function(query, target, n=NA, ignoreSelf=TRUE){
+  if(!is.character(query)) query=names(query)
+  if(missing(target)) target=query
+  else if(!is.character(target)) target=names(target)
   if(is.na(n)) {
-    return(expand.grid(query=x, target=x, stringsAsFactors=FALSE, KEEP.OUT.ATTRS = FALSE))
+    rval=expand.grid(query=query, target=target, stringsAsFactors=FALSE,
+                       KEEP.OUT.ATTRS = FALSE)
+    if(ignoreSelf) rval <- rval[rval$target != rval$query, ]
+    return(rval)
   }
-  q=sample.int(length(x), n, replace=T)
-  t=sapply(q, function(z) sample(seq_along(x)[-z], 1))
-  data.frame(query=x[q], target=x[t], stringsAsFactors = F)
+  # make a note of whether we need to remove self matches
+  remove_self = ignoreSelf && any(query%in%target)
+  q=sample(query, n, replace=TRUE)
+  t=sapply(q, function(z) sample(if(remove_self) setdiff(target, z) else target, 1))
+  data.frame(query=q, target=t, stringsAsFactors = F)
 }
 
 #' Calculate probability matrix from distances and dot products between neuron
@@ -168,7 +196,7 @@ calc_prob_mat <- function(nndists, dotprods, distbreaks, dotprodbreaks=seq(0, 1,
 }
 
 
-#' Calculate score matrix from probability matrices for matching and
+#' Calculate scoring matrix from probability matrices for matching and
 #' non-matching sets of neurons
 #'
 #' @param matchmat a probability matrix given by considering 'matching' neurons.
@@ -179,9 +207,10 @@ calc_prob_mat <- function(nndists, dotprods, distbreaks, dotprodbreaks=seq(0, 1,
 #' @param epsilon a pseudocount to prevent division by zero when constructing
 #'   the log odds ratio in the probability matrix.
 #'
-#' @return A matrix with columns as specified by \code{dotprodbreaks} and rows
-#'   as specified by \code{distbreaks}, containing scores for neuron segments
-#'   with the given distance and dot product.
+#' @return A matrix with with \code{class=c("scoringmatrix", "table")}, with
+#'   columns as specified by \code{dotprodbreaks} and rows as specified by
+#'   \code{distbreaks}, containing scores for neuron segments with the given
+#'   distance and dot product.
 #' @export
 calc_score_matrix <- function(matchmat, randmat, logbase=2, epsilon=1e-6) {
   distbreaks <- attr(matchmat, "distbreaks")
@@ -195,5 +224,7 @@ calc_score_matrix <- function(matchmat, randmat, logbase=2, epsilon=1e-6) {
     distbreaks[-ndistbreaks], distbreaks[-ndistbreaks], check.attributes=FALSE)))
     stop("Mismatch between distance breaks used for match and null models.")
 
-  log((matchmat + epsilon) / (randmat + epsilon), logbase)
+  smat=log((matchmat + epsilon) / (randmat + epsilon), logbase)
+  class(smat)=c("scoringmatrix", class(smat))
+  smat
 }
