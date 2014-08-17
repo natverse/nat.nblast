@@ -45,6 +45,25 @@
 #' @export
 #' @seealso \code{\link{calc_score_matrix}, \link{calc_prob_mat},
 #'   \link{calc_dists_dotprods}, \link{neuron_pairs}}
+#' @examples
+#' # bring in some mushroom body neurons
+#' library(nat)
+#' data(kcs20)
+#' # convert the (connected) tracings into dotprops (point and vector)
+#' # representation, resampling at 1 micron intervals along neuron
+#' fctraces20.dps=dotprops(fctraces20, resample=1)
+#' # we will use both all kcs vs all fctraces20 and fctraces20 vs fctraces20
+#' # as random_pairs to make the null distribution
+#' random_pairs=rbind(neuron_pairs(fctraces20), neuron_pairs(nat::kcs20, fctraces20))
+#' smat=create_smat(kcs20, c(kcs20, fctraces20.dps), non_matching_subset=random_pairs, .progress='text')
+#' distbreaks=attr(smat,'distbreaks')
+#' distbreaks=distbreaks[-length(distbreaks)]
+#' dotprodbreaks=attr(smat,'dotprodbreaks')[-1]
+#' # Create a function interpolating colors in the range of specified colors
+#' jet.colors <- colorRampPalette( c("blue", "green", "yellow", "red") )
+#' # 3d perspective plot of the scoring matrix
+#' persp3d(x=distbreaks, y=dotprodbreaks, z=smat, col=jet.colors(20)[cut(smat,20)],
+#' xlab='distance /um', ylab='abs dot product', zlab='log odds ratio')
 create_smat <- function(matching_neurons, nonmatching_neurons,
                         matching_subset=NULL, non_matching_subset=NULL,
                         ignoreSelf=TRUE, distbreaks,
