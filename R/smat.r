@@ -196,7 +196,7 @@ calc_prob_mat <- function(nndists, dotprods, distbreaks, dotprodbreaks=seq(0, 1,
 }
 
 
-#' Calculate score matrix from probability matrices for matching and
+#' Calculate scoring matrix from probability matrices for matching and
 #' non-matching sets of neurons
 #'
 #' @param matchmat a probability matrix given by considering 'matching' neurons.
