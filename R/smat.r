@@ -118,21 +118,25 @@ calc_dists_dotprods <- function(query_neurons, target_neurons, subset=NULL, igno
 #'   target is missing, query will be used as both query and target.
 #' @param n number of random pairs to draw. When NA, the default, uses
 #'   \code{expand.grid} to draw all pairs.
+#' @param ignoreSelf Logical indicating whether to omit pairs consisting of the
+#'   same neuron (default \code{TRUE}).
 #' @return a data.frame with two character vector columns, query and target.
 #' @export
 #' @seealso \code{\link{calc_score_matrix}, \link{expand.grid}}
 #' @examples
 #' neuron_pairs(nat::kcs20, n=20)
-neuron_pairs<-function(query, target, n=NA, includeSelf=FALSE){
+neuron_pairs<-function(query, target, n=NA, ignoreSelf=TRUE){
   if(!is.character(query)) query=names(query)
   if(missing(target)) target=query
   else if(!is.character(target)) target=names(target)
   if(is.na(n)) {
-    return(expand.grid(query=query, target=query, stringsAsFactors=FALSE,
-                       KEEP.OUT.ATTRS = FALSE))
+    rval=expand.grid(query=query, target=target, stringsAsFactors=FALSE,
+                       KEEP.OUT.ATTRS = FALSE)
+    if(ignoreSelf) rval <- rval[rval$target != rval$query, ]
+    return(rval)
   }
   # make a note of whether we need to remove self matches
-  remove_self = !includeSelf && any(query%in%target)
+  remove_self = ignoreSelf && any(query%in%target)
   q=sample(query, n, replace=TRUE)
   t=sapply(q, function(z) sample(if(remove_self) setdiff(target, z) else target, 1))
   data.frame(query=q, target=t, stringsAsFactors = F)

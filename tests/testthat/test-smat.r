@@ -17,8 +17,9 @@ test_that("calculation of score matrices is correct", {
 })
 
 test_that("neuron_pairs",{
-  expect_equal(neuron_pairs(kcs20, n=NA),
+  expect_equal(allpairs<-neuron_pairs(kcs20, n=NA, ignoreSelf=FALSE),
                expand.grid(query=names(kcs20), target=names(kcs20), stringsAsFactors = FALSE, KEEP.OUT.ATTRS=FALSE))
+  expect_equal(neuron_pairs(kcs20, n=NA), allpairs[allpairs$target!=allpairs$query,])
   expect_is(df<-neuron_pairs(kcs20, n=10), 'data.frame')
   expect_equal(nrow(df), 10L)
   expect_is(df$query, 'character')
