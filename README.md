@@ -1,8 +1,7 @@
 # nat.nblast
 [![Build Status](https://travis-ci.org/jefferislab/nat.nblast.svg)](https://travis-ci.org/jefferislab/nat.nblast)
 
-Quick Start
-===========
+## Quick Start
 
 For the impatient ...
 
@@ -19,8 +18,14 @@ library(nat.nblast)
 # example clustering 20 Kenyon cells by morphology
 data(kcs20, package='nat')
 kcs20.scores=nblast_allbyall(kcs20)
-hcks=nhclust(scoremat = kcs20.scores)
-plot3d(hcks, k=3, db=kcs20)
+hckcs=nhclust(scoremat = kcs20.scores)
+plot(hckcs)
+library(dendroextras)
+hckcs.d=colour_clusters(hckcs, k=3)
+plot(hckcs.d)
+# the three groups correspond to alpha/beta, alpha'/beta', and gamma neurons,
+# respectively. 
+plot3d(hckcs, k=3, db=kcs20)
 ```
 
 ## Introduction
