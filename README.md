@@ -17,15 +17,22 @@ library(nat.nblast)
 
 # example clustering 20 Kenyon cells by morphology
 data(kcs20, package='nat')
+# all by all nblast scores
 kcs20.scores=nblast_allbyall(kcs20)
+# cluster using ward's (default) hierarchical clustering
 hckcs=nhclust(scoremat = kcs20.scores)
+# plot resultant dendrogram
 plot(hckcs)
+# the three groups (red, green, blue) correspond to alpha/beta, alpha'/beta', 
+# and gamma neurons, respectively. 
+plot3d(hckcs, k=3, db=kcs20)
+
+# colour dendrogram 
 library(dendroextras)
 hckcs.d=colour_clusters(hckcs, k=3)
 plot(hckcs.d)
-# the three groups correspond to alpha/beta, alpha'/beta', and gamma neurons,
-# respectively. 
-plot3d(hckcs, k=3, db=kcs20)
+# label neurons according to manually defined morphological type:
+labels(hckcs.d)=with(kcs20[labels(hckcs.d)],as.character(type))
 ```
 
 ## Introduction
