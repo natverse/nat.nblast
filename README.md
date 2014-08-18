@@ -25,6 +25,7 @@ hckcs=nhclust(scoremat = kcs20.scores)
 plot(hckcs)
 # the three groups (red, green, blue) correspond to alpha/beta, alpha'/beta', 
 # and gamma neurons, respectively. 
+open3d()
 plot3d(hckcs, k=3, db=kcs20)
 
 # colour dendrogram 
