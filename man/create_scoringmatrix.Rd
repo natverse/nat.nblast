@@ -83,9 +83,16 @@ distbreaks=distbreaks[-length(distbreaks)]
 dotprodbreaks=attr(smat,'dotprodbreaks')[-1]
 # Create a function interpolating colors in the range of specified colors
 jet.colors <- colorRampPalette( c("blue", "green", "yellow", "red") )
+# 2d filled contour plot of scoring matrix. Notice that the there is a region
+# at small distances and large abs dot product with the highest log odds ratio
+# i.e. most indicative of a match rather than non-match
+filled.contour(x=distbreaks, y=dotprodbreaks, z=smat, col=jet.colors(20),
+  main='smat: log odds ratio', xlab='distance /um', ylab='abs dot product')
+\dontrun{
 # 3d perspective plot of the scoring matrix
 persp3d(x=distbreaks, y=dotprodbreaks, z=smat, col=jet.colors(20)[cut(smat,20)],
 xlab='distance /um', ylab='abs dot product', zlab='log odds ratio')
+}
 }
 \seealso{
 \code{\link{calc_score_matrix}, \link{calc_prob_mat},
