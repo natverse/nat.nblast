@@ -30,9 +30,9 @@ plot3d(hckcs, k=3, db=kcs20)
 # colour dendrogram 
 library(dendroextras)
 hckcs.d=colour_clusters(hckcs, k=3)
-plot(hckcs.d)
 # label neurons according to manually defined morphological type:
 labels(hckcs.d)=with(kcs20[labels(hckcs.d)],as.character(type))
+plot(hckcs.d)
 ```
 
 ## Introduction
