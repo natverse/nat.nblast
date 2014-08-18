@@ -6,14 +6,14 @@
 #'   behaviours and is recommended for end users. More control is available by
 #'   using the individual functions listed in \bold{seealso}.
 #'
-#' @details By default \code{create_smat} will use all neurons in
+#' @details By default \code{create_scoringmatrix} will use all neurons in
 #'   \code{matching_neurons} to create the matching distribution. This is
 #'   appropriate if all of these neurons are of a single type. If you wish to
 #'   use multiple types of neurons then you will need to specify a
 #'   \code{matching_subset} to indicate which pairs of neurons are of the same
 #'   type.
 #'
-#'   By default \code{create_smat} will use a random set of pairs from
+#'   By default \code{create_scoringmatrix} will use a random set of pairs from
 #'   \code{non_matching_neurons} to create the null distribution. The number of
 #'   random pairs will be equal to the number of matching pairs defined by
 #'   \code{matching_neurons} This is appropriate if non_matching_neurons
@@ -55,7 +55,7 @@
 #' # we will use both all kcs vs all fctraces20 and fctraces20 vs fctraces20
 #' # as random_pairs to make the null distribution
 #' random_pairs=rbind(neuron_pairs(fctraces20), neuron_pairs(nat::kcs20, fctraces20))
-#' smat=create_smat(kcs20, c(kcs20, fctraces20.dps), non_matching_subset=random_pairs, .progress='text')
+#' smat=create_scoringmatrix(kcs20, c(kcs20, fctraces20.dps), non_matching_subset=random_pairs, .progress='text')
 #' distbreaks=attr(smat,'distbreaks')
 #' distbreaks=distbreaks[-length(distbreaks)]
 #' dotprodbreaks=attr(smat,'dotprodbreaks')[-1]
@@ -64,7 +64,7 @@
 #' # 3d perspective plot of the scoring matrix
 #' persp3d(x=distbreaks, y=dotprodbreaks, z=smat, col=jet.colors(20)[cut(smat,20)],
 #' xlab='distance /um', ylab='abs dot product', zlab='log odds ratio')
-create_smat <- function(matching_neurons, nonmatching_neurons,
+create_scoringmatrix <- function(matching_neurons, nonmatching_neurons,
                         matching_subset=NULL, non_matching_subset=NULL,
                         ignoreSelf=TRUE, distbreaks,
                         dotprodbreaks=seq(0, 1, by=0.1), logbase=2,
