@@ -29,6 +29,6 @@ direction, or as \code{1 - normscorebar}, where \code{normscorebar} is
 \code{normscore} averaged across both directions.
 }
 \seealso{
-\code{\link{big.matrix}, \link{ff}}
+\code{\link{sub_dist_mat}}
 }
 

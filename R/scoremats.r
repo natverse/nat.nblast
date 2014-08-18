@@ -16,7 +16,7 @@
 #'   \code{'mean'} (i.e. the average of normalised scores in both directions).
 #'   If \code{distance=TRUE} then this cannot be raw.
 #' @export
-#' @seealso \code{\link{big.matrix}, \link{ff}}
+#' @seealso \code{\link{sub_dist_mat}}
 sub_score_mat <- function(query, target, scoremat=NULL, distance=FALSE, normalisation=c('raw', 'normalised', 'mean')) {
   # Check arguments
   normalisation <- match.arg(normalisation)
