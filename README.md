@@ -1,9 +1,32 @@
 # nat.nblast
 [![Build Status](https://travis-ci.org/jefferislab/nat.nblast.svg)](https://travis-ci.org/jefferislab/nat.nblast)
 
+Quick Start
+===========
+
+For the impatient ...
+
+```r
+# install
+devtools::install_github(c("jefferis/nat", "jefferislab/nat.nblast"))
+
+# use
+library(nat.nblast)
+
+# get help
+?nat.nblast
+
+# example clustering 20 Kenyon cells by morphology
+data(kcs20, package='nat')
+kcs20.scores=nblast_allbyall(kcs20)
+hcks=nhclust(scoremat = kcs20.scores)
+plot3d(hcks, k=3, db=kcs20)
+```
+
+## Introduction
 This R package implements the NBLAST neuron similarity algorithm described in a preprint available at
-<http://dx.doi.org/10.1101/006346>.  In addition to basic pairwise comparison, the package also implements search of
-databases of neurons.  There is also suport for all x all comparison for a group of neurons, that can produce a distance
+<http://dx.doi.org/10.1101/006346>.  In addition to basic pairwise comparison, the package implements search of
+databases of neurons.  There is also suport for all x all comparison for a group of neurons. This can produce a distance
 matrix suitable for hierarchical clustering, which is also implemented in the package.
 
 These tools are designed as an addon for the [NeuroAnatomy Toolbox](https://github.com/jefferis/nat) (nat) R package, 
