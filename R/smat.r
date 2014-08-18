@@ -4,7 +4,7 @@
 #'   that a matching pair of neurite segments come from a structurally related
 #'   rather than random pair of neurons. This function embodies sensible default
 #'   behaviours and is recommended for end users. More control is available by
-#'   using the individual functions listed in \bold{seealso}.
+#'   using the individual functions listed in \bold{See Also}.
 #'
 #' @details By default \code{create_scoringmatrix} will use all neurons in
 #'   \code{matching_neurons} to create the matching distribution. This is
@@ -46,6 +46,7 @@
 #' @seealso \code{\link{calc_score_matrix}, \link{calc_prob_mat},
 #'   \link{calc_dists_dotprods}, \link{neuron_pairs}}
 #' @examples
+#' # calculate scoring matrix
 #' # bring in some mushroom body neurons
 #' library(nat)
 #' data(kcs20)
@@ -56,6 +57,8 @@
 #' # as random_pairs to make the null distribution
 #' random_pairs=rbind(neuron_pairs(fctraces20), neuron_pairs(nat::kcs20, fctraces20))
 #' smat=create_scoringmatrix(kcs20, c(kcs20, fctraces20.dps), non_matching_subset=random_pairs, .progress='text')
+#'
+#' # now plot the scoring matrix
 #' distbreaks=attr(smat,'distbreaks')
 #' distbreaks=distbreaks[-length(distbreaks)]
 #' dotprodbreaks=attr(smat,'dotprodbreaks')[-1]
@@ -66,6 +69,7 @@
 #' # i.e. most indicative of a match rather than non-match
 #' filled.contour(x=distbreaks, y=dotprodbreaks, z=smat, col=jet.colors(20),
 #'   main='smat: log odds ratio', xlab='distance /um', ylab='abs dot product')
+#'
 #' \dontrun{
 #' # 3d perspective plot of the scoring matrix
 #' persp3d(x=distbreaks, y=dotprodbreaks, z=smat, col=jet.colors(20)[cut(smat,20)],
