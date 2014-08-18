@@ -112,8 +112,6 @@ sub_dist_mat <- function(neuron_names, scoremat=NULL, form=c('matrix', 'dist'), 
 
 # Utility function to extract diagonal terms from matrices
 # uses the 'diagonal' attribute when available
-#' @importFrom bigmemory is.big.matrix
-#' @importFrom ff is.ff arrayIndex2vectorIndex
 diagonal<-function(x, indices=NULL){
   if(!isTRUE(nrow(x)==ncol(x))) stop("x is not a square matrix!")
 
@@ -124,12 +122,12 @@ diagonal<-function(x, indices=NULL){
 
   if(is.logical(indices)) indices=which(indices)
 
-  if(is.ff(x)){
+  if(inherits(x,"ff")){
     # convert array indices to vector indices
     if(is.null(indices)) indices=seq.int(nrow(x))
-    vidxs=arrayIndex2vectorIndex(cbind(indices,indices),dim=dim(x))
+    vidxs=ff::arrayIndex2vectorIndex(cbind(indices,indices),dim=dim(x))
     x[vidxs]
-  } else if(is.big.matrix(x)) {
+  } else if(inherits(x,"big.matrix")) {
     ndiags <- if(is.null(indices)){
       nrow(x)
     } else {

@@ -12,11 +12,11 @@ Depends:
 Imports:
     RANN,
     nat (>= 1.5.12),
-    bigmemory,
-    ff,
     dendroextras,
     plyr
 Suggests:
+    bigmemory,
+    ff,
     testthat
 License: GPL-3
 LazyData: yes
