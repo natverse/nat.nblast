@@ -13,7 +13,8 @@ Imports:
     RANN,
     nat (>= 1.5.12),
     dendroextras,
-    plyr
+    plyr,
+    densityClust
 Suggests:
     bigmemory,
     ff,

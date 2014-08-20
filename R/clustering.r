@@ -106,3 +106,25 @@ subset.hclust <- function(x, k=NULL, h=NULL, groups=NULL, ...) {
   }
   neurons
 }
+
+
+#' Cluster NBLAST scores using density clustering algorithm
+#'
+#' @param score_matrix a raw NBLAST score matrix.
+#' @param ... extra arguments to pass to
+#'   \code{\link[densityClust]{densityClust}}.
+#'
+#' @return An \code{ndclust} object (basically a \code{densityCluster} object,
+#'   see \link[densityClust]{densityClust}) with clusters assigned to all
+#'   neurons. See \code{\link[densityClust]{findClusters}}.
+#'
+#' @importFrom densityClust densityClust
+#' @importFrom densityClust findClusters
+#' @export
+ndclust <- function(score_matrix, ...) {
+  dist_matrix <- sub_dist_mat(scoremat=score_matrix)
+  dc <- densityClust(as.dist(dist_matrix), ...)
+  clusters <- findClusters(dc)
+  class(clusters) <- c('ndclust', class(clusters))
+  clusters
+}
