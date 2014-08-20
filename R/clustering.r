@@ -128,3 +128,30 @@ ndclust <- function(score_matrix, ...) {
   class(clusters) <- c('ndclust', class(clusters))
   clusters
 }
+
+
+#' Plot neurons in 3D based on density clustering
+#'
+#' @param x an \code{\link{ndclust}} object detailing the clustering of neurons.
+#' @param groups numeric vector of groups to plot.
+#' @param col colours for groups (directly specified or a function).
+#' @param ... additional arguments for \code{plot3d}.
+#'
+#' @return A list of rgl IDs for plotted objects (see \code{\link[rgl]{plot3d}}).
+#' @export
+plot3d.ndclust <- function(x, groups=NULL, col=rainbow, ...) {
+  k <- length(unique(x$clusters))
+  if(is.function(col))
+    col <- col(k)
+  else if(length(col)==1) col=rep(col,k)
+  neurons <- attr(x$rho, 'names')
+
+  neuron_colours <- col[x$clusters]
+  if(!is.null(groups)){
+    matching <- x$clusters %in% groups
+    neuron_colours <- neuron_colours[matching]
+    neurons <- neurons[matching]
+  }
+
+  nat:::plot3d.character(neurons, col=neuron_colours, ..., SUBSTITUTE=FALSE)
+}
