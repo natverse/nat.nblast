@@ -7,6 +7,7 @@ For the impatient ...
 
 ```r
 # install
+if (!require("devtools")) install.packages("devtools")
 devtools::install_github(c("jefferis/nat", "jefferislab/nat.nblast"))
 
 # use
@@ -35,11 +36,14 @@ These tools are designed as an addon for the [NeuroAnatomy Toolbox](https://gith
 which you must first install.
 
 ## Installation
-There is currently no released version on CRAN.
+There is currently no released version of **nat.nblast** on CRAN. Although 
+**nat** is available on CRAN, it it recommended that you install the development
+version of both packages from github; nat.nblast is evolving fast and has required
+several minor tweaks to nat, which is otherwise quite mature.
 
 ### Bleeding Edge
-You can, however, download the [tar ball](https://github.com/jefferislab/nat.nblast/tarball/master),
-and run `R CMD INSTALL` on it, or use the **devtools** package to install the development version:
+You can download the [tar ball](https://github.com/jefferislab/nat.nblast/tarball/master),
+and run `R CMD INSTALL` on it, or (recommended) use the **devtools** package to install the development version:
 
   ```r
 # install devtools if required
