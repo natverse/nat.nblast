@@ -27,6 +27,11 @@ test_that("we can calculate normalised nblast v2 scores", {
   expect_equivalent(nblast(testneurons[1:2], testneurons, normalised=TRUE), scores.norm)
 })
 
+test_that("we can calculate scores for regular neurons",{
+  library(nat)
+  nblast_allbyall(Cell07PNs[1:4])
+})
+
 test_that("we can calculate scores using getOption('nat.default.neuronlist')", {
   op=options(nat.default.neuronlist='testneurons')
   on.exit(options(op))
