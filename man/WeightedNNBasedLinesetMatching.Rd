@@ -2,27 +2,46 @@
 \name{WeightedNNBasedLinesetMatching}
 \alias{WeightedNNBasedLinesetMatching}
 \alias{WeightedNNBasedLinesetMatching.dotprops}
-\title{Compute point & tangent vector similarity score between two dotprops objects}
+\alias{WeightedNNBasedLinesetMatching.neuron}
+\title{Compute point & tangent vector similarity score between two linesets}
 \usage{
-WeightedNNBasedLinesetMatching(...)
+WeightedNNBasedLinesetMatching(target, query, ...)
 
-\method{WeightedNNBasedLinesetMatching}{dotprops}(dp1, dp2, UseAlpha = FALSE,
-  ...)
+\method{WeightedNNBasedLinesetMatching}{dotprops}(target, query,
+  UseAlpha = FALSE, ...)
+
+\method{WeightedNNBasedLinesetMatching}{neuron}(target, query,
+  UseAlpha = FALSE, OnlyClosestPoints = FALSE, ...)
 }
 \arguments{
-\item{dp1,dp2}{dotprops objects to compare.}
+\item{target,query}{dotprops or neuron objects to compare (must be of the
+same class)}
 
 \item{UseAlpha}{Whether to scale dot product of tangent vectors (default=F)}
 
 \item{...}{extra arguments to pass to the distance function.}
+
+\item{OnlyClosestPoints}{Whether to restrict searches to the closest points
+in the target (default FALSE, only implemented for dotprops).}
 }
 \value{
 Value of NNDistFun passd to WeightedNNBasedLinesetMatching
 }
 \description{
-UseAlpha determines whether the alpha values (eig1-eig2)/sum(eig1:3)
-are passed on to WeightedNNBasedLinesetMatching. These will be used to scale
-the dot products of the direction vectors for nearest neighbour pairs.
+WeightedNNBasedLinesetMatching will work with 2 objects of class
+  \code{dotprops} or \code{neuron}. The code to calculate scores directly for
+  \code{neuron} objects gives broadly comparable scores to that for
+  \code{dotprops} objects, but has been lightly tested. Furthermore only
+  objects in \code{dotprops} form were used in the constriction of the
+  scoring matrices distributed in this package. It is therefore recommended
+  to convert neuron objects to dotprops objects using the
+  \code{\link{dotprops}} function.
+}
+\details{
+\code{UseAlpha} determines whether the alpha values
+  (eig1-eig2)/sum(eig1:3) are passed on to WeightedNNBasedLinesetMatching.
+  These will be used to scale the dot products of the direction vectors for
+  nearest neighbour pairs.
 }
 \seealso{
 \code{\link[nat]{dotprops}}
