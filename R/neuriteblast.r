@@ -243,64 +243,88 @@ WeightedNNBasedLinesetDistFun<-function(nndists,dotproducts,sd,...){
 }
 
 
+#' Compute point & tangent vector similarity score between two linesets
+#'
+#' @description WeightedNNBasedLinesetMatching will work with 2 objects of class
+#'   \code{dotprops} or \code{neuron}. The code to calculate scores directly for
+#'   \code{neuron} objects gives broadly comparable scores to that for
+#'   \code{dotprops} objects, but has been lightly tested. Furthermore only
+#'   objects in \code{dotprops} form were used in the constriction of the
+#'   scoring matrices distributed in this package. It is therefore recommended
+#'   to convert neuron objects to dotprops objects using the
+#'   \code{\link{dotprops}} function.
 #' @rdname WeightedNNBasedLinesetMatching
+#' @param target,query dotprops or neuron objects to compare (must be of the
+#'   same class)
+#' @return Value of NNDistFun passd to WeightedNNBasedLinesetMatching
 #' @importFrom RANN nn2
 #' @export
-WeightedNNBasedLinesetMatching <- function(...) UseMethod("WeightedNNBasedLinesetMatching")
-
-#' Compute point & tangent vector similarity score between two dotprops objects
-#'
-#' UseAlpha determines whether the alpha values (eig1-eig2)/sum(eig1:3)
-#' are passed on to WeightedNNBasedLinesetMatching. These will be used to scale
-#' the dot products of the direction vectors for nearest neighbour pairs.
-#' @param dp1,dp2 dotprops objects to compare.
-#' @param UseAlpha Whether to scale dot product of tangent vectors (default=F)
-#' @param ... extra arguments to pass to the distance function.
-#' @return Value of NNDistFun passd to WeightedNNBasedLinesetMatching
-#' @export
-#' @seealso \code{\link[nat]{dotprops}}
-#' @rdname WeightedNNBasedLinesetMatching
-WeightedNNBasedLinesetMatching.dotprops<-function(dp1,dp2,UseAlpha=FALSE,...){
-  if(UseAlpha)
-    WeightedNNBasedLinesetMatching(dp1$points,dp2$points,dvs1=dp1$vect,dvs2=dp2$vect,
-                                   alphas1=dp1$alpha,alphas2=dp2$alpha,...)
-  else
-    WeightedNNBasedLinesetMatching(dp1$points,dp2$points,dvs1=dp1$vect,dvs2=dp2$vect,...)
+WeightedNNBasedLinesetMatching <- function(target, query, ...) {
+  if(!identical(class(target), class(query))) stop("target and query must have the same class!")
+  UseMethod("WeightedNNBasedLinesetMatching")
 }
 
 
-WeightedNNBasedLinesetMatching.default<-function(n1,n2,dvs1=NULL,dvs2=NULL,alphas1=NULL,
+#' @details \code{UseAlpha} determines whether the alpha values
+#'   (eig1-eig2)/sum(eig1:3) are passed on to WeightedNNBasedLinesetMatching.
+#'   These will be used to scale the dot products of the direction vectors for
+#'   nearest neighbour pairs.
+#' @param UseAlpha Whether to scale dot product of tangent vectors (default=F)
+#' @param ... extra arguments to pass to the distance function.
+#' @export
+#' @seealso \code{\link[nat]{dotprops}}
+#' @rdname WeightedNNBasedLinesetMatching
+WeightedNNBasedLinesetMatching.dotprops<-function(target, query, UseAlpha=FALSE, ...){
+  if(UseAlpha)
+    WeightedNNBasedLinesetMatching(target$points,query$points,dvs1=target$vect,dvs2=query$vect,
+                                   alphas1=target$alpha,alphas2=query$alpha,...)
+  else
+    WeightedNNBasedLinesetMatching(target$points,query$points,dvs1=target$vect,dvs2=query$vect,...)
+}
+
+
+#' @export
+#' @param OnlyClosestPoints Whether to restrict searches to the closest points
+#'   in the target (default FALSE, only implemented for dotprops).
+#' @rdname WeightedNNBasedLinesetMatching
+WeightedNNBasedLinesetMatching.neuron<-function(target, query, UseAlpha=FALSE,
+                                                OnlyClosestPoints=FALSE,...){
+  if(UseAlpha)
+    stop("UseAlpha is not yet implemented for neurons!")
+  if(OnlyClosestPoints)
+    stop("OnlyClosestPoints is not yet implemented for neurons!")
+  target=data.matrix(target$d[,c("X","Y","Z","Parent")])
+  query=data.matrix(query$d[,c("X","Y","Z","Parent")])
+  WeightedNNBasedLinesetMatching(target, query, ...)
+}
+
+
+WeightedNNBasedLinesetMatching.default<-function(target,query,dvs1=NULL,dvs2=NULL,alphas1=NULL,
                                         alphas2=NULL,NNDistFun=WeightedNNBasedLinesetDistFun,Verbose=FALSE,
                                         BothDirections=FALSE,BothDirectionsFun=list,OnlyClosestPoints=FALSE,...){
-  # my hybrid version
-  # returns a score based on the similarity of nearest neighbour location
+  # return a score based on the similarity of nearest neighbour location
   # and the dot product of the direction vectors
 
-  # accept either neurons or just the point dataframes
-  if(is.list(n1) & !is.data.frame(n1))
-    n1=data.matrix(n1$d[,c("X","Y","Z","Parent")])
-  if(is.list(n2) & !is.data.frame(n2))
-    n2=data.matrix(n2$d[,c("X","Y","Z","Parent")])
-
   NNDistFun=match.fun(NNDistFun)
-  BothDirectionsFun=match.fun(BothDirectionsFun)
   if(BothDirections){
-    f=WeightedNNBasedLinesetMatching(n1,n2,dvs1,dvs2,alphas1,alphas2,
-                                     NNDistFun=NNDistFun,Verbose=Verbose,BothDirections=FALSE,...)
-    b=WeightedNNBasedLinesetMatching(n2,n1,dvs1,dvs2,alphas1,alphas2,
-                                     NNDistFun=NNDistFun,Verbose=Verbose,BothDirections=FALSE,...)
+    BothDirectionsFun=match.fun(BothDirectionsFun)
+    f=WeightedNNBasedLinesetMatching(target,query,dvs1,dvs2,alphas1,alphas2,
+                                     NNDistFun=NNDistFun,Verbose=Verbose,BothDirections=FALSE,
+                                     OnlyClosestPoints=OnlyClosestPoints,...)
+    b=WeightedNNBasedLinesetMatching(query,target,dvs1,dvs2,alphas1,alphas2,
+                                     NNDistFun=NNDistFun,Verbose=Verbose,BothDirections=FALSE,
+                                     OnlyClosestPoints=OnlyClosestPoints,...)
     if(length(f)==1 && length(b)==1) return (BothDirectionsFun(f,b))
     if(length(dim(f))==1 && length(f)==length(b)) return (cbind(f,b))
     return(BothDirectionsFun(f,b))
   }
 
-  a=n1[,c("X","Y","Z")]
-  b=n2[,c("X","Y","Z")]
+  a=target[,c("X","Y","Z")]
+  b=query[,c("X","Y","Z")]
 
-  nnn1=RANN::nn2(a,b,k=1)
+  nntarget=RANN::nn2(a,b,k=1)
 
-
-  idxArray=cbind(nnn1$nn.idx,seq(length(nnn1$nn.idx)))
+  idxArray=cbind(nntarget$nn.idx,seq(length(nntarget$nn.idx)))
 
   # Need to supply a set of pairs of points.
   # will use the parent of each chosen point.
@@ -310,7 +334,7 @@ WeightedNNBasedLinesetMatching.default<-function(n1,n2,dvs1=NULL,dvs2=NULL,alpha
     if(OnlyClosestPoints==TRUE)
       stop("OnlyClosestPoints is not yet implemented for neurons")
     # Calculate the direction vectors
-    dvs=findDirectionVectorsFromParents(n1,n2,idxArray,ReturnAllIndices=TRUE,Verbose=Verbose)
+    dvs=findDirectionVectorsFromParents(target,query,idxArray,ReturnAllIndices=TRUE,Verbose=Verbose)
 
     # Calculate segment lengths
     l1.seglengths=normbyrow(dvs[,1:3])
@@ -327,9 +351,9 @@ WeightedNNBasedLinesetMatching.default<-function(n1,n2,dvs1=NULL,dvs2=NULL,alpha
     if(OnlyClosestPoints){
       # sort by increasing distance between pairs
       # remove duplicates in target
-      targetdupes=duplicated(nnn1$nn.idx[order(nnn1$nn.dist)])
+      targetdupes=duplicated(nntarget$nn.idx[order(nntarget$nn.dist)])
       idxArray=idxArray[!targetdupes,,drop=FALSE]
-      nnn1$nn.dists=nnn1$nn.dists[!targetdupes]
+      nntarget$nn.dists=nntarget$nn.dists[!targetdupes]
     }
     dps=abs(dotprod(dvs1[idxArray[,1],],dvs2[idxArray[,2],]))
     if(!is.null(alphas1) && !is.null(alphas2)){
@@ -342,7 +366,7 @@ WeightedNNBasedLinesetMatching.default<-function(n1,n2,dvs1=NULL,dvs2=NULL,alpha
     }
   }
 
-  NNDistFun(as.vector(nnn1$nn.dists),dps,...)
+  NNDistFun(as.vector(nntarget$nn.dists),dps,...)
 }
 
 
