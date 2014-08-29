@@ -22,6 +22,7 @@ sub_score_mat <- function(query, target, scoremat=NULL, distance=FALSE, normalis
   normalisation <- match.arg(normalisation)
   if(distance && normalisation == 'raw') stop("Raw scores are always similarity scores.")
   if(is.null(scoremat)) stop("A score matrix must be provided!")
+  if(!is.matrix(scoremat)) stop("scoremat must be a matrix!")
 
   # Check for missing query and target neurons
   available_neuron_names <- rownames(scoremat)

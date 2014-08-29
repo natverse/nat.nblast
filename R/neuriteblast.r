@@ -168,7 +168,13 @@ nblast_allbyall.neuronlist<-function(x, smat=NULL, distance=FALSE,
                                      ...){
   normalisation=match.arg(normalisation)
   scores=nblast(x, x, smat=smat, normalised=FALSE, ...)
-  sub_score_mat(scoremat=scores, distance = distance, normalisation=normalisation)
+  if(length(x)==1) {
+    # turn this into a matrix
+    scores=matrix(scores, dimnames=list(names(x), names(x)))
+  }
+  if(normalisation !='raw')
+    sub_score_mat(scoremat=scores, distance = distance, normalisation=normalisation)
+  else scores
 }
 
 #' Produce similarity score for neuron morphologies
