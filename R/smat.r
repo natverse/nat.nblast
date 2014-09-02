@@ -227,7 +227,6 @@ calc_score_matrix <- function(matchmat, randmat, logbase=2, epsilon=1e-6) {
   distbreaks <- attr(matchmat, "distbreaks")
   ndistbreaks <- length(distbreaks)
   dotprodbreaks <- attr(matchmat, "dotprodbreaks")
-  ndpbins <- length(dotprodbreaks) - 1
 
   if(!isTRUE(all.equal(dim(randmat),dim(matchmat))))
     stop("Mismatch between match and mismatch dimensions.")
