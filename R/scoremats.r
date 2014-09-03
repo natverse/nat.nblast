@@ -144,3 +144,32 @@ diagonal<-function(x, indices=NULL){
     if(is.null(indices)) diag(x) else diag(x)[indices]
   }
 }
+
+
+#' Convert a subset of a score matrix to a sparse representation
+#'
+#' This can be useful for storing raw forwards and reverse NBLAST scores for a
+#' set of neurons without having to store all the uncomputed elements in the
+#' full score matrix.
+#'
+#' @param neuron_names a character vector of neuron names to save scores for.
+#' @param dense_matrix the original, dense version of the full score matrix.
+#'
+#' @return A spare matrix, in compressed, column-oriented form, as an R object
+#'   inheriting from both \code{\link[Matrix]{CsparseMatrix-class}} and
+#'   \code{\link[Matrix]{generalMatrix-class}}.
+#' @export
+#' @importFrom Matrix sparseMatrix
+sparse_score_mat <- function(neuron_names, dense_matrix) {
+  dense_matrix <- as.matrix(dense_matrix)
+  col_num <- which(colnames(dense_matrix) %in% neuron_names)
+  row_num <- which(rownames(dense_matrix) %in% neuron_names)
+  spmat <- sparseMatrix(i=c(rep(col_num, nrow(dense_matrix)), 1:ncol(dense_matrix)),
+                        j=c(1:nrow(dense_matrix), rep(row_num, ncol(dense_matrix))),
+                        x=0,
+                        dims=dim(dense_matrix),
+                        dimnames=dimnames(dense_matrix))
+  spmat[row_num, 1:ncol(spmat)] <- dense_matrix[row_num, 1:ncol(dense_matrix)]
+  spmat[1:nrow(spmat), col_num] <- dense_matrix[1:nrow(dense_matrix), col_num]
+  spmat
+}
