@@ -113,7 +113,7 @@ sub_dist_mat <- function(neuron_names, scoremat=NULL, form=c('matrix', 'dist'), 
 
 # Utility function to extract diagonal terms from matrices
 # uses the 'diagonal' attribute when available
-diagonal<-function(x, indices=NULL){
+diagonal <- function(x, indices=NULL) {
   if(!isTRUE(nrow(x)==ncol(x))) stop("x is not a square matrix!")
 
   if(is.character(indices)) indices=match(indices,rownames(x))
@@ -141,7 +141,12 @@ diagonal<-function(x, indices=NULL){
     }
     diags
   } else {
-    if(is.null(indices)) diag(x) else diag(x)[indices]
+    if(inherits(x, "dgCMatrix")) {
+      if(is.null(indices)) x[sapply(1:nrow(x), function(y) (y-1)*ncol(x) + y)]
+      else x[sapply(1:nrow(x), function(y) (y-1)*ncol(x) + y)[indices]]
+    } else {
+      if(is.null(indices)) diag(x) else diag(x)[indices]
+    }
   }
 }
 
