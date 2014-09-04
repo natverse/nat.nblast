@@ -149,6 +149,32 @@ diagonal <- function(x, indices=NULL) {
 }
 
 
+# Utility function to get diagonal of on disk faster than it can manage by itself
+# by reading in reasonble size chunks
+fast_disk_diag<-function(x, indices=NULL, chunksize=300, use.names=TRUE) {
+  if(is.null(indices)) indices=seq_len(nrow(x))
+  ninds=length(indices)
+  diags=rep(NA,ninds)
+  if(ninds>chunksize){
+    for(i in seq.int(from=0,by=chunksize,to=ninds-chunksize)) {
+      sq=x[indices[i+1:chunksize],indices[i+1:chunksize]]
+      diags[i+1:chunksize]=diag(sq)
+    }
+    # next index will be
+    i=i+chunksize+1
+  } else {
+    # we'll be starting from scratch
+    i=1
+  }
+
+  if(i<=ninds){
+    sq=x[indices[i:ninds],indices[i:ninds]]
+    diags[i:ninds]=diag(sq)
+  }
+  if(use.names) names(diags)=colnames(x)[indices]
+  diags
+}
+
 #' Convert a subset of a square score matrix to a sparse representation
 #'
 #' This can be useful for storing raw forwards and reverse NBLAST scores for a
