@@ -53,7 +53,7 @@ sub_score_mat <- function(query, target, scoremat=NULL, distance=FALSE, normalis
 
   x <- if(normalisation %in% c('mean', 'normalised')) {
     # Normalise forward scores
-    self_matches <- if(square_mat) diag(fwd_scores) else diagonal(scoremat, qidxs)
+    self_matches <- if(square_mat && !inherits(scoremat, "dgCMatrix")) diag(fwd_scores) else diagonal(scoremat, qidxs)
     fwd_scores <- scale(fwd_scores, center=FALSE, scale=self_matches)
 
     if(normalisation == 'mean') {
