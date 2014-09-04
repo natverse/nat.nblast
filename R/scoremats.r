@@ -125,7 +125,7 @@ diagonal <- function(x, indices=NULL) {
 
   if(inherits(x,"ff")){
     # convert array indices to vector indices
-    if(is.null(indices)) indices=seq.int(nrow(x))
+    if(is.null(indices)) indices=seq_len(nrow(x))
     vidxs=ff::arrayIndex2vectorIndex(cbind(indices,indices),dim=dim(x))
     x[vidxs]
   } else if(inherits(x,"big.matrix")) {
@@ -139,13 +139,12 @@ diagonal <- function(x, indices=NULL) {
       diags[i]=x[idx, idx]
     }
     diags
+  } else if(inherits(x, "dgCMatrix")) {
+    diag_inds <- seq.int(from=1, by = nrow(x)+1, len=ncol(x))
+    if(!is.null(indices)) diag_inds=diag_inds[indices]
+    x[diag_inds]
   } else {
-    if(inherits(x, "dgCMatrix")) {
-      if(is.null(indices)) x[sapply(1:nrow(x), function(y) (y-1)*ncol(x) + y)]
-      else x[sapply(1:nrow(x), function(y) (y-1)*ncol(x) + y)[indices]]
-    } else {
-      if(is.null(indices)) diag(x) else diag(x)[indices]
-    }
+    if(is.null(indices)) diag(x) else diag(x)[indices]
   }
 }
 
