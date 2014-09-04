@@ -175,6 +175,14 @@ fast_disk_diag<-function(x, indices=NULL, chunksize=300, use.names=TRUE) {
 #'   \code{\link[Matrix]{generalMatrix-class}}.
 #' @export
 #' @importFrom Matrix sparseMatrix
+#' @seealso fill_in_sparse_score_mat
+#' @examples
+#' data(kcs20, package = "nat")
+#' scores=nblast_allbyall(kcs20)
+#' scores.3.sparse=sparse_score_mat(names(kcs20)[3], scores)
+#' scores.3.sparse
+#' # can also add additional submatrices
+#' fill_in_sparse_score_mat(scores.3.sparse,scores[3:6,3:4])
 sparse_score_mat <- function(neuron_names, dense_matrix) {
   col_num <- which(colnames(dense_matrix) %in% neuron_names)
   row_num <- which(rownames(dense_matrix) %in% neuron_names)
