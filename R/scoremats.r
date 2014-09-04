@@ -185,3 +185,29 @@ sparse_score_mat <- function(neuron_names, dense_matrix) {
   spmat[diag_inds] <- diagonal(dense_matrix)
   spmat
 }
+#' Add one or more submatrices to a sparse score matrix
+#'
+#' @param sparse_matrix either an existing (square) sparse matrix or a character
+#'   vector of names that will be used to define an empty sparse matrix.
+#' @param diag optional full diagonal for sparse matrix i.e. self-match scores.
+#' @param ... Additional matrices to insert into \code{sparse_matrix}. Row and
+#'   column names must have matches in \code{sparse_matrix}.
+#' @seealso sparse_score_mat
+#' @export
+fill_in_sparse_score_mat <- function(sparse_matrix, ..., diag=NULL) {
+  if(is.character(sparse_matrix)) {
+    sparse_matrix <- sparseMatrix(i=1, j=1, x=0, dims=rep(length(sparse_matrix), 2), dimnames=list(sparse_matrix, sparse_matrix))
+  }
+
+  if(!is.null(diag)) {
+    diag_inds <- seq.int(from=1, by = nrow(sparse_matrix)+1, len=ncol(sparse_matrix))
+    sparse_matrix[diag_inds] <- diag
+  }
+  dense_matrices <- list(...)
+  for(dense_matrix in dense_matrices) {
+    if(!is.matrix(dense_matrix)) stop("I only work with matrices.\\nMaybe you need to use neuron_scores_to_mat to convert a vector of scores to a matrix!")
+    sparse_matrix[rownames(dense_matrix), colnames(dense_matrix)] <- dense_matrix
+  }
+
+  sparse_matrix
+}
