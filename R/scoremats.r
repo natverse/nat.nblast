@@ -166,14 +166,9 @@ diagonal <- function(x, indices=NULL) {
 #' @export
 #' @importFrom Matrix sparseMatrix
 sparse_score_mat <- function(neuron_names, dense_matrix) {
-  dense_matrix <- dense_matrix[,]
   col_num <- which(colnames(dense_matrix) %in% neuron_names)
   row_num <- which(rownames(dense_matrix) %in% neuron_names)
-  spmat <- sparseMatrix(i=c(rep(col_num, nrow(dense_matrix)), 1:ncol(dense_matrix)),
-                        j=c(1:nrow(dense_matrix), rep(row_num, ncol(dense_matrix))),
-                        x=0,
-                        dims=dim(dense_matrix),
-                        dimnames=dimnames(dense_matrix))
+  spmat <- sparseMatrix(i=1, j=1, x=0, dims=dim(dense_matrix), dimnames=dimnames(dense_matrix))
   spmat[row_num, 1:ncol(spmat)] <- dense_matrix[row_num, 1:ncol(dense_matrix)]
   spmat[1:nrow(spmat), col_num] <- dense_matrix[1:nrow(dense_matrix), col_num]
   spmat[sapply(1:nrow(spmat), function(y) (y-1)*ncol(spmat) + y)] <- diag(dense_matrix)
