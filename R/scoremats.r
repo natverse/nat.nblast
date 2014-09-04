@@ -149,7 +149,7 @@ diagonal <- function(x, indices=NULL) {
 }
 
 
-#' Convert a subset of a score matrix to a sparse representation
+#' Convert a subset of a square score matrix to a sparse representation
 #'
 #' This can be useful for storing raw forwards and reverse NBLAST scores for a
 #' set of neurons without having to store all the uncomputed elements in the
@@ -167,8 +167,9 @@ sparse_score_mat <- function(neuron_names, dense_matrix) {
   col_num <- which(colnames(dense_matrix) %in% neuron_names)
   row_num <- which(rownames(dense_matrix) %in% neuron_names)
   spmat <- sparseMatrix(i=1, j=1, x=0, dims=dim(dense_matrix), dimnames=dimnames(dense_matrix))
-  spmat[row_num, 1:ncol(spmat)] <- dense_matrix[row_num, 1:ncol(dense_matrix)]
-  spmat[1:nrow(spmat), col_num] <- dense_matrix[1:nrow(dense_matrix), col_num]
-  spmat[sapply(1:nrow(spmat), function(y) (y-1)*ncol(spmat) + y)] <- diag(dense_matrix)
+  spmat[row_num, ] <- dense_matrix[row_num, ]
+  spmat[, col_num] <- dense_matrix[, col_num]
+  diag_inds <- seq.int(from=1, by = nrow(spmat)+1, len=ncol(spmat))
+  spmat[diag_inds] <- diagonal(dense_matrix)
   spmat
 }
