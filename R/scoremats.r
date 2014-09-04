@@ -126,7 +126,7 @@ diagonal <- function(x, indices=NULL) {
   if(inherits(x, c("ff","big.matrix"))){
     fast_disk_diag(x, indices, use.names=TRUE)
   } else if(inherits(x, "dgCMatrix")) {
-    diag_inds <- seq.int(from=1, by = nrow(x)+1, len=ncol(x))
+    diag_inds <- seq.int(from=1, by = nrow(x)+1, length.out=ncol(x))
     diags=structure(x[diag_inds], .Names=colnames(x))
     if(is.null(indices)) diags else diags[indices]
   } else {
@@ -189,7 +189,7 @@ sparse_score_mat <- function(neuron_names, dense_matrix) {
   spmat <- sparseMatrix(i=1, j=1, x=0, dims=dim(dense_matrix), dimnames=dimnames(dense_matrix))
   spmat[row_num, ] <- dense_matrix[row_num, ]
   spmat[, col_num] <- dense_matrix[, col_num]
-  diag_inds <- seq.int(from=1, by = nrow(spmat)+1, len=ncol(spmat))
+  diag_inds <- seq.int(from=1, by = nrow(spmat)+1, length.out=ncol(spmat))
   spmat[diag_inds] <- diagonal(dense_matrix)
   spmat
 }
@@ -218,7 +218,7 @@ fill_in_sparse_score_mat <- function(sparse_matrix, ..., diag=NULL) {
   }
 
   if(!is.null(diag)) {
-    diag_inds <- seq.int(from=1, by = nrow(sparse_matrix)+1, len=ncol(sparse_matrix))
+    diag_inds <- seq.int(from=1, by = nrow(sparse_matrix)+1, length.out=ncol(sparse_matrix))
     sparse_matrix[diag_inds] <- diag
   }
   dense_matrices <- list(...)
