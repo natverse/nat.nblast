@@ -127,8 +127,8 @@ diagonal <- function(x, indices=NULL) {
     fast_disk_diag(x, indices, use.names=TRUE)
   } else if(inherits(x, "dgCMatrix")) {
     diag_inds <- seq.int(from=1, by = nrow(x)+1, len=ncol(x))
-    if(!is.null(indices)) diag_inds=diag_inds[indices]
-    x[diag_inds]
+    diags=structure(x[diag_inds], .Names=colnames(x))
+    if(is.null(indices)) diags else diags[indices]
   } else {
     if(is.null(indices)) diag(x) else diag(x)[indices]
   }
