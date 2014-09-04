@@ -176,5 +176,6 @@ sparse_score_mat <- function(neuron_names, dense_matrix) {
                         dimnames=dimnames(dense_matrix))
   spmat[row_num, 1:ncol(spmat)] <- dense_matrix[row_num, 1:ncol(dense_matrix)]
   spmat[1:nrow(spmat), col_num] <- dense_matrix[1:nrow(dense_matrix), col_num]
+  spmat[sapply(1:nrow(spmat), function(y) (y-1)*ncol(spmat) + y)] <- diag(dense_matrix)
   spmat
 }
