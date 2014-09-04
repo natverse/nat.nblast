@@ -193,6 +193,16 @@ sparse_score_mat <- function(neuron_names, dense_matrix) {
   spmat[diag_inds] <- diagonal(dense_matrix)
   spmat
 }
+
+# Utility function to convert a vector of scores into named row or column matrix
+neuron_scores_to_mat <- function(scores, query, target) {
+  if(!missing(query)){
+    matrix(scores, nrow=length(scores), dimnames=c(names(scores), query))
+  } else {
+    matrix(scores, ncol=length(scores), dimnames=c(target, names(scores)))
+  }
+}
+
 #' Add one or more submatrices to a sparse score matrix
 #'
 #' @param sparse_matrix either an existing (square) sparse matrix or a character
