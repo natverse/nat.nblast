@@ -123,22 +123,8 @@ diagonal <- function(x, indices=NULL) {
 
   if(is.logical(indices)) indices=which(indices)
 
-  if(inherits(x,"ff")){
-    # convert array indices to vector indices
-    if(is.null(indices)) indices=seq_len(nrow(x))
-    vidxs=ff::arrayIndex2vectorIndex(cbind(indices,indices),dim=dim(x))
-    x[vidxs]
-  } else if(inherits(x,"big.matrix")) {
-    if(is.null(indices))
-      indices=seq_len(nrow(x))
-
-    ndiags <-length(indices)
-    diags=rep(NA_real_,ndiags)
-    for(i in seq_len(ndiags)){
-      idx=indices[i]
-      diags[i]=x[idx, idx]
-    }
-    diags
+  if(inherits(x, c("ff","big.matrix"))){
+    fast_disk_diag(x, indices, use.names=TRUE)
   } else if(inherits(x, "dgCMatrix")) {
     diag_inds <- seq.int(from=1, by = nrow(x)+1, len=ncol(x))
     if(!is.null(indices)) diag_inds=diag_inds[indices]
