@@ -129,12 +129,11 @@ diagonal <- function(x, indices=NULL) {
     vidxs=ff::arrayIndex2vectorIndex(cbind(indices,indices),dim=dim(x))
     x[vidxs]
   } else if(inherits(x,"big.matrix")) {
-    ndiags <- if(is.null(indices)){
-      nrow(x)
-    } else {
-      length(indices)
-    }
-    diags=rep(NA,ndiags)
+    if(is.null(indices))
+      indices=seq_len(nrow(x))
+
+    ndiags <-length(indices)
+    diags=rep(NA_real_,ndiags)
     for(i in seq_len(ndiags)){
       idx=indices[i]
       diags[i]=x[idx, idx]
