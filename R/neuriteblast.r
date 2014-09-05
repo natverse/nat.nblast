@@ -263,7 +263,7 @@ WeightedNNBasedLinesetDistFun<-function(nndists,dotproducts,sd,...){
 #' @param target,query dotprops or neuron objects to compare (must be of the
 #'   same class)
 #' @return Value of NNDistFun passd to WeightedNNBasedLinesetMatching
-#' @importFrom RANN nn2
+#' @importFrom nabor knn
 #' @export
 WeightedNNBasedLinesetMatching <- function(target, query, ...) {
   if(!identical(class(target), class(query))) stop("target and query must have the same class!")
@@ -328,7 +328,7 @@ WeightedNNBasedLinesetMatching.default<-function(target,query,dvs1=NULL,dvs2=NUL
   a=target[,c("X","Y","Z")]
   b=query[,c("X","Y","Z")]
 
-  nntarget=RANN::nn2(a,b,k=1)
+  nntarget=nabor::knn(a,b,k=1)
 
   idxArray=cbind(nntarget$nn.idx,seq(length(nntarget$nn.idx)))
 

@@ -10,7 +10,7 @@ Depends:
     R (>= 2.15.1),
     rgl
 Imports:
-    RANN,
+    nabor,
     nat (>= 1.5.12),
     dendroextras,
     plyr
