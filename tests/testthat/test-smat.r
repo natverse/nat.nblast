@@ -1,4 +1,4 @@
-context("Score matrix functions")
+context("Score matrix creation functions")
 
 testneurons <- readRDS('testdata/testneurons.rds')
 

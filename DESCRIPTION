@@ -13,7 +13,8 @@ Imports:
     nabor,
     nat (>= 1.5.12),
     dendroextras,
-    plyr
+    plyr,
+    Matrix
 Suggests:
     bigmemory,
     ff,

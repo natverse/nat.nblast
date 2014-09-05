@@ -53,7 +53,7 @@ sub_score_mat <- function(query, target, scoremat=NULL, distance=FALSE, normalis
 
   x <- if(normalisation %in% c('mean', 'normalised')) {
     # Normalise forward scores
-    self_matches <- if(square_mat) diag(fwd_scores) else diagonal(scoremat, qidxs)
+    self_matches <- if(square_mat && !inherits(scoremat, "dgCMatrix")) diag(fwd_scores) else diagonal(scoremat, qidxs)
     fwd_scores <- scale(fwd_scores, center=FALSE, scale=self_matches)
 
     if(normalisation == 'mean') {
@@ -113,7 +113,7 @@ sub_dist_mat <- function(neuron_names, scoremat=NULL, form=c('matrix', 'dist'), 
 
 # Utility function to extract diagonal terms from matrices
 # uses the 'diagonal' attribute when available
-diagonal<-function(x, indices=NULL){
+diagonal <- function(x, indices=NULL) {
   if(!isTRUE(nrow(x)==ncol(x))) stop("x is not a square matrix!")
 
   if(is.character(indices)) indices=match(indices,rownames(x))
@@ -123,24 +123,109 @@ diagonal<-function(x, indices=NULL){
 
   if(is.logical(indices)) indices=which(indices)
 
-  if(inherits(x,"ff")){
-    # convert array indices to vector indices
-    if(is.null(indices)) indices=seq.int(nrow(x))
-    vidxs=ff::arrayIndex2vectorIndex(cbind(indices,indices),dim=dim(x))
-    x[vidxs]
-  } else if(inherits(x,"big.matrix")) {
-    ndiags <- if(is.null(indices)){
-      nrow(x)
-    } else {
-      length(indices)
-    }
-    diags=rep(NA,ndiags)
-    for(i in seq_len(ndiags)){
-      idx=indices[i]
-      diags[i]=x[idx, idx]
-    }
-    diags
+  if(inherits(x, c("ff","big.matrix"))){
+    fast_disk_diag(x, indices, use.names=TRUE)
+  } else if(inherits(x, "dgCMatrix")) {
+    diag_inds <- seq.int(from=1, by = nrow(x)+1, length.out=ncol(x))
+    diags=structure(x[diag_inds], .Names=colnames(x))
+    if(is.null(indices)) diags else diags[indices]
   } else {
     if(is.null(indices)) diag(x) else diag(x)[indices]
   }
+}
+
+
+# Utility function to get diagonal of on disk faster than it can manage by itself
+# by reading in reasonble size chunks
+fast_disk_diag<-function(x, indices=NULL, chunksize=300, use.names=TRUE) {
+  if(is.null(indices)) indices=seq_len(nrow(x))
+  ninds=length(indices)
+  diags=rep(NA,ninds)
+  if(ninds>chunksize){
+    for(i in seq.int(from=0,by=chunksize,to=ninds-chunksize)) {
+      sq=x[indices[i+1:chunksize],indices[i+1:chunksize]]
+      diags[i+1:chunksize]=diag(sq)
+    }
+    # next index will be
+    i=i+chunksize+1
+  } else {
+    # we'll be starting from scratch
+    i=1
+  }
+
+  if(i<=ninds){
+    sq=x[indices[i:ninds],indices[i:ninds]]
+    diags[i:ninds]=diag(sq)
+  }
+  if(use.names) names(diags)=colnames(x)[indices]
+  diags
+}
+
+#' Convert a subset of a square score matrix to a sparse representation
+#'
+#' This can be useful for storing raw forwards and reverse NBLAST scores for a
+#' set of neurons without having to store all the uncomputed elements in the
+#' full score matrix.
+#'
+#' @param neuron_names a character vector of neuron names to save scores for.
+#' @param dense_matrix the original, dense version of the full score matrix.
+#'
+#' @return A spare matrix, in compressed, column-oriented form, as an R object
+#'   inheriting from both \code{\link[Matrix]{CsparseMatrix-class}} and
+#'   \code{\link[Matrix]{generalMatrix-class}}.
+#' @export
+#' @importFrom Matrix sparseMatrix
+#' @seealso fill_in_sparse_score_mat
+#' @examples
+#' data(kcs20, package = "nat")
+#' scores=nblast_allbyall(kcs20)
+#' scores.3.sparse=sparse_score_mat(names(kcs20)[3], scores)
+#' scores.3.sparse
+#' # can also add additional submatrices
+#' fill_in_sparse_score_mat(scores.3.sparse,scores[3:6,3:4])
+sparse_score_mat <- function(neuron_names, dense_matrix) {
+  col_num <- which(colnames(dense_matrix) %in% neuron_names)
+  row_num <- which(rownames(dense_matrix) %in% neuron_names)
+  spmat <- sparseMatrix(i=1, j=1, x=0, dims=dim(dense_matrix), dimnames=dimnames(dense_matrix))
+  spmat[row_num, ] <- dense_matrix[row_num, ]
+  spmat[, col_num] <- dense_matrix[, col_num]
+  diag_inds <- seq.int(from=1, by = nrow(spmat)+1, length.out=ncol(spmat))
+  spmat[diag_inds] <- diagonal(dense_matrix)
+  spmat
+}
+
+# Utility function to convert a vector of scores into named row or column matrix
+neuron_scores_to_mat <- function(scores, query, target) {
+  if(!missing(query)){
+    matrix(scores, nrow=length(scores), dimnames=c(names(scores), query))
+  } else {
+    matrix(scores, ncol=length(scores), dimnames=c(target, names(scores)))
+  }
+}
+
+#' Add one or more submatrices to a sparse score matrix
+#'
+#' @param sparse_matrix either an existing (square) sparse matrix or a character
+#'   vector of names that will be used to define an empty sparse matrix.
+#' @param diag optional full diagonal for sparse matrix i.e. self-match scores.
+#' @param ... Additional matrices to insert into \code{sparse_matrix}. Row and
+#'   column names must have matches in \code{sparse_matrix}.
+#' @seealso sparse_score_mat
+#' @export
+fill_in_sparse_score_mat <- function(sparse_matrix, ..., diag=NULL) {
+  if(is.character(sparse_matrix)) {
+    sparse_matrix <- sparseMatrix(i=1, j=1, x=0, dims=rep(length(sparse_matrix), 2), dimnames=list(sparse_matrix, sparse_matrix))
+  }
+
+  if(!is.null(diag)) {
+    diag_inds <- seq.int(from=1, by = nrow(sparse_matrix)+1, length.out=ncol(sparse_matrix))
+    sparse_matrix[diag_inds] <- diag
+  }
+  dense_matrices <- list(...)
+  for(dense_matrix in dense_matrices) {
+    if(!is.matrix(dense_matrix)) stop("I only work with matrices.\\nMaybe you need to use neuron_scores_to_mat to convert a vector of scores to a matrix!")
+    sparse_matrix[rownames(dense_matrix), colnames(dense_matrix)] <- dense_matrix
+  }
+
+  sparse_matrix
 }

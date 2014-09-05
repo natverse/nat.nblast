@@ -36,7 +36,23 @@ test_that('we can use diagonal attribute on a score matrix',{
     scoresff=as.ff(scores)
     scoresffd=scoresff
     attr(scoresffd,'diagonal')=diag(scores)
+    # via attributes
     expect_equal(diag(scores), diagonal(scoresffd))
+    # from disk using fast_disk_diag
+    expect_equal(diag(scores), diagonal(scoresff))
+    perm=sample(nrow(scores))
+    expect_equal(diag(scores)[perm], diagonal(scoresff, indices=perm))
     expect_error(diagonal(scores[1:10,1:8]))
+  }
+
+  if(require("bigmemory")){
+    library(nat)
+    scores=nblast(kcs20, kcs20)
+    td=tempfile()
+    on.exit(unlink(td, recursive = TRUE))
+    scoresbm=as.big.matrix(scores, backingpath = td)
+    expect_equal(diag(scores), diagonal(scoresbm))
+    perm=sample(nrow(scores))
+    expect_equal(diag(scores)[perm], diagonal(scoresbm, indices=perm))
   }
 })
