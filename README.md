@@ -24,6 +24,10 @@ example("nhclust")
 # help for functions
 ?nblast
 ?nhclust
+
+# run tests
+library(testthat)
+test_package("nat.nblast")
 ```
 
 ## Introduction
