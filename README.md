@@ -42,8 +42,8 @@ which you must first install.
 ## Installation
 There is currently no released version of **nat.nblast** on CRAN. Although 
 **nat** is available on CRAN, it it recommended that you install the development
-version of both packages from github; nat.nblast is evolving fast and has required
-several minor tweaks to nat, which is otherwise quite mature.
+version of both packages from github; **nat.nblast** is evolving fast and has required
+several minor tweaks to **nat**, which is otherwise quite mature.
 
 ### Bleeding Edge
 You can download the [tar ball](https://github.com/jefferislab/nat.nblast/tarball/master),
@@ -58,5 +58,4 @@ devtools::install_github("jefferis/nat")
 devtools::install_github("nat.nblast", "jefferislab")
 ```
 
-Note: Windows users need [Rtools](http://www.murdoch-sutherland.com/Rtools/) and
-[devtools](http://CRAN.R-project.org/package=devtools) to install this way.
+Note: Windows users need [Rtools](http://www.murdoch-sutherland.com/Rtools/) to install this way.
