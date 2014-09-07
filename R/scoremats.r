@@ -123,7 +123,13 @@ diagonal <- function(x, indices=NULL) {
 
   if(is.logical(indices)) indices=which(indices)
 
-  if(inherits(x, c("ff","big.matrix"))){
+  if(inherits(x,"ff")){
+    # convert array indices to vector indices
+    if(is.null(indices)) indices=seq_len(nrow(x))
+    vidxs=ff::arrayIndex2vectorIndex(cbind(indices,indices),dim=dim(x))
+    # by default we don't get the names back
+    structure(x[vidxs], .Names=rownames(x)[indices])
+  } else if(inherits(x,"big.matrix")) {
     fast_disk_diag(x, indices, use.names=TRUE)
   } else if(inherits(x, "dgCMatrix")) {
     diag_inds <- seq.int(from=1, by = nrow(x)+1, length.out=ncol(x))
