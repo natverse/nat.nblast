@@ -111,9 +111,27 @@ sub_dist_mat <- function(neuron_names, scoremat=NULL, form=c('matrix', 'dist'), 
 }
 
 
-# Utility function to extract diagonal terms from matrices
-# uses the 'diagonal' attribute when available
-diagonal <- function(x, indices=NULL) {
+#' Extract diagonal terms from a variety of matrix types
+#'
+#' @details Insists that input matrix is square. Uses the \code{'diagonal'}
+#'   attribute when available and has specialised handling of \code{ff},
+#'   \code{big.matrix}, \code{dgCMatrix} matrices. Does not check that row and
+#'   colunm names are identical for those matrix clases (unlike the base
+#'   \code{\link{diag}} function, but always uses rownames.
+#' @param x A sqaure matrix
+#' @param indices specifies a subset of the diagonal using a character vector of
+#'   names, a logical vector or integer indices. The default (\code{NULL})
+#'   implies all elements.
+#' @return a named vector containing the diagonal elements.
+#' @export
+#' @examples
+#' m=fill_in_sparse_score_mat(letters[1:5])
+#' diagonal(m)
+diagonal <- function(x, indices=NULL) UseMethod('diagonal')
+
+#' @rdname diagonal
+#' @export
+diagonal.default <- function(x, indices=NULL) {
   if(!isTRUE(nrow(x)==ncol(x))) stop("x is not a square matrix!")
 
   if(is.character(indices)) indices=match(indices,rownames(x))
