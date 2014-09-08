@@ -69,7 +69,7 @@ when \code{smat=NULL} options("nat.nblast.defaultsmat") will be
   computations. There are several possible backends, the simplest of which is
   the multicore option made available by \code{doMC}, which spreads the load
   across cores of the same machine. Before using this, the backend must be
-  registered using \code{\link[doMC]{registerDoMC}} (see example below).
+  registered using \code{registerDoMC} (see example below).
 }
 \examples{
 # load sample Kenyon cell data from nat package

@@ -29,7 +29,7 @@
 #'   computations. There are several possible backends, the simplest of which is
 #'   the multicore option made available by \code{doMC}, which spreads the load
 #'   across cores of the same machine. Before using this, the backend must be
-#'   registered using \code{\link[doMC]{registerDoMC}} (see example below).
+#'   registered using \code{registerDoMC} (see example below).
 #'
 #' @param query the query neuron.
 #' @param target a \code{\link[nat]{neuronlist}} to compare neuron against.
