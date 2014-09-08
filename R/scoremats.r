@@ -133,7 +133,7 @@ diagonal <- function(x, indices=NULL) {
     fast_disk_diag(x, indices, use.names=TRUE)
   } else if(inherits(x, "dgCMatrix")) {
     diag_inds <- seq.int(from=1, by = nrow(x)+1, length.out=ncol(x))
-    diags=structure(x[diag_inds], .Names=colnames(x))
+    diags=structure(x[diag_inds], .Names=rownames(x))
     if(is.null(indices)) diags else diags[indices]
   } else {
     if(is.null(indices)) diag(x) else diag(x)[indices]
@@ -163,7 +163,7 @@ fast_disk_diag<-function(x, indices=NULL, chunksize=300, use.names=TRUE) {
     sq=x[indices[i:ninds],indices[i:ninds]]
     diags[i:ninds]=diag(sq)
   }
-  if(use.names) names(diags)=colnames(x)[indices]
+  if(use.names) names(diags)=rownames(x)[indices]
   diags
 }
 
