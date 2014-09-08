@@ -86,6 +86,7 @@
 #' @name nat.nblast-package
 #' @aliases nat.nblast
 #' @docType package
+#' @import methods
 #' @keywords package
 #' @seealso \code{\link{nblast}}, \code{\link{smat.fcwb}},
 #'   \code{\link{nhclust}}, \code{\link{sub_dist_mat}},
