@@ -273,3 +273,28 @@ fill_in_sparse_score_mat <- function(sparse_matrix, ..., diag=NULL) {
   dimnames(sparse_matrix) <- stored_dimnames
   sparse_matrix
 }
+
+
+#' Add forwards, reverse and self scores for a pair of neurons to a sparse score matrix
+#'
+#' @param sparse_matrix the sparse matrix to fill in.
+#' @param n1 the name of the query neuron.
+#' @param n2 the name of the target neuron.
+#' @param dense_matrix the score matrix from which to extract scores.
+#' @param reverse logical indicating that the reverse score should also be filled in (default \code{TRUE}).
+#' @param self logical indicating that the self-score of the query should also be filled in (used for normalised scores; default \code{TRUE}).
+#' @param reverse_self logical indicating that the self-score of the target should also be filled in (used for mean scores; default \code{TRUE}).
+#'
+#' @return A sparse matrix (of class \code{\link[spam]{spam}}) with the specified score entries filled.
+#' @export
+fill_pairs_sparse_score_mat <- function(sparse_matrix, n1, n2, dense_matrix, reverse=TRUE, self=TRUE, reverse_self=(reverse && self)) {
+  stored_dimnames <- dimnames(sparse_matrix)
+  n1s <- match(n1, colnames(sparse_matrix))
+  n2s <- match(n2, rownames(sparse_matrix))
+  sparse_matrix[n1s, n2s] <- dense_matrix[n1, n2]
+  if(reverse) sparse_matrix[n2s, n1s] <- dense_matrix[n2, n1]
+  if(self) sparse_matrix[n1s, n1s] <- dense_matrix[n1, n1]
+  if(reverse_self) sparse_matrix[n2s, n2s] <- dense_matrix[n2, n2]
+  dimnames(sparse_matrix) <- stored_dimnames
+  sparse_matrix
+}
