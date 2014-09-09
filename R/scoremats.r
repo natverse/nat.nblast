@@ -178,7 +178,7 @@ fast_disk_diag<-function(x, indices=NULL, chunksize=300, use.names=TRUE) {
   }
 
   if(i<=ninds){
-    sq=x[indices[i:ninds],indices[i:ninds]]
+    sq=x[indices[i:ninds],indices[i:ninds], drop=FALSE]
     diags[i:ninds]=diag(sq)
   }
   if(use.names) names(diags)=rownames(x)[indices]
