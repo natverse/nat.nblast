@@ -84,7 +84,7 @@ sub_score_mat <- function(query, target, scoremat=NULL, distance=FALSE, normalis
   }
 
   # Drop dimensions in the standard R way (including names, etc.)
-  if(inherits(x, 'spam')) x <- as.matrix(x)
+  if(inherits(scoremat, 'spam')) x <- as.matrix(x)
   if(nrow(x) == 1 || ncol(x) == 1) x <- x[seq_len(nrow(x)), seq_len(ncol(x))]
   if(distance) 1-x else x
 }
