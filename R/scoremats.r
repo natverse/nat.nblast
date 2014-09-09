@@ -48,6 +48,11 @@ sub_score_mat <- function(query, target, scoremat=NULL, distance=FALSE, normalis
   qidxs <- match(query, available_neuron_names)
   tidxs <- match(target, available_neuron_names)
   fwd_scores <- scoremat[tidxs, qidxs, drop=FALSE]
+  if(inherits(fwd_scores, 'spam')) {
+    fwd_scores <- as.matrix(fwd_scores)
+    rownames(fwd_scores) <- rownames(scoremat)[tidxs]
+    colnames(fwd_scores) <- colnames(scoremat)[qidxs]
+  }
 
   # Check if we have been asked to provide a square matrix
   square_mat <- length(qidxs) == length(tidxs) && all(qidxs==tidxs)
@@ -62,6 +67,11 @@ sub_score_mat <- function(query, target, scoremat=NULL, distance=FALSE, normalis
         (fwd_scores + t(fwd_scores)) / 2
       } else {
         rev_scores <- scoremat[qidxs, tidxs, drop=FALSE]
+        if(inherits(rev_scores, 'spam')) {
+          rev_scores <- as.matrix(rev_scores)
+          rownames(rev_scores) <- rownames(scoremat)[qidxs]
+          colnames(rev_scores) <- colnames(scoremat)[tidxs]
+        }
         self_matches <- diagonal(scoremat, tidxs)
         rev_scores <- scale(rev_scores, center=FALSE, scale=self_matches)
         (fwd_scores + t(rev_scores)) / 2
