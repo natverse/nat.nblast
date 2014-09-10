@@ -15,6 +15,7 @@
 #'   carried out, selected from  \code{'raw'}, \code{'normalised'} or
 #'   \code{'mean'} (i.e. the average of normalised scores in both directions).
 #'   If \code{distance=TRUE} then this cannot be raw.
+#' @importFrom spam as.matrix
 #' @export
 #' @seealso \code{\link{sub_dist_mat}}
 sub_score_mat <- function(query, target, scoremat=NULL, distance=FALSE, normalisation=c('raw', 'normalised', 'mean')) {
@@ -47,13 +48,18 @@ sub_score_mat <- function(query, target, scoremat=NULL, distance=FALSE, normalis
   qidxs <- match(query, available_neuron_names)
   tidxs <- match(target, available_neuron_names)
   fwd_scores <- scoremat[tidxs, qidxs, drop=FALSE]
+  if(inherits(fwd_scores, 'spam')) {
+    fwd_scores <- as.matrix(fwd_scores)
+    rownames(fwd_scores) <- rownames(scoremat)[tidxs]
+    colnames(fwd_scores) <- colnames(scoremat)[qidxs]
+  }
 
   # Check if we have been asked to provide a square matrix
   square_mat <- length(qidxs) == length(tidxs) && all(qidxs==tidxs)
 
   x <- if(normalisation %in% c('mean', 'normalised')) {
     # Normalise forward scores
-    self_matches <- if(square_mat && !inherits(scoremat, "dgCMatrix")) diag(fwd_scores) else diagonal(scoremat, qidxs)
+    self_matches <- if(square_mat) diag(fwd_scores) else diagonal(scoremat, qidxs)
     fwd_scores <- scale(fwd_scores, center=FALSE, scale=self_matches)
 
     if(normalisation == 'mean') {
@@ -61,6 +67,11 @@ sub_score_mat <- function(query, target, scoremat=NULL, distance=FALSE, normalis
         (fwd_scores + t(fwd_scores)) / 2
       } else {
         rev_scores <- scoremat[qidxs, tidxs, drop=FALSE]
+        if(inherits(rev_scores, 'spam')) {
+          rev_scores <- as.matrix(rev_scores)
+          rownames(rev_scores) <- rownames(scoremat)[qidxs]
+          colnames(rev_scores) <- colnames(scoremat)[tidxs]
+        }
         self_matches <- diagonal(scoremat, tidxs)
         rev_scores <- scale(rev_scores, center=FALSE, scale=self_matches)
         (fwd_scores + t(rev_scores)) / 2
@@ -73,6 +84,7 @@ sub_score_mat <- function(query, target, scoremat=NULL, distance=FALSE, normalis
   }
 
   # Drop dimensions in the standard R way (including names, etc.)
+  if(inherits(scoremat, 'spam')) x <- as.matrix(x)
   if(nrow(x) == 1 || ncol(x) == 1) x <- x[seq_len(nrow(x)), seq_len(ncol(x))]
   if(distance) 1-x else x
 }
@@ -129,6 +141,7 @@ sub_dist_mat <- function(neuron_names, scoremat=NULL, form=c('matrix', 'dist'), 
 #' diagonal(m)
 diagonal <- function(x, indices=NULL) UseMethod('diagonal')
 
+#' @importFrom spam diag
 #' @rdname diagonal
 #' @export
 diagonal.default <- function(x, indices=NULL) {
@@ -149,10 +162,10 @@ diagonal.default <- function(x, indices=NULL) {
     structure(x[vidxs], .Names=rownames(x)[indices])
   } else if(inherits(x,"big.matrix")) {
     fast_disk_diag(x, indices, use.names=TRUE)
-  } else if(inherits(x, "dgCMatrix")) {
-    diag_inds <- seq.int(from=1, by = nrow(x)+1, length.out=ncol(x))
-    diags=structure(x[diag_inds], .Names=rownames(x))
-    if(is.null(indices)) diags else diags[indices]
+  } else if(inherits(x, 'spam')) {
+    spam_diag <- diag(x)
+    names(spam_diag) <- rownames(x)
+    if(is.null(indices)) spam_diag else spam_diag[indices]
   } else {
     if(is.null(indices)) diag(x) else diag(x)[indices]
   }
@@ -198,7 +211,7 @@ fast_disk_diag<-function(x, indices=NULL, chunksize=300, use.names=TRUE) {
 #'   inheriting from both \code{\link[Matrix]{CsparseMatrix-class}} and
 #'   \code{\link[Matrix]{generalMatrix-class}}.
 #' @export
-#' @importFrom Matrix sparseMatrix
+#' @importFrom spam spam
 #' @seealso fill_in_sparse_score_mat
 #' @examples
 #' data(kcs20, package = "nat")
@@ -210,11 +223,10 @@ fast_disk_diag<-function(x, indices=NULL, chunksize=300, use.names=TRUE) {
 sparse_score_mat <- function(neuron_names, dense_matrix) {
   col_num <- which(colnames(dense_matrix) %in% neuron_names)
   row_num <- which(rownames(dense_matrix) %in% neuron_names)
-  spmat <- sparseMatrix(i=1, j=1, x=0, dims=dim(dense_matrix), dimnames=dimnames(dense_matrix))
+  spmat <- spam(list(i=1:nrow(dense_matrix), j=1:nrow(dense_matrix), diagonal(dense_matrix)))
   spmat[row_num, ] <- dense_matrix[row_num, ]
   spmat[, col_num] <- dense_matrix[, col_num]
-  diag_inds <- seq.int(from=1, by = nrow(spmat)+1, length.out=ncol(spmat))
-  spmat[diag_inds] <- diagonal(dense_matrix)
+  dimnames(spmat) <- dimnames(dense_matrix)
   spmat
 }
 
@@ -235,11 +247,16 @@ neuron_scores_to_mat <- function(scores, query, target) {
 #' @param ... Additional matrices to insert into \code{sparse_matrix}. Row and
 #'   column names must have matches in \code{sparse_matrix}.
 #' @seealso sparse_score_mat
+#' @importFrom spam spam
 #' @export
 fill_in_sparse_score_mat <- function(sparse_matrix, ..., diag=NULL) {
   if(is.character(sparse_matrix)) {
-    sparse_matrix <- sparseMatrix(i=1, j=1, x=0, dims=rep(length(sparse_matrix), 2), dimnames=list(sparse_matrix, sparse_matrix))
+    spmat <- spam(0, ncol=length(sparse_matrix), nrow=length(sparse_matrix))
+    dimnames(spmat) <- list(sparse_matrix, sparse_matrix)
+    sparse_matrix <- spmat
   }
+
+  stored_dimnames <- dimnames(sparse_matrix)
 
   if(!is.null(diag)) {
     diag_inds <- seq.int(from=1, by = nrow(sparse_matrix)+1, length.out=ncol(sparse_matrix))
@@ -248,8 +265,36 @@ fill_in_sparse_score_mat <- function(sparse_matrix, ..., diag=NULL) {
   dense_matrices <- list(...)
   for(dense_matrix in dense_matrices) {
     if(!is.matrix(dense_matrix)) stop("I only work with matrices.\\nMaybe you need to use neuron_scores_to_mat to convert a vector of scores to a matrix!")
-    sparse_matrix[rownames(dense_matrix), colnames(dense_matrix)] <- dense_matrix
+    row_nums <-  match(rownames(dense_matrix), rownames(sparse_matrix))
+    col_nums <-  match(colnames(dense_matrix), colnames(sparse_matrix))
+    sparse_matrix[row_nums, col_nums] <- dense_matrix
   }
 
+  dimnames(sparse_matrix) <- stored_dimnames
+  sparse_matrix
+}
+
+
+#' Add forwards, reverse and self scores for a pair of neurons to a sparse score matrix
+#'
+#' @param sparse_matrix the sparse matrix to fill in.
+#' @param n1 the name of the query neuron.
+#' @param n2 the name of the target neuron.
+#' @param dense_matrix the score matrix from which to extract scores.
+#' @param reverse logical indicating that the reverse score should also be filled in (default \code{TRUE}).
+#' @param self logical indicating that the self-score of the query should also be filled in (used for normalised scores; default \code{TRUE}).
+#' @param reverse_self logical indicating that the self-score of the target should also be filled in (used for mean scores; default \code{TRUE}).
+#'
+#' @return A sparse matrix (of class \code{\link[spam]{spam}}) with the specified score entries filled.
+#' @export
+fill_pairs_sparse_score_mat <- function(sparse_matrix, n1, n2, dense_matrix, reverse=TRUE, self=TRUE, reverse_self=(reverse && self)) {
+  stored_dimnames <- dimnames(sparse_matrix)
+  n1s <- match(n1, colnames(sparse_matrix))
+  n2s <- match(n2, rownames(sparse_matrix))
+  sparse_matrix[n1s, n2s] <- dense_matrix[n1, n2]
+  if(reverse) sparse_matrix[n2s, n1s] <- dense_matrix[n2, n1]
+  if(self) sparse_matrix[n1s, n1s] <- dense_matrix[n1, n1]
+  if(reverse_self) sparse_matrix[n2s, n2s] <- dense_matrix[n2, n2]
+  dimnames(sparse_matrix) <- stored_dimnames
   sparse_matrix
 }
