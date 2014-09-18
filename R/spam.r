@@ -6,6 +6,7 @@ dimnames.spam <- function(x) attr(x, 'spamdimnames')
 #' Extract parts of a sparse \code{spam} matrix
 #'
 #' @name [
+#' @param x object to extract from.
 #' @param i row identifiers.
 #' @param j column identifiers.
 #' @param drop logical indicating that dimensions should be dropped.

@@ -23,6 +23,8 @@
 \S4method{[}{spam,missing,character,missing}(x, i, j, ..., drop = TRUE)
 }
 \arguments{
+\item{x}{object to extract from.}
+
 \item{i}{row identifiers.}
 
 \item{j}{column identifiers.}
