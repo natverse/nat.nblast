@@ -207,6 +207,8 @@ NeuriteBlast <- function(query, target, targetBinds=NULL, normalised=FALSE,
     stop("OmitFailures=TRUE is not yet implemented!\n",
          "Use OmitFailures=FALSE and handle NAs to taste.")
 
+  if("neuron" %in% class(target)) target <- neuronlist(target)
+
   if(nat::is.neuronlist(query)) {
     res=plyr::llply(query, NeuriteBlast, target=target, targetBinds=targetBinds,
                   normalised=normalised, OmitFailures=OmitFailures, simplify=simplify, ...=...)
@@ -266,7 +268,6 @@ WeightedNNBasedLinesetDistFun<-function(nndists,dotproducts,sd,...){
 #' @importFrom nabor knn
 #' @export
 WeightedNNBasedLinesetMatching <- function(target, query, ...) {
-  if(!identical(class(target), class(query))) stop("target and query must have the same class!")
   UseMethod("WeightedNNBasedLinesetMatching")
 }
 
@@ -280,7 +281,9 @@ WeightedNNBasedLinesetMatching <- function(target, query, ...) {
 #' @export
 #' @seealso \code{\link[nat]{dotprops}}
 #' @rdname WeightedNNBasedLinesetMatching
-WeightedNNBasedLinesetMatching.dotprops<-function(target, query, UseAlpha=FALSE, ...){
+#' @importFrom nat dotprops
+WeightedNNBasedLinesetMatching.dotprops<-function(target, query, UseAlpha=FALSE, ...) {
+  if(!"dotprops" %in% class(query)) query <- dotprops(query)
   if(UseAlpha)
     WeightedNNBasedLinesetMatching(target$points,query$points,dvs1=target$vect,dvs2=query$vect,
                                    alphas1=target$alpha,alphas2=query$alpha,...)
@@ -293,8 +296,13 @@ WeightedNNBasedLinesetMatching.dotprops<-function(target, query, UseAlpha=FALSE,
 #' @param OnlyClosestPoints Whether to restrict searches to the closest points
 #'   in the target (default FALSE, only implemented for dotprops).
 #' @rdname WeightedNNBasedLinesetMatching
+#' @importFrom nat dotprops
 WeightedNNBasedLinesetMatching.neuron<-function(target, query, UseAlpha=FALSE,
-                                                OnlyClosestPoints=FALSE,...){
+                                                OnlyClosestPoints=FALSE,...) {
+  if(!"neuron" %in% class(query)) {
+    target <- dotprops(target)
+    return(WeightedNNBasedLinesetMatching(target=target, query=query, UseAlpha=UseAlpha, OnlyClosestPoints=OnlyClosestPoints, ...))
+  }
   if(UseAlpha)
     stop("UseAlpha is not yet implemented for neurons!")
   if(OnlyClosestPoints)
