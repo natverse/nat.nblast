@@ -57,13 +57,13 @@ test_that("we can handle OmitFailures", {
 })
 
 test_that("we can handle all combinations of dotprops and neurons, both as neuronlists and singly", {
-  nblast(testneurons[[1]], Cell07PNs[1:3]) # Works
-  nblast(testneurons[1:3], Cell07PNs[1:3]) # Works
+  nblast(testneurons[[1]], Cell07PNs[1:3])
+  nblast(testneurons[1:3], Cell07PNs[1:3])
   nblast(testneurons[[1]], Cell07PNs[[1]])
   nblast(testneurons[1:3], Cell07PNs[[1]])
 
-  nblast(Cell07PNs[[1]], testneurons[1:3]) # Works
-  nblast(Cell07PNs[1:3], testneurons[1:3]) # Works
-  nblast(Cell07PNs[[1]], testneurons[[1]]) # Works
-  nblast(Cell07PNs[1:3], testneurons[[1]]) # Works
+  nblast(Cell07PNs[[1]], testneurons[1:3])
+  nblast(Cell07PNs[1:3], testneurons[1:3])
+  nblast(Cell07PNs[[1]], testneurons[[1]])
+  nblast(Cell07PNs[1:3], testneurons[[1]])
 })

@@ -207,6 +207,8 @@ NeuriteBlast <- function(query, target, targetBinds=NULL, normalised=FALSE,
     stop("OmitFailures=TRUE is not yet implemented!\n",
          "Use OmitFailures=FALSE and handle NAs to taste.")
 
+  if("neuron" %in% class(target)) target <- neuronlist(target)
+
   if(nat::is.neuronlist(query)) {
     res=plyr::llply(query, NeuriteBlast, target=target, targetBinds=targetBinds,
                   normalised=normalised, OmitFailures=OmitFailures, simplify=simplify, ...=...)
