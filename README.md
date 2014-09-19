@@ -40,16 +40,21 @@ These tools are designed as an addon for the [NeuroAnatomy Toolbox](https://gith
 which you must first install.
 
 ## Installation
-There is currently no released version of **nat.nblast** on CRAN. Although 
-**nat** is available on CRAN, it it recommended that you install the development
+This package has now been released to CRAN (v1.5), but since this is the first official release you may wish to install the development version from GitHub.
+Although **nat** is available on CRAN, it it recommended that you install the development
 version of both packages from github; **nat.nblast** is evolving fast and has required
 several minor tweaks to **nat**, which is otherwise quite mature.
+
+### CRAN release
+```r
+install.packages("nat.nblast")
+```
 
 ### Bleeding Edge
 You can download the [tar ball](https://github.com/jefferislab/nat.nblast/tarball/master),
 and run `R CMD INSTALL` on it, or (recommended) use the **devtools** package to install the development version:
 
-  ```r
+```r
 # install devtools if required
 if (!require("devtools")) install.packages("devtools")
 # then install nat
