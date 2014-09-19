@@ -11,10 +11,10 @@ Description: Extends package nat (NeuroAnatomy Toolbox) by providing a
 Depends:
     R (>= 2.15.1),
     rgl,
-    methods
+    methods,
+    nat (>= 1.5.12)
 Imports:
     nabor,
-    nat (>= 1.5.12),
     dendroextras,
     plyr,
     spam

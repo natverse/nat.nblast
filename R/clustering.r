@@ -83,7 +83,7 @@ plot3d.hclust <- function(x, k=NULL, h=NULL, groups=NULL, col=rainbow, ...) {
   }
   # NB we need to substitute right away to ensure that the non-standard
   # evaluation of col does not fail with a lookup problem for kgroups
-  nat:::plot3d.character(neurons, col=substitute(col[kgroups]), ..., SUBSTITUTE=FALSE)
+  plot3d(neurons, col=substitute(col[kgroups]), ..., SUBSTITUTE=FALSE)
 }
 
 
