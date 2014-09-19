@@ -68,6 +68,7 @@ By default \code{create_scoringmatrix} will use all neurons in
   calls.
 }
 \examples{
+\dontrun{
 # calculate scoring matrix
 # bring in some mushroom body neurons
 library(nat)
@@ -93,7 +94,6 @@ jet.colors <- colorRampPalette( c("blue", "green", "yellow", "red") )
 filled.contour(x=distbreaks, y=dotprodbreaks, z=smat, col=jet.colors(20),
   main='smat: log odds ratio', xlab='distance /um', ylab='abs dot product')
 
-\dontrun{
 # 3d perspective plot of the scoring matrix
 persp3d(x=distbreaks, y=dotprodbreaks, z=smat, col=jet.colors(20)[cut(smat,20)],
 xlab='distance /um', ylab='abs dot product', zlab='log odds ratio')

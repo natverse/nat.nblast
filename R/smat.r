@@ -46,6 +46,7 @@
 #' @seealso \code{\link{calc_score_matrix}, \link{calc_prob_mat},
 #'   \link{calc_dists_dotprods}, \link{neuron_pairs}}
 #' @examples
+#' \dontrun{
 #' # calculate scoring matrix
 #' # bring in some mushroom body neurons
 #' library(nat)
@@ -71,7 +72,6 @@
 #' filled.contour(x=distbreaks, y=dotprodbreaks, z=smat, col=jet.colors(20),
 #'   main='smat: log odds ratio', xlab='distance /um', ylab='abs dot product')
 #'
-#' \dontrun{
 #' # 3d perspective plot of the scoring matrix
 #' persp3d(x=distbreaks, y=dotprodbreaks, z=smat, col=jet.colors(20)[cut(smat,20)],
 #' xlab='distance /um', ylab='abs dot product', zlab='log odds ratio')
