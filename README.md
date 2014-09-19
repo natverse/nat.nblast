@@ -40,10 +40,12 @@ These tools are designed as an addon for the [NeuroAnatomy Toolbox](https://gith
 which you must first install.
 
 ## Installation
-This package has now been released to CRAN (as of v1.5), but since this is the first official release,
+This package has now been released to [CRAN](http://cran.r-project.org/web/packages/nat.nblast/)
+(as of v1.5), but since this is the first official release,
 you may wish to install the development version from GitHub, especially if you notice a bug.
-Although **nat** (the main dependency) is available on CRAN, it it recommended that you install the development 
-version of both packages if you install the development version of **nat.nblast**: **nat.nblast** is evolving fast 
+Although **nat** (the main dependency) is available on [CRAN](http://cran.r-project.org/web/packages/nat/),
+it it recommended that you install the development version of both packages 
+if you want to install the development version of **nat.nblast**: **nat.nblast** is evolving fast 
 and has required several minor tweaks to **nat**, which is otherwise quite mature.
 
 ### CRAN release
