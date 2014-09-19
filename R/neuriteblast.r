@@ -104,8 +104,8 @@ nblast <- function(query, target=getOption("nat.default.neuronlist"),
     if(is.null(smat)) {
       smat=getOption("nat.nblast.defaultsmat")
       if(is.null(smat)) {
-        if(UseAlpha) smat=smat_alpha.fcwb
-        else smat=smat.fcwb
+        if(UseAlpha) smat="smat_alpha.fcwb"
+        else smat="smat.fcwb"
       }
     }
     if(is.character(smat)) smat=get(smat)
