@@ -1,3 +1,14 @@
+nat.nblast 1.5
+==============
+* switch from importing nat to depending on it
+
+nat.nblast 1.4
+==============
+* use nabor package, not RANN, for finding nearest neighbours
+* add functions for creating sparse score matrices, using spam package
+* speed up extraction of diagonal elements for on-disk score matrices
+* nblast now handles all combinations of neuron and dotprops objects
+
 nat.nblast 1.3
 ==============
 * functions to create scoring matrices; see create_scoringmatrix for details.
