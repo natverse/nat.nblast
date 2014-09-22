@@ -16,8 +16,8 @@
 #'   need to set \code{OmitFailures=FALSE} and then use \code{\link{na.omit}} or
 #'   similar to post-process the scores.
 #'
-#'   Note thatn when \code{OmitFailures=FALSE} error messages will not be
-#'   printed because the call is wrapped as \code{try(expr, silent=TRUE)}.
+#'   Note that when \code{OmitFailures=FALSE} error messages will not be printed
+#'   because the call is wrapped as \code{try(expr, silent=TRUE)}.
 #'
 #'   Internally, the \code{\link{plyr}} package is used to provide options for
 #'   parallelising NBLASTs and displaying progress. To display a progress bar as
