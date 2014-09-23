@@ -107,7 +107,7 @@ when \code{smat=NULL} options("nat.nblast.defaultsmat") will be
   version 1, setting the free parameter (sd or \eqn{\sigma}) to a value that
   encapuslates your understanding of the location precision of neurons in
   your species/brain region of interest. In the fly brain we have used
-  \eqn{\sigma=3 \mum}.
+  \eqn{\sigma=3} microns.
 }
 \examples{
 # load sample Kenyon cell data from nat package
