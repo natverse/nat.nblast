@@ -61,8 +61,8 @@
 #'   \bold{Version 1} of the algorithm uses a standard deviation (argument
 #'   \code{sd}) as a user-supplied parameter for a negative exponential
 #'   weighting function that determines the relationship between score and the
-#'   distance between segments. This corresponds to the parameter \sigma in the
-#'   weighting function:
+#'   distance between segments. This corresponds to the parameter \eqn{\sigma}
+#'   in the weighting function:
 #'
 #'   \eqn{f=\sqrt{|\vec{u_{i}}\cdot\vec{v_{i}}|\exp\left(-d_{i}^{2}/2\sigma^{2}\right)}}
 #'
