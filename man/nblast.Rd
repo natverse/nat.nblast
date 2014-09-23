@@ -56,8 +56,8 @@ when \code{smat=NULL} options("nat.nblast.defaultsmat") will be
   need to set \code{OmitFailures=FALSE} and then use \code{\link{na.omit}} or
   similar to post-process the scores.
 
-  Note thatn when \code{OmitFailures=FALSE} error messages will not be
-  printed because the call is wrapped as \code{try(expr, silent=TRUE)}.
+  Note that when \code{OmitFailures=FALSE} error messages will not be printed
+  because the call is wrapped as \code{try(expr, silent=TRUE)}.
 
   Internally, the \code{\link{plyr}} package is used to provide options for
   parallelising NBLASTs and displaying progress. To display a progress bar as
@@ -70,6 +70,44 @@ when \code{smat=NULL} options("nat.nblast.defaultsmat") will be
   the multicore option made available by \code{doMC}, which spreads the load
   across cores of the same machine. Before using this, the backend must be
   registered using \code{registerDoMC} (see example below).
+}
+\section{NBLAST Versions}{
+ The \code{nblast} version argument presently
+  exposes two versions of the algorithm; both use the same core procedure of
+  aligning two vector clouds, segment by segment, and then computing the
+  distance and absolute dot product between the nearest segment in the target
+  neuron for every segment in the query neuron. However they differ
+  significantly in the procedure used to calculate a score using this set of
+  distances and absolute dot products.
+
+  \bold{Version 1} of the algorithm uses a standard deviation (argument
+  \code{sd}) as a user-supplied parameter for a negative exponential
+  weighting function that determines the relationship between score and the
+  distance between segments. This corresponds to the parameter \sigma in the
+  weighting function:
+
+  \eqn{f=\sqrt{|\vec{u_{i}}\cdot\vec{v_{i}}|\exp\left(-d_{i}^{2}/2\sigma^{2}\right)}}
+
+  This is the same approach described in Kohl et al 2013 and the similarity
+  scores in the interval (0,1) described in that paper can exactly
+  recapitulated by setting \code{version=1} and \code{normalised=TRUE}.
+
+  \bold{Version 2} of the algorithm is described in Costa et al 2014. This
+  uses a more sophisticated and principled scoring approach based on a
+  log-odds ratio defined by the distribution of matches and non-matches in
+  sample data. This information is passed to the nblast function in the form
+  of a \emph{scoring matrix} (which can be computed by
+  \code{\link{create_scoringmatrix}}); a default scoring matrix
+  \code{\link{smat.fcwb}} has been constructed for \emph{Drosophila} neurons.
+
+  \bold{Which version should I use?} You should use version 2 if you are
+  working with \emph{Drosophila} neurons or you have sufficient training data
+  (in the form of validated matching and random neuron pairs to construct a
+  scoring matrix). If this is not the case, you can always fall back to
+  version 1, setting the free parameter (sd or \eqn{\sigma}) to a value that
+  encapuslates your understanding of the location precision of neurons in
+  your species/brain region of interest. In the fly brain we have used
+  \eqn{\sigma=3 \mum}.
 }
 \examples{
 # load sample Kenyon cell data from nat package
@@ -105,6 +143,7 @@ stopifnot(all.equal(scores.norm2, scores.norm))
 }
 }
 \seealso{
-\code{\link{nat-package}}
+\code{\link{nat-package}}, \code{\link{nblast_allbyall}},
+  \code{\link{create_scoringmatrix}}, \code{\link{smat.fcwb}}
 }
 

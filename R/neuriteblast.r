@@ -50,7 +50,45 @@
 #' @param ... Additional arguments passed to NeuriteBlast or the function used
 #'   to compute scores from distances/dot products. (expert use only).
 #' @return Named list of similarity scores.
-#' @seealso \code{\link{nat-package}}
+#' @section NBLAST Versions: The \code{nblast} version argument presently
+#'   exposes two versions of the algorithm; both use the same core procedure of
+#'   aligning two vector clouds, segment by segment, and then computing the
+#'   distance and absolute dot product between the nearest segment in the target
+#'   neuron for every segment in the query neuron. However they differ
+#'   significantly in the procedure used to calculate a score using this set of
+#'   distances and absolute dot products.
+#'
+#'   \bold{Version 1} of the algorithm uses a standard deviation (argument
+#'   \code{sd}) as a user-supplied parameter for a negative exponential
+#'   weighting function that determines the relationship between score and the
+#'   distance between segments. This corresponds to the parameter \sigma in the
+#'   weighting function:
+#'
+#'   \eqn{f=\sqrt{|\vec{u_{i}}\cdot\vec{v_{i}}|\exp\left(-d_{i}^{2}/2\sigma^{2}\right)}}
+#'
+#'   This is the same approach described in Kohl et al 2013 and the similarity
+#'   scores in the interval (0,1) described in that paper can exactly
+#'   recapitulated by setting \code{version=1} and \code{normalised=TRUE}.
+#'
+#'   \bold{Version 2} of the algorithm is described in Costa et al 2014. This
+#'   uses a more sophisticated and principled scoring approach based on a
+#'   log-odds ratio defined by the distribution of matches and non-matches in
+#'   sample data. This information is passed to the nblast function in the form
+#'   of a \emph{scoring matrix} (which can be computed by
+#'   \code{\link{create_scoringmatrix}}); a default scoring matrix
+#'   \code{\link{smat.fcwb}} has been constructed for \emph{Drosophila} neurons.
+#'
+#'   \bold{Which version should I use?} You should use version 2 if you are
+#'   working with \emph{Drosophila} neurons or you have sufficient training data
+#'   (in the form of validated matching and random neuron pairs to construct a
+#'   scoring matrix). If this is not the case, you can always fall back to
+#'   version 1, setting the free parameter (sd or \eqn{\sigma}) to a value that
+#'   encapuslates your understanding of the location precision of neurons in
+#'   your species/brain region of interest. In the fly brain we have used
+#'   \eqn{\sigma=3 \mum}.
+#'
+#' @seealso \code{\link{nat-package}}, \code{\link{nblast_allbyall}},
+#'   \code{\link{create_scoringmatrix}}, \code{\link{smat.fcwb}}
 #' @export
 #' @importFrom nat neuronlist
 #' @examples
