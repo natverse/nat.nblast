@@ -15,7 +15,7 @@ nhclust(neuron_names, method = "ward", scoremat = NULL, distfun = as.dist,
 default).}
 
 \item{distfun}{function to convert distance matrix returned by
-\code{sub_dist_mat} into R dist object (default=as.dist).}
+\code{sub_dist_mat} into R dist object (default= \code{\link{as.dist}}).}
 
 \item{...}{additional parameters passed to hclust.}
 
@@ -27,9 +27,10 @@ An object of class \code{\link{hclust}} which describes the tree
   produced by the clustering process.
 }
 \description{
-Given a vector of neuron identifiers use hclust to carry out a
-hierarchical clustering. The default value of distfun will handle square
-distance matrices and R.
+Given an nblast all by all score matrix (which may be specified by a package
+default) and/or a vector of neuron identifiers use \code{\link{hclust}} to
+carry out a hierarchical clustering. The default value of the \code{distfun}
+argument will handle square distance matrices and R \code{dist} objects.
 }
 \examples{
 library(nat)

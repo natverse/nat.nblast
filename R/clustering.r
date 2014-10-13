@@ -1,14 +1,16 @@
 #' Cluster a set of neurons
 #'
-#' Given a vector of neuron identifiers use hclust to carry out a
-#' hierarchical clustering. The default value of distfun will handle square
-#' distance matrices and R.
+#' Given an nblast all by all score matrix (which may be specified by a package
+#' default) and/or a vector of neuron identifiers use \code{\link{hclust}} to
+#' carry out a hierarchical clustering. The default value of the \code{distfun}
+#' argument will handle square distance matrices and R \code{dist} objects.
+#'
 #' @param neuron_names character vector of neuron identifiers.
 #' @param method clustering method (default Ward's).
 #' @param scoremat score matrix to use (see \code{sub_score_mat} for details of
 #'   default).
 #' @param distfun function to convert distance matrix returned by
-#'   \code{sub_dist_mat} into R dist object (default=as.dist).
+#'   \code{sub_dist_mat} into R dist object (default= \code{\link{as.dist}}).
 #' @param ... additional parameters passed to hclust.
 #' @inheritParams sub_dist_mat
 #' @return An object of class \code{\link{hclust}} which describes the tree
