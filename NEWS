@@ -1,3 +1,8 @@
+nat.nblast 1.6
+================
+* fix handling of non-square matrices in sub_score_mat
+* minor doc fixes
+
 nat.nblast 1.5
 ==============
 * switch from importing nat to depending on it
