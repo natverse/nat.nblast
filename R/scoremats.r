@@ -26,32 +26,34 @@ sub_score_mat <- function(query, target, scoremat=NULL, distance=FALSE, normalis
   if(!identical(length(dim(scoremat)),2L)) stop("scoremat must be a matrix!")
 
   # Check for missing query and target neurons
-  available_neuron_names <- rownames(scoremat)
-  if(missing(target)) target <- available_neuron_names
+  rnames <- rownames(scoremat)
+  if(missing(target)) target <- rnames
   else {
-    target_missing <- setdiff(target, available_neuron_names)
+    target_missing <- setdiff(target, rnames)
     if(length(target_missing) > 0) {
       warning("Dropping ", length(target_missing), " target neurons.")
-      target <- intersect(target, available_neuron_names)
+      target <- intersect(target, rnames)
     }
   }
-  if(missing(query)) query <- rownames(scoremat)
+  cnames=colnames(scoremat)
+  if(missing(query)) query <- cnames
   else {
-    query_missing <- setdiff(query, available_neuron_names)
+
+    query_missing <- setdiff(query, cnames)
     if(length(query_missing) > 0) {
       warning("Dropping ", length(query_missing), " query neurons.")
-      query <- intersect(query, available_neuron_names)
+      query <- intersect(query, cnames)
     }
   }
 
   # Subsetting large matrices by name is slow, so pre-calculate indices
-  qidxs <- match(query, available_neuron_names)
-  tidxs <- match(target, available_neuron_names)
+  qidxs <- match(query, cnames)
+  tidxs <- match(target, rnames)
   fwd_scores <- scoremat[tidxs, qidxs, drop=FALSE]
   if(inherits(fwd_scores, 'spam')) {
     fwd_scores <- as.matrix(fwd_scores)
-    rownames(fwd_scores) <- rownames(scoremat)[tidxs]
-    colnames(fwd_scores) <- colnames(scoremat)[qidxs]
+    rownames(fwd_scores) <- rnames[tidxs]
+    colnames(fwd_scores) <- cnames[qidxs]
   }
 
   # Check if we have been asked to provide a square matrix
@@ -69,8 +71,8 @@ sub_score_mat <- function(query, target, scoremat=NULL, distance=FALSE, normalis
         rev_scores <- scoremat[qidxs, tidxs, drop=FALSE]
         if(inherits(rev_scores, 'spam')) {
           rev_scores <- as.matrix(rev_scores)
-          rownames(rev_scores) <- rownames(scoremat)[qidxs]
-          colnames(rev_scores) <- colnames(scoremat)[tidxs]
+          rownames(rev_scores) <- rnames[qidxs]
+          colnames(rev_scores) <- cnames[tidxs]
         }
         self_matches <- diagonal(scoremat, tidxs)
         rev_scores <- scale(rev_scores, center=FALSE, scale=self_matches)
