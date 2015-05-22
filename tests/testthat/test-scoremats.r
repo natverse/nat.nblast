@@ -16,15 +16,17 @@ test_that("can generate non square score matrix from square score matrix", {
                dense_smat[nn[2:1],nn[c(2,3,1)]])
 
   # check that we get equivalent answers for all normalisation types
-  for(normtype in formals('sub_score_mat')$normalisation){
-    for(j in c(FALSE,TRUE)){
+  for(normtype in c("raw", "normalised", "mean")){
+    for(distarg in c(FALSE,TRUE)){
+      # raw scores are always similarity scores
+      if(normtype=='raw' && distarg) next
       q=nn[c(2,4,3)]
       t=nn[2:1]
-      baseline=sub_score_mat(query = q, t, scoremat = dense_smat,
-                             normalisation = normtype, distance = distarg)
-      expect_equal(sub_score_mat(query = q, target = q,scoremat=q234t12,
+      baseline=sub_score_mat(scoremat = dense_smat, normalisation = normtype,
+                             distance = distarg)[t, q]
+      expect_equivalent(sub_score_mat(query = q, target = t, scoremat=dense_smat,
                                  normalisation = normtype, distance = distarg),
-                   baseline)
+                   baseline, info=paste('norm:',normtype,', distance:', distarg))
     }
   }
 })
