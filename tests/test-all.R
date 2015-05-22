@@ -1,4 +1,4 @@
 library(testthat)
-library(nat)
+library(nat.nblast)
 
 test_check("nat.nblast")
