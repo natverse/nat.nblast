@@ -17,13 +17,15 @@ test_that("can generate non square score matrix from square score matrix", {
 
   # check that we get equivalent answers for all normalisation types
   for(normtype in formals(sub_score_mat)$normalisation){
-    q=nn[c(2,4,3)]
-    t=nn[2:1]
-    baseline=sub_score_mat(query = q, t, scoremat = dense_smat,
-                           normalisation = normtype)
-    expect_equal(sub_score_mat(query = q, target = q,scoremat=q234t12,
-                               normalisation = normtype),
-                 baseline)
+    for(distarg in c(F,T)){
+      q=nn[c(2,4,3)]
+      t=nn[2:1]
+      baseline=sub_score_mat(query = q, t, scoremat = dense_smat,
+                             normalisation = normtype, distance = distarg)
+      expect_equal(sub_score_mat(query = q, target = q,scoremat=q234t12,
+                                 normalisation = normtype, distance = distarg),
+                   baseline)
+    }
   }
 })
 
