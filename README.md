@@ -1,5 +1,5 @@
 # nat.nblast
-[![Release Version](https://badge.fury.io/gh/jefferis%2Fnat.nblast.svg)](https://github.com/jefferis/nat.nblast/releases/latest) 
+[![Release Version](https://img.shields.io/github/release/jefferislab/nat.nblast.svg)](https://github.com/jefferis/nat.nblast/releases/latest) 
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/nat.nblast)](http://cran.r-project.org/web/packages/nat.nblast) 
 [![Build Status](https://travis-ci.org/jefferislab/nat.nblast.svg?branch=master)](https://travis-ci.org/jefferislab/nat.nblast)
 
