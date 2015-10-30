@@ -153,7 +153,7 @@ nblast <- function(query, target=getOption("nat.default.neuronlist"),
     target=get(target, envir = parent.frame())
   }
   if(is.null(target)) stop("No target neurons provided. Please set them directly",
-                           "or use option('nat.default.neuronlist')")
+                           " or use option('nat.default.neuronlist')")
 
   # Convert target to neuronlist if passed a single object
   if("dotprops" %in% class(target)) target <- neuronlist(target)
