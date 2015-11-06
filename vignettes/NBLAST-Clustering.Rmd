@@ -4,7 +4,7 @@ author: "Gregory Jefferis"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Hierarchical clustering of neurons by NBLAST scores}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -17,6 +17,7 @@ install.packages('nat.nblast', dependencies = TRUE)
 
 Load the package and set up for knitr / 3D snapshot figures
 ```{r}
+library(nat.nblast)
 rgl::setupKnitr()
 ```
 
@@ -28,7 +29,6 @@ First we create a 20 x 20 NBLAST all by all score matrix for 20 Kenyon cells inc
 with the *nat* package
 
 ```{r, message=FALSE}
-library(nat.nblast)
 library(nat)
 kcscores <- nblast_allbyall(kcs20)
 ```
@@ -50,6 +50,8 @@ plot(dkcs)
 ```
 
 ## 3D plot
+You can create interactive 3D plots using the rgl package where different
+subgroups of neurons are coloured according to the calculated clustering.
 ```{r, rgl=TRUE, message=FALSE}
 plot3d(hckcs, k=3, db=kcs20, soma=T)
 par3d(userMatrix=diag(c(1,-1,-1,1), 4))
