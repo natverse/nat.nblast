@@ -1,0 +1,58 @@
+---
+title: "NBLAST Clustering"
+author: "Gregory Jefferis"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Startup
+Install the package if required
+```{r install, eval=FALSE}
+install.packages('nat.nblast', dependencies = TRUE)
+```
+
+Load the package and set up for knitr / 3D snapshot figures
+```{r}
+rgl::setupKnitr()
+```
+
+
+
+# Clustering with NBLAST scores
+## All by all scores
+First we create a 20 x 20 NBLAST all by all score matrix for 20 Kenyon cells included 
+with the *nat* package
+
+```{r, message=FALSE}
+library(nat.nblast)
+library(nat)
+kcscores <- nblast_allbyall(kcs20)
+```
+
+## Clustering
+
+Hierarchically cluster the Kenyon scores and divide the clustering into 3 groups
+```{r}
+hckcs <- nhclust(scoremat=kcscores)
+library(dendroextras)
+dkcs <- colour_clusters(hckcs, k=3)
+```
+
+Plot a dendrogram of the clustering, with leaves labelled by true neuron type
+
+```{r}
+labels(dkcs) <- with(kcs20[labels(dkcs)], type)
+plot(dkcs)
+```
+
+## 3D plot
+```{r, rgl=TRUE, message=FALSE}
+plot3d(hckcs, k=3, db=kcs20, soma=T)
+par3d(userMatrix=diag(c(1,-1,-1,1), 4))
+plot3d(MBL.surf, alpha=.1)
+```
+
