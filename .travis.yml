@@ -10,7 +10,6 @@ before_install:
   - sudo apt-get install cmtk --no-install-recommends
 install:
   - ./travis-tool.sh install_deps
-  - sh -e /etc/init.d/xvfb start
 notifications:
   email:
     on_success: change
@@ -21,5 +20,5 @@ env:
     - R_BUILD_ARGS=--no-manual
     - R_CHECK_ARGS=--no-manual --as-cran
     - _R_CHECK_FORCE_SUGGESTS_=0
-    - DISPLAY=:99.0
+    - RGL_USE_NULL=TRUE
 after_success:
