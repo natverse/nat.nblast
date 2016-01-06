@@ -22,7 +22,7 @@ Suggests:
     ff,
     testthat,
     knitr,
-    rglwidgets
+    rglwidget
 License: GPL-3
 LazyData: yes
 VignetteBuilder: knitr
