@@ -1,5 +1,8 @@
+# see https://docs.travis-ci.com/user/languages/r/
 language: r
 sudo: required
+warnings_are_errors: true
+
 r_binary_packages:
   - rgl
   - testthat
@@ -10,8 +13,10 @@ r_binary_packages:
   - filehash
   - plyr
   - spam
-r_github_packages: jefferis/nat
-warnings_are_errors: true
+
+r_github_packages:
+  - jefferis/nat
+
 env:
   global:
     - RGL_USE_NULL=TRUE
