@@ -21,7 +21,8 @@ Suggests:
     bigmemory,
     ff,
     testthat,
-    knitr
+    knitr,
+    rglwidgets
 License: GPL-3
 LazyData: yes
 VignetteBuilder: knitr
