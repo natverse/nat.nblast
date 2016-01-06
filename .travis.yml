@@ -15,8 +15,8 @@ notifications:
 env:
   global:
     - WARNINGS_ARE_ERRORS=1
-    - R_BUILD_ARGS=--no-manual --no-build-vignettes
-    - R_CHECK_ARGS=--no-manual --no-build-vignettes --as-cran
+    - R_BUILD_ARGS="--no-manual --no-build-vignettes"
+    - R_CHECK_ARGS="--no-manual --no-build-vignettes --as-cran"
     - _R_CHECK_FORCE_SUGGESTS_=0
     - RGL_USE_NULL=TRUE
 after_success:
