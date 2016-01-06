@@ -7,17 +7,17 @@ Author: Greg Jefferis and James Manton
 Maintainer: James Manton <ajd.manton@googlemail.com>
 Description: Extends package nat (NeuroAnatomy Toolbox) by providing a
     collection of NBLAST-related functions.
-Depends: 
+Depends:
     R (>= 2.15.1),
     rgl,
     methods,
     nat (>= 1.5.12)
-Imports: 
+Imports:
     nabor,
     dendroextras,
     plyr,
     spam
-Suggests: 
+Suggests:
     bigmemory,
     ff,
     testthat,
