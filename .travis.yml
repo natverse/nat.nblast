@@ -1,6 +1,6 @@
 language: r
 sudo: required
-r_binary_packages: r_binary_install rgl testthat RANN igraph ff bigmemory filehash plyr spam
+r_binary_packages: rgl testthat RANN igraph ff bigmemory filehash plyr spam
 r_github_packages: jefferis/nat
 warnings_are_errors: true
 env:
