@@ -109,6 +109,7 @@ sub_score_mat <- function(query, target, scoremat=NULL, distance=FALSE, normalis
 #'   argument), corresponding to a subset of the distance matrix
 #' @export
 #' @family scoremats
+#' @importFrom stats as.dist
 sub_dist_mat <- function(neuron_names, scoremat=NULL, form=c('matrix', 'dist'), maxneurons=NA){
   form <- match.arg(form)
   if(missing(neuron_names)){

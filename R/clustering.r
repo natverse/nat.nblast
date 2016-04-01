@@ -34,6 +34,7 @@
 #' plot3d(hckcs, k=3, db=kcs20)
 #' # names of neurons in 3 groups
 #' subset(hckcs, k=3)
+#' @importFrom stats hclust
 nhclust <- function(neuron_names, method='ward', scoremat=NULL, distfun=as.dist, ..., maxneurons=4000) {
   subdistmat <- sub_dist_mat(neuron_names, scoremat, maxneurons=maxneurons)
   if(min(subdistmat) < 0)
@@ -59,6 +60,7 @@ nhclust <- function(neuron_names, method='ward', scoremat=NULL, distfun=as.dist,
 #' @seealso
 #' \code{\link{nhclust}, \link[rgl]{plot3d}, \link{slice}, \link{colour_clusters}}
 #' @importFrom dendroextras slice
+#' @importFrom grDevices rainbow
 #' @examples
 #' # 20 Kenyon cells
 #' data(kcs20, package='nat')

@@ -303,6 +303,7 @@ NeuriteBlast <- function(query, target, targetBinds=NULL, normalised=FALSE,
 }
 
 
+#' @importFrom stats dnorm
 WeightedNNBasedLinesetDistFun<-function(nndists,dotproducts,sd,...){
   summaryfun=function(x) 1-mean(sqrt(x),na.rm=T)
   sapply(sd,function(sd) summaryfun(dnorm(nndists,sd=sd)*dotproducts/dnorm(0,sd=sd)))
