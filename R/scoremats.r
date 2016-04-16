@@ -112,7 +112,7 @@ sub_score_mat <- function(query, target, scoremat=NULL, distance=FALSE, normalis
 #' @importFrom stats as.dist
 sub_dist_mat <- function(neuron_names, scoremat=NULL, form=c('matrix', 'dist'), maxneurons=NA){
   form <- match.arg(form)
-  if(missing(neuron_names)){
+  if(missing(neuron_names) || is.null(neuron_names)){
     if(nrow(scoremat)!=ncol(scoremat))
       stop("scoremat must be square if neuron_names is missing")
     neuron_names=rownames(scoremat)

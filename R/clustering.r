@@ -36,6 +36,12 @@
 #' subset(hckcs, k=3)
 #' @importFrom stats hclust
 nhclust <- function(neuron_names, method='ward', scoremat=NULL, distfun=as.dist, ..., maxneurons=4000) {
+  if(!missing(neuron_names) && is.matrix(neuron_names) && is.numeric(neuron_names)){
+    scoremat=neuron_names
+    warning("Assuming that first argument is a score matrix - please call like:\n",
+            "  nhclust(scoremat=",deparse(substitute(neuron_names)),") in future!")
+    neuron_names=NULL
+  }
   subdistmat <- sub_dist_mat(neuron_names, scoremat, maxneurons=maxneurons)
   if(min(subdistmat) < 0)
     stop("Negative distances not allowed. Are you sure this is a distance matrix?")
