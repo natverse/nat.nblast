@@ -4,14 +4,14 @@
 \alias{show_similarity}
 \title{Display two neurons with segments in the query coloured by similarity}
 \usage{
-show_similarity(target, query, smat = NULL,
+show_similarity(query, target, smat = NULL,
   cols = colorRampPalette(c("#0000FF", "#FF0000")), col = "black",
   AbsoluteScale = FALSE, PlotVectors = TRUE, ...)
 }
 \arguments{
-\item{target}{the neuron to compare against.}
-
 \item{query}{a neuron to compare and colour.}
+
+\item{target}{the neuron to compare against.}
 
 \item{smat}{a score matrix (if \code{NULL}, defaults to \code{smat.fcwb}).}
 

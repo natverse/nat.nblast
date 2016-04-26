@@ -4,8 +4,8 @@
 #' to blue, with red indicating a poor match to the target segments, and blue
 #' a good match.
 #'
-#' @param target the neuron to compare against.
 #' @param query a neuron to compare and colour.
+#' @param target the neuron to compare against.
 #' @param smat a score matrix (if \code{NULL}, defaults to \code{smat.fcwb}).
 #' @param cols the function to use to colour the segments (e.g. \code{\link{heat.colors}}).
 #' @param col the colour with which to draw the comparison neuron.
@@ -32,7 +32,7 @@
 #' clear3d()
 #' show_similarity(ab_neurons[[1]], gamma_neurons[[3]])
 #' }
-show_similarity <- function(target, query, smat=NULL, cols=colorRampPalette(c('#0000FF', '#FF0000')), col='black', AbsoluteScale=FALSE, PlotVectors=TRUE, ...) {
+show_similarity <- function(query, target, smat=NULL, cols=colorRampPalette(c('#0000FF', '#FF0000')), col='black', AbsoluteScale=FALSE, PlotVectors=TRUE, ...) {
   if(is.null(smat)) {
     smat=getOption("nat.nblast.defaultsmat")
     if(is.null(smat)) smat=smat.fcwb
