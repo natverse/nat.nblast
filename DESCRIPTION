@@ -22,6 +22,7 @@ Suggests:
     ff,
     testthat,
     knitr,
+    rmarkdown,
     rglwidget
 License: GPL-3
 LazyData: yes
