@@ -5,7 +5,7 @@ Title: NeuroAnatomy Toolbox ('nat') Extension for Assessing Neuron Similarity an
 Version: 1.6.2
 Author: Greg Jefferis and James Manton
 Maintainer: James Manton <ajd.manton@googlemail.com>
-Description: Extends package nat (NeuroAnatomy Toolbox) by providing a
+Description: Extends package 'nat' (NeuroAnatomy Toolbox) by providing a
     collection of NBLAST-related functions.
 Depends:
     R (>= 2.15.1),
