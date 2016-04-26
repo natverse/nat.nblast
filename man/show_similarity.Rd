@@ -31,4 +31,21 @@ show_similarity(n1, n2, smat = get(getOption("nat.nblast.defaultsmat")),
 \description{
 Display two neurons with segments coloured by similarity
 }
+\examples{
+\dontrun{
+library(nat)
+
+# Pull out gamma and alpha-beta neurons
+gamma_neurons <- kcs20[kcs20[,]$type=='gamma']
+ab_neurons <- kcs20[kcs20[,]$type=='ab']
+
+# Compare two alpha-beta neurons with similar branching, but dissimilar arborisation
+clear3d()
+show_similarity(ab_neurons[[1]], ab_neurons[[2]])
+
+# Compare an alpha-beta and a gamma neuron with some similarities and differences
+clear3d()
+show_similarity(ab_neurons[[1]], gamma_neurons[[3]])
+}
+}
 
