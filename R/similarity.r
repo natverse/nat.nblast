@@ -2,7 +2,7 @@
 #'
 #' @param n1 a neuron to compare and colour.
 #' @param n2 the neuron to compare against.
-#' @param smat a score matrix.
+#' @param smat a score matrix (if \code{NULL}, defaults to \code{smat.fcwb}).
 #' @param cols the function to use to colour the segments (e.g. \code{\link{heat.colors}}).
 #' @param col the colour with which to draw the comparison neuron.
 #' @param AbsoluteScale logical indicating whether the colours should be calculated based on the minimum and maximum similarities for the neuron (\code{AbsoluteScale = FALSE}) or on the minimum and maximum possible for all neurons.
@@ -28,7 +28,13 @@
 #' clear3d()
 #' show_similarity(ab_neurons[[1]], gamma_neurons[[3]])
 #' }
-show_similarity <- function(n1, n2, smat=get(getOption('nat.nblast.defaultsmat')), cols=colorRampPalette(c('#0000FF', '#FF0000')), col='black', AbsoluteScale=FALSE, PlotVectors=TRUE, ...) {
+show_similarity <- function(n1, n2, smat=NULL, cols=colorRampPalette(c('#0000FF', '#FF0000')), col='black', AbsoluteScale=FALSE, PlotVectors=TRUE, ...) {
+  if(is.null(smat)) {
+    smat=getOption("nat.nblast.defaultsmat")
+    if(is.null(smat)) smat=smat.fcwb
+  }
+  if(is.character(smat)) smat=get(smat)
+
   res <- WeightedNNBasedLinesetMatching.dotprops(n1, n2, NNDistFun=lodsby2dhist, smat=smat, Return='elements')
 
   if(AbsoluteScale) {

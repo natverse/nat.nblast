@@ -4,16 +4,16 @@
 \alias{show_similarity}
 \title{Display two neurons with segments coloured by similarity}
 \usage{
-show_similarity(n1, n2, smat = get(getOption("nat.nblast.defaultsmat")),
-  cols = colorRampPalette(c("#0000FF", "#FF0000")), col = "black",
-  AbsoluteScale = FALSE, PlotVectors = TRUE, ...)
+show_similarity(n1, n2, smat = NULL, cols = colorRampPalette(c("#0000FF",
+  "#FF0000")), col = "black", AbsoluteScale = FALSE, PlotVectors = TRUE,
+  ...)
 }
 \arguments{
 \item{n1}{a neuron to compare and colour.}
 
 \item{n2}{the neuron to compare against.}
 
-\item{smat}{a score matrix.}
+\item{smat}{a score matrix (if \code{NULL}, defaults to \code{smat.fcwb}).}
 
 \item{cols}{the function to use to colour the segments (e.g. \code{\link{heat.colors}}).}
 
