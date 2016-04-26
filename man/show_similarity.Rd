@@ -2,16 +2,16 @@
 % Please edit documentation in R/similarity.r
 \name{show_similarity}
 \alias{show_similarity}
-\title{Display two neurons with segments coloured by similarity}
+\title{Display two neurons with segments in the query coloured by similarity}
 \usage{
-show_similarity(n1, n2, smat = NULL, cols = colorRampPalette(c("#0000FF",
-  "#FF0000")), col = "black", AbsoluteScale = FALSE, PlotVectors = TRUE,
-  ...)
+show_similarity(target, query, smat = NULL,
+  cols = colorRampPalette(c("#0000FF", "#FF0000")), col = "black",
+  AbsoluteScale = FALSE, PlotVectors = TRUE, ...)
 }
 \arguments{
-\item{n1}{a neuron to compare and colour.}
+\item{target}{the neuron to compare against.}
 
-\item{n2}{the neuron to compare against.}
+\item{query}{a neuron to compare and colour.}
 
 \item{smat}{a score matrix (if \code{NULL}, defaults to \code{smat.fcwb}).}
 
@@ -29,15 +29,17 @@ show_similarity(n1, n2, smat = NULL, cols = colorRampPalette(c("#0000FF",
 \code{show_similarity} is called for the side effect of drawing the plot; a vector of object IDs is returned.
 }
 \description{
-Display two neurons with segments coloured by similarity
+By default, the query neuron will be drawn with its segments shaded from red
+to blue, with red indicating a poor match to the target segments, and blue
+a good match.
 }
 \examples{
 \dontrun{
 library(nat)
 
 # Pull out gamma and alpha-beta neurons
-gamma_neurons <- kcs20[kcs20[,]$type=='gamma']
-ab_neurons <- kcs20[kcs20[,]$type=='ab']
+gamma_neurons <- subset(kcs20, type=='gamma')
+ab_neurons <- subset(kcs20, type=='ab')
 
 # Compare two alpha-beta neurons with similar branching, but dissimilar arborisation
 clear3d()

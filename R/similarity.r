@@ -1,7 +1,11 @@
-#' Display two neurons with segments coloured by similarity
+#' Display two neurons with segments in the query coloured by similarity
 #'
-#' @param n1 a neuron to compare and colour.
-#' @param n2 the neuron to compare against.
+#' By default, the query neuron will be drawn with its segments shaded from red
+#' to blue, with red indicating a poor match to the target segments, and blue
+#' a good match.
+#'
+#' @param target the neuron to compare against.
+#' @param query a neuron to compare and colour.
 #' @param smat a score matrix (if \code{NULL}, defaults to \code{smat.fcwb}).
 #' @param cols the function to use to colour the segments (e.g. \code{\link{heat.colors}}).
 #' @param col the colour with which to draw the comparison neuron.
@@ -17,8 +21,8 @@
 #' library(nat)
 #'
 #' # Pull out gamma and alpha-beta neurons
-#' gamma_neurons <- kcs20[kcs20[,]$type=='gamma']
-#' ab_neurons <- kcs20[kcs20[,]$type=='ab']
+#' gamma_neurons <- subset(kcs20, type=='gamma')
+#' ab_neurons <- subset(kcs20, type=='ab')
 #'
 #' # Compare two alpha-beta neurons with similar branching, but dissimilar arborisation
 #' clear3d()
@@ -28,14 +32,14 @@
 #' clear3d()
 #' show_similarity(ab_neurons[[1]], gamma_neurons[[3]])
 #' }
-show_similarity <- function(n1, n2, smat=NULL, cols=colorRampPalette(c('#0000FF', '#FF0000')), col='black', AbsoluteScale=FALSE, PlotVectors=TRUE, ...) {
+show_similarity <- function(target, query, smat=NULL, cols=colorRampPalette(c('#0000FF', '#FF0000')), col='black', AbsoluteScale=FALSE, PlotVectors=TRUE, ...) {
   if(is.null(smat)) {
     smat=getOption("nat.nblast.defaultsmat")
     if(is.null(smat)) smat=smat.fcwb
   }
   if(is.character(smat)) smat=get(smat)
 
-  res <- WeightedNNBasedLinesetMatching.dotprops(n1, n2, NNDistFun=lodsby2dhist, smat=smat, Return='elements')
+  res <- WeightedNNBasedLinesetMatching.dotprops(target, query, NNDistFun=lodsby2dhist, smat=smat, Return='elements')
 
   if(AbsoluteScale) {
     smat.unique.ordered <- unique(smat)[order(unique(smat))]
@@ -50,10 +54,10 @@ show_similarity <- function(n1, n2, smat=NULL, cols=colorRampPalette(c('#0000FF'
   if(PlotVectors) {
     # We need to duplicate each colour as we are drawing line segments, not points
     segcols <- c(sapply(segcols, function(x) c(x,x)))
-    plot3d(n1, col=col, PlotVectors=TRUE, PlotPoints=FALSE, ...)
-    plot3d(n2, col=segcols, PlotVectors=TRUE, PlotPoints=FALSE, ...)
+    plot3d(target, col=col, PlotVectors=TRUE, PlotPoints=FALSE, ...)
+    plot3d(query, col=segcols, PlotVectors=TRUE, PlotPoints=FALSE, ...)
   } else {
-    plot3d(n1, col=col, PlotVectors=FALSE, PlotPoints=TRUE, ...)
-    plot3d(n2, col=segcols, PlotVectors=FALSE, PlotPoints=TRUE, ...)
+    plot3d(target, col=col, PlotVectors=FALSE, PlotPoints=TRUE, ...)
+    plot3d(query, col=segcols, PlotVectors=FALSE, PlotPoints=TRUE, ...)
   }
 }
