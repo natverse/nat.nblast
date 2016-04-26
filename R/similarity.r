@@ -50,10 +50,10 @@ show_similarity <- function(n1, n2, smat=NULL, cols=colorRampPalette(c('#0000FF'
   if(PlotVectors) {
     # We need to duplicate each colour as we are drawing line segments, not points
     segcols <- c(sapply(segcols, function(x) c(x,x)))
-    plot3d(n2, col=col, PlotVectors=TRUE, PlotPoints=FALSE, ...)
-    plot3d(n1, col=segcols, PlotVectors=TRUE, PlotPoints=FALSE, ...)
+    plot3d(n1, col=col, PlotVectors=TRUE, PlotPoints=FALSE, ...)
+    plot3d(n2, col=segcols, PlotVectors=TRUE, PlotPoints=FALSE, ...)
   } else {
-    plot3d(n2, col=col, PlotVectors=FALSE, PlotPoints=TRUE, ...)
-    plot3d(n1, col=segcols, PlotVectors=FALSE, PlotPoints=TRUE, ...)
+    plot3d(n1, col=col, PlotVectors=FALSE, PlotPoints=TRUE, ...)
+    plot3d(n2, col=segcols, PlotVectors=FALSE, PlotPoints=TRUE, ...)
   }
 }
