@@ -1,21 +1,30 @@
 #' Display two neurons with segments in the query coloured by similarity
 #'
 #' By default, the query neuron will be drawn with its segments shaded from red
-#' to blue, with red indicating a poor match to the target segments, and blue
-#' a good match.
+#' to blue, with red indicating a poor match to the target segments, and blue a
+#' good match.
 #'
 #' @param query a neuron to compare and colour.
 #' @param target the neuron to compare against.
 #' @param smat a score matrix (if \code{NULL}, defaults to \code{smat.fcwb}).
-#' @param cols the function to use to colour the segments (e.g. \code{\link{heat.colors}}).
-#' @param col the colour with which to draw the comparison neuron.
-#' @param AbsoluteScale logical indicating whether the colours should be calculated based on the minimum and maximum similarities for the neuron (\code{AbsoluteScale = FALSE}) or on the minimum and maximum possible for all neurons.
-#' @param PlotVectors logical indicating whether the vectors of the \code{dotprops} representation should be plotted. If \code{FALSE}, only the points are plotted.
+#' @param cols the function to use to colour the segments (e.g.
+#'   \code{\link{heat.colors}}).
+#' @param col the colour with which to draw the target neuron.
+#' @param AbsoluteScale logical indicating whether the colours should be
+#'   calculated based on the minimum and maximum similarities for the neuron
+#'   (\code{AbsoluteScale = FALSE}) or on the minimum and maximum possible for
+#'   all neurons.
+#' @param PlotVectors logical indicating whether the vectors of the
+#'   \code{dotprops} representation should be plotted. If \code{FALSE}, only the
+#'   points are plotted.
 #' @param ... extra arguments to pass to \code{\link[rgl]{plot3d}}.
-#' @return \code{show_similarity} is called for the side effect of drawing the plot; a vector of object IDs is returned.
+#' @return \code{show_similarity} is called for the side effect of drawing the
+#'   plot; a vector of object IDs is returned.
 #' @export
 #' @importFrom rgl plot3d
 #' @importFrom grDevices colorRampPalette
+#' @seealso The low level function \code{\link{WeightedNNBasedLinesetMatching}}
+#'   is used to retrived the scores.
 #' @examples
 #' \dontrun{
 #' library(nat)
@@ -32,10 +41,12 @@
 #' clear3d()
 #' show_similarity(ab_neurons[[1]], gamma_neurons[[3]])
 #' }
-show_similarity <- function(query, target, smat=NULL, cols=colorRampPalette(c('#0000FF', '#FF0000')), col='black', AbsoluteScale=FALSE, PlotVectors=TRUE, ...) {
+show_similarity <- function(query, target, smat=NULL,
+                            cols=colorRampPalette(c("red", "yellow", "cyan", "navy")),
+                            col='black', AbsoluteScale=FALSE, PlotVectors=TRUE, ...) {
   if(is.null(smat)) {
     smat=getOption("nat.nblast.defaultsmat")
-    if(is.null(smat)) smat=smat.fcwb
+    if(is.null(smat)) smat=nat.nblast::smat.fcwb
   }
   if(is.character(smat)) smat=get(smat)
 

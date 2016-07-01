@@ -29,20 +29,31 @@ in the target (default FALSE, only implemented for dotprops).}
 Value of NNDistFun passd to WeightedNNBasedLinesetMatching
 }
 \description{
-WeightedNNBasedLinesetMatching will work with 2 objects of class
-  \code{dotprops} or \code{neuron}. The code to calculate scores directly for
-  \code{neuron} objects gives broadly comparable scores to that for
-  \code{dotprops} objects, but has been lightly tested. Furthermore only
+\code{WeightedNNBasedLinesetMatching} is a low level function
+  that is called by \code{\link{nblast}}. Most end users will not usually
+  need to call it directly. It does allow the results of an NBLAST comparison
+  to be inspected in further detail (see examples).
+}
+\details{
+\code{WeightedNNBasedLinesetMatching} will work with 2 objects of
+  class \code{dotprops} or \code{neuron}. The code to calculate scores
+  directly for \code{neuron} objects gives broadly comparable scores to that
+  for \code{dotprops} objects, but has been lightly tested. Furthermore only
   objects in \code{dotprops} form were used in the constriction of the
   scoring matrices distributed in this package. It is therefore recommended
   to convert neuron objects to dotprops objects using the
   \code{\link{dotprops}} function.
-}
-\details{
+
 \code{UseAlpha} determines whether the alpha values
   (eig1-eig2)/sum(eig1:3) are passed on to WeightedNNBasedLinesetMatching.
   These will be used to scale the dot products of the direction vectors for
   nearest neighbour pairs.
+}
+\examples{
+# Retrieve per segment distances / absolute dot products
+segvals=WeightedNNBasedLinesetMatching(kcs20[[1]], kcs20[[2]], NNDistFun=list)
+names(segvals)=c("dist", "adotprod")
+pairs(segvals)
 }
 \seealso{
 \code{\link[nat]{dotprops}}

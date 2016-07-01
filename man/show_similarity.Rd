@@ -15,23 +15,30 @@ show_similarity(query, target, smat = NULL, cols = colorRampPalette(c("red",
 
 \item{smat}{a score matrix (if \code{NULL}, defaults to \code{smat.fcwb}).}
 
-\item{cols}{the function to use to colour the segments (e.g. \code{\link{heat.colors}}).}
+\item{cols}{the function to use to colour the segments (e.g.
+\code{\link{heat.colors}}).}
 
-\item{col}{the colour with which to draw the comparison neuron.}
+\item{col}{the colour with which to draw the target neuron.}
 
-\item{AbsoluteScale}{logical indicating whether the colours should be calculated based on the minimum and maximum similarities for the neuron (\code{AbsoluteScale = FALSE}) or on the minimum and maximum possible for all neurons.}
+\item{AbsoluteScale}{logical indicating whether the colours should be
+calculated based on the minimum and maximum similarities for the neuron
+(\code{AbsoluteScale = FALSE}) or on the minimum and maximum possible for
+all neurons.}
 
-\item{PlotVectors}{logical indicating whether the vectors of the \code{dotprops} representation should be plotted. If \code{FALSE}, only the points are plotted.}
+\item{PlotVectors}{logical indicating whether the vectors of the
+\code{dotprops} representation should be plotted. If \code{FALSE}, only the
+points are plotted.}
 
 \item{...}{extra arguments to pass to \code{\link[rgl]{plot3d}}.}
 }
 \value{
-\code{show_similarity} is called for the side effect of drawing the plot; a vector of object IDs is returned.
+\code{show_similarity} is called for the side effect of drawing the
+  plot; a vector of object IDs is returned.
 }
 \description{
 By default, the query neuron will be drawn with its segments shaded from red
-to blue, with red indicating a poor match to the target segments, and blue
-a good match.
+to blue, with red indicating a poor match to the target segments, and blue a
+good match.
 }
 \examples{
 \dontrun{
@@ -49,5 +56,9 @@ show_similarity(ab_neurons[[1]], ab_neurons[[2]])
 clear3d()
 show_similarity(ab_neurons[[1]], gamma_neurons[[3]])
 }
+}
+\seealso{
+The low level function \code{\link{WeightedNNBasedLinesetMatching}}
+  is used to retrived the scores.
 }
 

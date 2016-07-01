@@ -312,10 +312,15 @@ WeightedNNBasedLinesetDistFun<-function(nndists,dotproducts,sd,...){
 
 #' Compute point & tangent vector similarity score between two linesets
 #'
-#' @description WeightedNNBasedLinesetMatching will work with 2 objects of class
-#'   \code{dotprops} or \code{neuron}. The code to calculate scores directly for
-#'   \code{neuron} objects gives broadly comparable scores to that for
-#'   \code{dotprops} objects, but has been lightly tested. Furthermore only
+#' @description \code{WeightedNNBasedLinesetMatching} is a low level function
+#'   that is called by \code{\link{nblast}}. Most end users will not usually
+#'   need to call it directly. It does allow the results of an NBLAST comparison
+#'   to be inspected in further detail (see examples).
+#'
+#' @details \code{WeightedNNBasedLinesetMatching} will work with 2 objects of
+#'   class \code{dotprops} or \code{neuron}. The code to calculate scores
+#'   directly for \code{neuron} objects gives broadly comparable scores to that
+#'   for \code{dotprops} objects, but has been lightly tested. Furthermore only
 #'   objects in \code{dotprops} form were used in the constriction of the
 #'   scoring matrices distributed in this package. It is therefore recommended
 #'   to convert neuron objects to dotprops objects using the
@@ -341,6 +346,11 @@ WeightedNNBasedLinesetMatching <- function(target, query, ...) {
 #' @seealso \code{\link[nat]{dotprops}}
 #' @rdname WeightedNNBasedLinesetMatching
 #' @importFrom nat dotprops
+#' @examples
+#' # Retrieve per segment distances / absolute dot products
+#' segvals=WeightedNNBasedLinesetMatching(kcs20[[1]], kcs20[[2]], NNDistFun=list)
+#' names(segvals)=c("dist", "adotprod")
+#' pairs(segvals)
 WeightedNNBasedLinesetMatching.dotprops<-function(target, query, UseAlpha=FALSE, ...) {
   if(!"dotprops" %in% class(query)) query <- dotprops(query)
   if(UseAlpha)
