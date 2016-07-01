@@ -1,7 +1,7 @@
 Package: nat.nblast
 Type: Package
-Title: NeuroAnatomy Toolbox ('nat') Extension for Assessing Neuron Similarity and
-    Clustering
+Title: NeuroAnatomy Toolbox ('nat') Extension for Assessing Neuron Similarity
+    and Clustering
 Version: 1.6.2
 Author: Greg Jefferis and James Manton
 Maintainer: James Manton <ajd.manton@googlemail.com>
@@ -27,3 +27,4 @@ Suggests:
 License: GPL-3
 LazyData: yes
 VignetteBuilder: knitr
+RoxygenNote: 5.0.1
