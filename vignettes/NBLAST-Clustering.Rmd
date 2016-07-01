@@ -16,7 +16,7 @@ install.packages('nat.nblast', dependencies = TRUE)
 ```
 
 Load the package and set up for knitr / 3D snapshot figures
-```{r}
+```{r, message=FALSE}
 library(nat.nblast)
 rgl::setupKnitr()
 ```
@@ -46,6 +46,7 @@ Plot a dendrogram of the clustering, with leaves labelled by true neuron type
 
 ```{r}
 labels(dkcs) <- with(kcs20[labels(dkcs)], type)
+par(cex=.7) # so labels are legible
 plot(dkcs)
 ```
 
