@@ -1,5 +1,22 @@
-nat.nblast 1.6
+nat.nblast 1.6.3
 ================
+* fixes/examples for show_similarity
+* allow score matrices to be passed as first param to nhclust (but issue a
+  warning)
+* change vignette engine to rmarkdown
+
+nat.nblast 1.6.2
+================
+* minor fixes for 3.3
+* add vignette
+* simplify travis setup
+
+nat.nblast 1.6.1
+================
+* dev: fix test for different normalisation types
+
+nat.nblast 1.6
+==============
 * fix handling of non-square matrices in sub_score_mat
 * minor doc fixes
 
