@@ -3,10 +3,14 @@ Type: Package
 Title: NeuroAnatomy Toolbox ('nat') Extension for Assessing Neuron Similarity
     and Clustering
 Version: 1.6.3
-Author: Greg Jefferis and James Manton
-Maintainer: James Manton <ajd.manton@googlemail.com>
+Authors@R: c(
+    person("Gregory", "Jefferis", email= "jefferis@gmail.com", role = c("aut")),
+    person("James", "Manton", email="ajd.manton@googlemail.com", role = c("aut", "cre"))
+    )
 Description: Extends package 'nat' (NeuroAnatomy Toolbox) by providing a
     collection of NBLAST-related functions.
+URL: https://github.com/jefferislab/nat.nblast, http://jefferislab.org
+BugReports: https://github.com/jefferislab/nat.nblast/issues
 Depends:
     R (>= 2.15.1),
     rgl,
