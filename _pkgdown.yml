@@ -1,0 +1,47 @@
+reference:
+- title: Package Overview
+  desc: Provides an overview of key functions and classes
+  contents:
+  - nat.nblast-package
+- title: Key functions
+  desc: The main entry points to neuron search and clustering
+  contents:
+  - nblast
+  - nblast_allbyall
+  - nhclust
+- title: Plotting results
+  desc: Visualise pairwise neuron search or clustering results
+  contents:
+  - plot3d.hclust
+  - show_similarity
+  - subset.hclust
+- title: Scoring Matrices
+  desc: Calculate the scoring matrices that define NBLAST similarity
+  contents:
+  - create_scoringmatrix
+  - calc_score_matrix
+  - calc_prob_mat
+  - calc_dists_dotprods
+  - smat.fcwb
+- title: Mid level functions for result matrices
+  desc: >
+    Functions that you might use to manipulate matrices containing all by all
+    NBLAST results for use with other clustering strategies (besides nhclust)
+  contents:
+  - sub_score_mat
+  - sub_dist_mat
+  - sparse_score_mat
+- title: Low level search functions
+  desc: Intended for developer use
+  contents:
+  - NeuriteBlast
+  - neuron_pairs
+  - WeightedNNBasedLinesetMatching
+  - fctraces20
+- title: Matrix utility functions
+  desc: Intended for developer use
+  contents:
+  - diagonal
+  - '['
+  - fill_in_sparse_score_mat
+  - fill_pairs_sparse_score_mat
