@@ -38,8 +38,13 @@ This R package implements the NBLAST neuron similarity algorithm described in a 
 databases of neurons.  There is also suport for all x all comparison for a group of neurons. This can produce a distance
 matrix suitable for hierarchical clustering, which is also implemented in the package.
 
-These tools are designed as an addon for the [NeuroAnatomy Toolbox](https://github.com/jefferis/nat) (nat) R package, 
-which you must first install.
+These tools are designed as an addon for the [NeuroAnatomy Toolbox](https://github.com/jefferis/nat)
+(nat) R package, which will be installed as dependency.
+
+You will probably find the following online documentation helpful:
+
+* http://jefferislab.github.io/nat.nblast - Online documentation for this R package
+* http://jefferislab.org/si/nblast - Overview of NBLAST algorithm and online tools 
 
 ## Installation
 This package has  been released to [CRAN](https://cran.r-project.org/package=nat.nblast)

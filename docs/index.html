@@ -69,12 +69,17 @@ devtools::<span class="kw">install_github</span>(<span class="kw">c</span>(<span
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"> </a>Introduction</h2>
 <p>This R package implements the NBLAST neuron similarity algorithm described in a preprint available at <a href="http://dx.doi.org/10.1101/006346" class="uri">http://dx.doi.org/10.1101/006346</a>. In addition to basic pairwise comparison, the package implements search of databases of neurons. There is also suport for all x all comparison for a group of neurons. This can produce a distance matrix suitable for hierarchical clustering, which is also implemented in the package.</p>
-<p>These tools are designed as an addon for the <a href="https://github.com/jefferis/nat">NeuroAnatomy Toolbox</a> (nat) R package, which you must first install.</p>
-</div>
+<p>These tools are designed as an addon for the <a href="https://github.com/jefferis/nat">NeuroAnatomy Toolbox</a> (nat) R package, which will be installed as dependency.</p>
+<p>You will probably find the following online documentation helpful:</p>
+<ul><li>
+<a href="http://jefferislab.github.io/nat.nblast" class="uri">http://jefferislab.github.io/nat.nblast</a> - Online documentation for this R package</li>
+<li>
+<a href="http://jefferislab.org/si/nblast" class="uri">http://jefferislab.org/si/nblast</a> - Overview of NBLAST algorithm and online tools</li>
+</ul></div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"> </a>Installation</h2>
-<p>This package has now been released to <a href="https://cran.r-project.org/package=nat.nblast">CRAN</a> (as of v1.5), but since this is the first official release, you may wish to install the development version from GitHub, especially if you notice a bug. Although <strong>nat</strong> (the main dependency) is available on <a href="https://cran.r-project.org/package=nat">CRAN</a>, it it recommended that you install the development version of both packages if you want to install the development version of <strong>nat.nblast</strong>: <strong>nat.nblast</strong> is evolving fast and has required several minor tweaks to <strong>nat</strong>, which is otherwise quite mature.</p>
+<p>This package has been released to <a href="https://cran.r-project.org/package=nat.nblast">CRAN</a> (since v1.5), but we generally recommend installing the development version from GitHub, especially if you notice a bug.</p>
 <div id="cran-release" class="section level3">
 <h3 class="hasAnchor">
 <a href="#cran-release" class="anchor"> </a>CRAN release</h3>
@@ -83,14 +88,12 @@ devtools::<span class="kw">install_github</span>(<span class="kw">c</span>(<span
 <div id="development-version" class="section level3">
 <h3 class="hasAnchor">
 <a href="#development-version" class="anchor"> </a>Development version</h3>
-<p>You can download the <a href="https://github.com/jefferislab/nat.nblast/tarball/master">tar ball</a>, and run <code>R CMD INSTALL</code> on it, or (recommended) use the <strong>devtools</strong> package to install the development version:</p>
+<p>Use <strong>devtools</strong> to install the development version:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install devtools if required</span>
 if (!<span class="kw">require</span>(<span class="st">"devtools"</span>)) <span class="kw">install.packages</span>(<span class="st">"devtools"</span>)
-<span class="co"># then install nat</span>
-devtools::<span class="kw">install_github</span>(<span class="st">"jefferis/nat"</span>)
 <span class="co"># then nat.nblast</span>
 devtools::<span class="kw">install_github</span>(<span class="st">"nat.nblast"</span>, <span class="st">"jefferislab"</span>)</code></pre></div>
-<p>Note: Windows users need <a href="http://www.murdoch-sutherland.com/Rtools/">Rtools</a> to install this way.</p>
+<p>Note that this will also update the <a href="https://github.com/jefferis/nat">nat package</a> to the latest development version from github. Windows users need <a href="http://www.murdoch-sutherland.com/Rtools/">Rtools</a> to install this way.</p>
 </div>
 </div>
 </div>
