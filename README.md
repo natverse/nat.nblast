@@ -42,13 +42,9 @@ These tools are designed as an addon for the [NeuroAnatomy Toolbox](https://gith
 which you must first install.
 
 ## Installation
-This package has now been released to [CRAN](https://cran.r-project.org/package=nat.nblast)
-(as of v1.5), but since this is the first official release,
-you may wish to install the development version from GitHub, especially if you notice a bug.
-Although **nat** (the main dependency) is available on [CRAN](https://cran.r-project.org/package=nat),
-it it recommended that you install the development version of both packages 
-if you want to install the development version of **nat.nblast**: **nat.nblast** is evolving fast 
-and has required several minor tweaks to **nat**, which is otherwise quite mature.
+This package has  been released to [CRAN](https://cran.r-project.org/package=nat.nblast)
+(since v1.5), but we generally recommend installing the development version from
+GitHub, especially if you notice a bug.
 
 ### CRAN release
 ```r
@@ -56,16 +52,14 @@ install.packages("nat.nblast")
 ```
 
 ### Development version
-You can download the [tar ball](https://github.com/jefferislab/nat.nblast/tarball/master),
-and run `R CMD INSTALL` on it, or (recommended) use the **devtools** package to install the development version:
+Use **devtools** to install the development version:
 
 ```r
 # install devtools if required
 if (!require("devtools")) install.packages("devtools")
-# then install nat
-devtools::install_github("jefferis/nat")
 # then nat.nblast
 devtools::install_github("nat.nblast", "jefferislab")
 ```
-
-Note: Windows users need [Rtools](http://www.murdoch-sutherland.com/Rtools/) to install this way.
+Note that this will also update the [nat package](https://github.com/jefferis/nat)
+to the latest development version from github. Windows users need 
+[Rtools](http://www.murdoch-sutherland.com/Rtools/) to install this way.
