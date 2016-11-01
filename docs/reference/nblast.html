@@ -233,7 +233,7 @@ centers: spatially segregated fruit and pheromone representation. Cell 128
 #&gt; </div><div class='input'><span class='fu'>hist</span>(<span class='no'>scores</span>, <span class='kw'>breaks</span><span class='kw'>=</span><span class='fl'>25</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>'grey'</span>)</div><div class='input'><span class='fu'>abline</span>(<span class='kw'>v</span><span class='kw'>=</span><span class='fl'>1500</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>'red'</span>)</div><img src='nblast-5.png' alt='' width='540' height='400' /><div class='input'>
 <span class='co'># plot query neuron</span>
 <span class='fu'>open3d</span>()</div><div class='output co'>#&gt; glX 
-#&gt;   5 
+#&gt;   1 
 #&gt; </div><div class='input'><span class='co'># plot top 3 hits (including self match with thicker lines)</span>
 <span class='fu'>plot3d</span>(<span class='no'>kcs20</span>[<span class='fu'>which</span>(<span class='fu'>sort</span>(<span class='no'>scores</span>, <span class='kw'>decreasing</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)<span class='kw'>&gt;</span><span class='fl'>1500</span>)], <span class='kw'>lwd</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>1</span>))
 <span class='no'>rest</span><span class='kw'>=</span><span class='fu'>names</span>(<span class='fu'>which</span>(<span class='no'>scores</span><span class='kw'>&lt;</span><span class='fl'>1500</span>))

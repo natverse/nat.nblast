@@ -72,15 +72,17 @@
       </header>
 
       <div class="row">
-  <div class="col-md-9 contents">
+  <div class="col-md-9">
     <div class="page-header">
       <h1>Function reference</h1>
       <h4>version&nbsp;1.6.3</h4>
     </div>
 
+    <div class="contents">
       <h2 id="section-package-overview" class="hasAnchor"><a href="#section-package-overview" class="anchor"></a>Package Overview</h2>
       <p class="section-desc"><p>Provides an overview of key functions and classes</p></p>
 
+      
       <p><a href="nat.nblast-package.html">Neuron similarity, search and clustering tools</a></p>
       <ul>
         <li><code><a href="nat.nblast-package.html">nat.nblast</a></code></li><li><code><a href="nat.nblast-package.html">nat.nblast-package</a></code></li>
@@ -88,14 +90,17 @@
           <h2 id="section-key-functions" class="hasAnchor"><a href="#section-key-functions" class="anchor"></a>Key functions</h2>
       <p class="section-desc"><p>The main entry points to neuron search and clustering</p></p>
 
+      
       <p><a href="nblast_allbyall.html">Wrapper function to compute all by all NBLAST scores for a set of neurons</a></p>
       <ul>
         <li><code><a href="nblast_allbyall.html">nblast_allbyall</a></code></li><li><code><a href="nblast_allbyall.html">nblast_allbyall.character</a></code></li><li><code><a href="nblast_allbyall.html">nblast_allbyall.neuronlist</a></code></li>
       </ul>
+      
       <p><a href="nblast.html">Calculate similarity score for neuron morphologies</a></p>
       <ul>
         <li><code><a href="nblast.html">nblast</a></code></li>
       </ul>
+      
       <p><a href="nhclust.html">Cluster a set of neurons</a></p>
       <ul>
         <li><code><a href="nhclust.html">nhclust</a></code></li>
@@ -103,14 +108,17 @@
           <h2 id="section-plotting-results" class="hasAnchor"><a href="#section-plotting-results" class="anchor"></a>Plotting results</h2>
       <p class="section-desc"><p>Visualise pairwise neuron search or clustering results</p></p>
 
+      
       <p><a href="plot3d.hclust.html">Methods to identify and plot groups of neurons cut from an hclust object</a></p>
       <ul>
         <li><code><a href="plot3d.hclust.html">plot3d.hclust</a></code></li>
       </ul>
+      
       <p><a href="show_similarity.html">Display two neurons with segments in the query coloured by similarity</a></p>
       <ul>
         <li><code><a href="show_similarity.html">show_similarity</a></code></li>
       </ul>
+      
       <p><a href="subset.hclust.html">Return the labels of items in 1 or more groups cut from hclust object</a></p>
       <ul>
         <li><code><a href="subset.hclust.html">subset.hclust</a></code></li>
@@ -118,24 +126,29 @@
           <h2 id="section-scoring-matrices" class="hasAnchor"><a href="#section-scoring-matrices" class="anchor"></a>Scoring Matrices</h2>
       <p class="section-desc"><p>Calculate the scoring matrices that define NBLAST similarity</p></p>
 
+      
       <p><a href="calc_dists_dotprods.html">Calculate distances and dot products between two sets of neurons</a></p>
       <ul>
         <li><code><a href="calc_dists_dotprods.html">calc_dists_dotprods</a></code></li>
       </ul>
+      
       <p><a href="calc_prob_mat.html">Calculate probability matrix from distances and dot products between neuron
 </a></p>
       <ul>
         <li><code><a href="calc_prob_mat.html">calc_prob_mat</a></code></li>
       </ul>
+      
       <p><a href="calc_score_matrix.html">Calculate scoring matrix from probability matrices for matching and
 </a></p>
       <ul>
         <li><code><a href="calc_score_matrix.html">calc_score_matrix</a></code></li>
       </ul>
+      
       <p><a href="create_scoringmatrix.html">Create a scoring matrix given matching and non-matching sets of neurons</a></p>
       <ul>
         <li><code><a href="create_scoringmatrix.html">create_scoringmatrix</a></code></li>
       </ul>
+      
       <p><a href="smat.fcwb.html">Scoring matrices for neuron similarities in FCWB template brain</a></p>
       <ul>
         <li><code><a href="smat.fcwb.html">smat.fcwb</a></code></li><li><code><a href="smat.fcwb.html">smat_alpha.fcwb</a></code></li>
@@ -143,14 +156,17 @@
           <h2 id="section-mid-level-functions-for-result-matrices" class="hasAnchor"><a href="#section-mid-level-functions-for-result-matrices" class="anchor"></a>Mid level functions for result matrices</h2>
       <p class="section-desc"><p>Functions that you might use to manipulate matrices containing all by all NBLAST results for use with other clustering strategies (besides nhclust)</p></p>
 
+      
       <p><a href="sparse_score_mat.html">Convert a subset of a square score matrix to a sparse representation</a></p>
       <ul>
         <li><code><a href="sparse_score_mat.html">sparse_score_mat</a></code></li>
       </ul>
+      
       <p><a href="sub_dist_mat.html">Convert (a subset of) a raw score matrix to a distance matrix</a></p>
       <ul>
         <li><code><a href="sub_dist_mat.html">sub_dist_mat</a></code></li>
       </ul>
+      
       <p><a href="sub_score_mat.html">Return scores (or distances) for given query and target neurons</a></p>
       <ul>
         <li><code><a href="sub_score_mat.html">sub_score_mat</a></code></li>
@@ -158,18 +174,22 @@
           <h2 id="section-low-level-search-functions" class="hasAnchor"><a href="#section-low-level-search-functions" class="anchor"></a>Low level search functions</h2>
       <p class="section-desc"><p>Intended for developer use</p></p>
 
+      
       <p><a href="fctraces20.html">20 traced Drosophila neurons from Chiang et al 2011</a></p>
       <ul>
         <li><code><a href="fctraces20.html">fctraces20</a></code></li>
       </ul>
+      
       <p><a href="NeuriteBlast.html">Produce similarity score for neuron morphologies</a></p>
       <ul>
         <li><code><a href="NeuriteBlast.html">NeuriteBlast</a></code></li>
       </ul>
+      
       <p><a href="neuron_pairs.html">Utility function to generate all or random pairs of neurons</a></p>
       <ul>
         <li><code><a href="neuron_pairs.html">neuron_pairs</a></code></li>
       </ul>
+      
       <p><a href="WeightedNNBasedLinesetMatching.html">Compute point &amp; tangent vector similarity score between two linesets</a></p>
       <ul>
         <li><code><a href="WeightedNNBasedLinesetMatching.html">WeightedNNBasedLinesetMatching</a></code></li><li><code><a href="WeightedNNBasedLinesetMatching.html">WeightedNNBasedLinesetMatching.dotprops</a></code></li><li><code><a href="WeightedNNBasedLinesetMatching.html">WeightedNNBasedLinesetMatching.neuron</a></code></li>
@@ -177,23 +197,28 @@
           <h2 id="section-matrix-utility-functions" class="hasAnchor"><a href="#section-matrix-utility-functions" class="anchor"></a>Matrix utility functions</h2>
       <p class="section-desc"><p>Intended for developer use</p></p>
 
+      
       <p><a href="diagonal.html">Extract diagonal terms from a variety of matrix types</a></p>
       <ul>
         <li><code><a href="diagonal.html">diagonal</a></code></li><li><code><a href="diagonal.html">diagonal.default</a></code></li>
       </ul>
+      
       <p><a href="extract-methods.html">Extract parts of a sparse </a></p>
       <ul>
         <li><code><a href="extract-methods.html">[</a></code></li><li><code><a href="extract-methods.html">[,spam,character,character,logical-method</a></code></li><li><code><a href="extract-methods.html">[,spam,character,character,missing-method</a></code></li><li><code><a href="extract-methods.html">[,spam,character,missing,logical-method</a></code></li><li><code><a href="extract-methods.html">[,spam,character,missing,missing-method</a></code></li><li><code><a href="extract-methods.html">[,spam,missing,character,logical-method</a></code></li><li><code><a href="extract-methods.html">[,spam,missing,character,missing-method</a></code></li>
       </ul>
+      
       <p><a href="fill_in_sparse_score_mat.html">Add one or more submatrices to a sparse score matrix</a></p>
       <ul>
         <li><code><a href="fill_in_sparse_score_mat.html">fill_in_sparse_score_mat</a></code></li>
       </ul>
+      
       <p><a href="fill_pairs_sparse_score_mat.html">Add forwards, reverse and self scores for a pair of neurons to a sparse score matrix</a></p>
       <ul>
         <li><code><a href="fill_pairs_sparse_score_mat.html">fill_pairs_sparse_score_mat</a></code></li>
       </ul>
     
+    </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
