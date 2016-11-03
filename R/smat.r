@@ -57,8 +57,9 @@
 #' # we will use both all kcs vs all fctraces20 and fctraces20 vs fctraces20
 #' # as random_pairs to make the null distribution
 #' random_pairs=rbind(neuron_pairs(fctraces20), neuron_pairs(nat::kcs20, fctraces20))
+#' # you can add .progress='text' if this looks like taking a while
 #' smat=create_scoringmatrix(kcs20, c(kcs20, fctraces20.dps),
-#'                           non_matching_subset=random_pairs, .progress='text')
+#'                           non_matching_subset=random_pairs)
 #'
 #' # now plot the scoring matrix
 #' distbreaks=attr(smat,'distbreaks')
