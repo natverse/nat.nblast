@@ -104,10 +104,7 @@ full score matrix.</p>
     <p>fill_in_sparse_score_mat</p>
     
 
-    <h2 class="hasAnchor" id="examples">
-      <a class="anchor" href="#examples"></a>
-      Examples
-    </h2>
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>kcs20</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"nat"</span>)
 <span class='no'>scores</span><span class='kw'>=</span><span class='fu'><a href='nblast_allbyall.html'>nblast_allbyall</a></span>(<span class='no'>kcs20</span>)
 <span class='no'>scores.3.sparse</span><span class='kw'>=</span><span class='fu'>sparse_score_mat</span>(<span class='fu'>names</span>(<span class='no'>kcs20</span>)[<span class='fl'>3</span>], <span class='no'>scores</span>)
@@ -122,8 +119,7 @@ full score matrix.</p>
 #&gt; [43] 2751.04667 5227.65646 2847.10004 5204.87800 1635.40240 5478.21951
 #&gt; [49] 1731.55066 5512.38720 -514.09460 5637.66873 -204.79399 5432.66259
 #&gt; [55] -393.66139 5762.95025 1968.02090 5580.72258
-#&gt; Class &#39;spam&#39;
-#&gt; </div><div class='input'><span class='co'># can also add additional submatrices</span>
+#&gt; Class &#39;spam&#39;</div><div class='input'><span class='co'># can also add additional submatrices</span>
 <span class='fu'><a href='fill_in_sparse_score_mat.html'>fill_in_sparse_score_mat</a></span>(<span class='no'>scores.3.sparse</span>,<span class='no'>scores</span>[<span class='fl'>3</span>:<span class='fl'>6</span>,<span class='fl'>3</span>:<span class='fl'>4</span>])</div><div class='output co'>#&gt; Matrix of dimension 20x20 with (row-wise) nonzero elements:
 #&gt;  [1] 3234.54125 -935.33772 3382.60124 -515.53376  125.68989  244.92594
 #&gt;  [7] 4259.57193  480.41458 2048.01759 2068.51808 1278.68688 1359.49507
@@ -135,8 +131,7 @@ full score matrix.</p>
 #&gt; [43] -377.93391 5204.87800 2751.04667 5227.65646 2847.10004 5204.87800
 #&gt; [49] 1635.40240 5478.21951 1731.55066 5512.38720 -514.09460 5637.66873
 #&gt; [55] -204.79399 5432.66259 -393.66139 5762.95025 1968.02090 5580.72258
-#&gt; Class &#39;spam&#39;
-#&gt; </div></pre>
+#&gt; Class &#39;spam&#39;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

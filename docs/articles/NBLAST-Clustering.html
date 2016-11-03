@@ -38,7 +38,7 @@
       <h1>NBLAST Clustering</h1>
                         <h4 class="author">Gregory Jefferis</h4>
             
-            <h4 class="date">2016-11-01</h4>
+            <h4 class="date">2016-11-03</h4>
           </div>
 
     
@@ -47,38 +47,38 @@
 <div id="startup" class="section level1">
 <h1 class="hasAnchor"><html><body><a href="#startup" class="anchor"> </a></body></html>Startup</h1>
 <p>Install the package if required</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">'nat.nblast'</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">'nat.nblast'</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</code></pre>
 <p>Load the package and set up for knitr / 3D snapshot figures</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(nat.nblast)
-rgl::<span class="kw">setupKnitr</span>()</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(nat.nblast)
+rgl::<span class="kw">setupKnitr</span>()</code></pre>
 </div>
 <div id="clustering-with-nblast-scores" class="section level1">
 <h1 class="hasAnchor"><html><body><a href="#clustering-with-nblast-scores" class="anchor"> </a></body></html>Clustering with NBLAST scores</h1>
 <div id="all-by-all-scores" class="section level2">
 <h2 class="hasAnchor"><html><body><a href="#all-by-all-scores" class="anchor"> </a></body></html>All by all scores</h2>
 <p>First we create a 20 x 20 NBLAST all by all score matrix for 20 Kenyon cells included with the <em>nat</em> package</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(nat)
-kcscores &lt;-<span class="st"> </span><span class="kw"><a href="../reference/nblast_allbyall.html">nblast_allbyall</a></span>(kcs20)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(nat)
+kcscores &lt;-<span class="st"> </span><span class="kw"><a href="../reference/nblast_allbyall.html">nblast_allbyall</a></span>(kcs20)</code></pre>
 </div>
 <div id="clustering" class="section level2">
 <h2 class="hasAnchor"><html><body><a href="#clustering" class="anchor"> </a></body></html>Clustering</h2>
 <p>Hierarchically cluster the Kenyon scores and divide the clustering into 3 groups</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hckcs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/nhclust.html">nhclust</a></span>(<span class="dt">scoremat=</span>kcscores)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">hckcs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/nhclust.html">nhclust</a></span>(<span class="dt">scoremat=</span>kcscores)</code></pre>
 <pre><code>## The "ward" method has been renamed to "ward.D"; note new "ward.D2"</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dendroextras)
-dkcs &lt;-<span class="st"> </span><span class="kw">colour_clusters</span>(hckcs, <span class="dt">k=</span><span class="dv">3</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dendroextras)
+dkcs &lt;-<span class="st"> </span><span class="kw">colour_clusters</span>(hckcs, <span class="dt">k=</span><span class="dv">3</span>)</code></pre>
 <p>Plot a dendrogram of the clustering, with leaves labelled by true neuron type</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">labels</span>(dkcs) &lt;-<span class="st"> </span><span class="kw">with</span>(kcs20[<span class="kw">labels</span>(dkcs)], type)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">labels</span>(dkcs) &lt;-<span class="st"> </span><span class="kw">with</span>(kcs20[<span class="kw">labels</span>(dkcs)], type)
 <span class="kw">par</span>(<span class="dt">cex=</span>.<span class="dv">7</span>) <span class="co"># so labels are legible</span>
-<span class="kw">plot</span>(dkcs)</code></pre></div>
+<span class="kw">plot</span>(dkcs)</code></pre>
 <p><img src="NBLAST-Clustering_files/figure-html/unnamed-chunk-4-1.png" width="672"></p>
 </div>
 <div id="d-plot" class="section level2">
 <h2 class="hasAnchor"><html><body><a href="#d-plot" class="anchor"> </a></body></html>3D plot</h2>
 <p>You can create interactive 3D plots using the rgl package where different subgroups of neurons are coloured according to the calculated clustering.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot3d</span>(hckcs, <span class="dt">k=</span><span class="dv">3</span>, <span class="dt">db=</span>kcs20, <span class="dt">soma=</span>T)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot3d</span>(hckcs, <span class="dt">k=</span><span class="dv">3</span>, <span class="dt">db=</span>kcs20, <span class="dt">soma=</span>T)
 <span class="kw">par3d</span>(<span class="dt">userMatrix=</span><span class="kw">diag</span>(<span class="kw">c</span>(<span class="dv">1</span>,-<span class="dv">1</span>,-<span class="dv">1</span>,<span class="dv">1</span>), <span class="dv">4</span>))
-<span class="kw">plot3d</span>(MBL.surf, <span class="dt">alpha=</span>.<span class="dv">1</span>)</code></pre></div>
+<span class="kw">plot3d</span>(MBL.surf, <span class="dt">alpha=</span>.<span class="dv">1</span>)</code></pre>
 <p><img src="NBLAST-Clustering_files/figure-html/unnamed-chunk-5-1.png" width="672"></p>
 </div>
 </div>

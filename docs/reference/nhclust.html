@@ -117,13 +117,10 @@ N^2) distances directly into memory.</dd>
     <p>Other scoremats: <code><a href='sub_dist_mat.html'>sub_dist_mat</a></code></p>
     
 
-    <h2 class="hasAnchor" id="examples">
-      <a class="anchor" href="#examples"></a>
-      Examples
-    </h2>
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>nat</span>)
 <span class='no'>kcscores</span><span class='kw'>=</span><span class='fu'><a href='nblast_allbyall.html'>nblast_allbyall</a></span>(<span class='no'>kcs20</span>)
-<span class='no'>hckcs</span><span class='kw'>=</span><span class='fu'>nhclust</span>(<span class='kw'>scoremat</span><span class='kw'>=</span><span class='no'>kcscores</span>)</div><div class='output'><strong class='text-info'>The &quot;ward&quot; method has been renamed to &quot;ward.D&quot;; note new &quot;ward.D2&quot;</strong></div><div class='input'><span class='co'># divide hclust object into 3 groups</span>
+<span class='no'>hckcs</span><span class='kw'>=</span><span class='fu'>nhclust</span>(<span class='kw'>scoremat</span><span class='kw'>=</span><span class='no'>kcscores</span>)</div><div class='output co'>#&gt; <span class='message'>The &quot;ward&quot; method has been renamed to &quot;ward.D&quot;; note new &quot;ward.D2&quot;</span></div><div class='input'><span class='co'># divide hclust object into 3 groups</span>
 <span class='fu'>library</span>(<span class='no'>dendroextras</span>)
 <span class='no'>dkcs</span><span class='kw'>=</span><span class='fu'>colour_clusters</span>(<span class='no'>hckcs</span>, <span class='kw'>k</span><span class='kw'>=</span><span class='fl'>3</span>)
 <span class='co'># change dendrogram labels to neuron type, extracting this information</span>
@@ -131,8 +128,7 @@ N^2) distances directly into memory.</dd>
 <span class='fu'>labels</span>(<span class='no'>dkcs</span>)<span class='kw'>=</span><span class='fu'>with</span>(<span class='no'>kcs20</span>[<span class='fu'>labels</span>(<span class='no'>dkcs</span>)], <span class='no'>type</span>)
 <span class='fu'>plot</span>(<span class='no'>dkcs</span>)</div><img src='nhclust-4.png' alt='' width='540' height='400' /><div class='input'><span class='co'># 3d plot of neurons in those clusters (with matching colours)</span>
 <span class='fu'>open3d</span>()</div><div class='output co'>#&gt; glX 
-#&gt;   2 
-#&gt; </div><div class='input'><span class='fu'>plot3d</span>(<span class='no'>hckcs</span>, <span class='kw'>k</span><span class='kw'>=</span><span class='fl'>3</span>, <span class='kw'>db</span><span class='kw'>=</span><span class='no'>kcs20</span>)
+#&gt;   3 </div><div class='input'><span class='fu'>plot3d</span>(<span class='no'>hckcs</span>, <span class='kw'>k</span><span class='kw'>=</span><span class='fl'>3</span>, <span class='kw'>db</span><span class='kw'>=</span><span class='no'>kcs20</span>)
 <span class='co'># names of neurons in 3 groups</span>
 <span class='fu'>subset</span>(<span class='no'>hckcs</span>, <span class='kw'>k</span><span class='kw'>=</span><span class='fl'>3</span>)</div><div class='output co'>#&gt;  [1] &quot;FruMARCM-F000706_seg001&quot; &quot;FruMARCM-M000842_seg002&quot;
 #&gt;  [3] &quot;GadMARCM-F000050_seg001&quot; &quot;FruMARCM-M001339_seg001&quot;
@@ -143,8 +139,7 @@ N^2) distances directly into memory.</dd>
 #&gt; [13] &quot;ChaMARCM-F000586_seg002&quot; &quot;FruMARCM-M001205_seg002&quot;
 #&gt; [15] &quot;GadMARCM-F000122_seg001&quot; &quot;GadMARCM-F000476_seg001&quot;
 #&gt; [17] &quot;FruMARCM-F000085_seg001&quot; &quot;GadMARCM-F000071_seg001&quot;
-#&gt; [19] &quot;FruMARCM-M000115_seg001&quot; &quot;GadMARCM-F000442_seg002&quot;
-#&gt; </div></pre>
+#&gt; [19] &quot;FruMARCM-M000115_seg001&quot; &quot;GadMARCM-F000442_seg002&quot;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
