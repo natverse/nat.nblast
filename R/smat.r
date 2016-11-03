@@ -46,7 +46,7 @@
 #' @seealso \code{\link{calc_score_matrix}, \link{calc_prob_mat},
 #'   \link{calc_dists_dotprods}, \link{neuron_pairs}}
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # calculate scoring matrix
 #' # bring in some mushroom body neurons
 #' library(nat)

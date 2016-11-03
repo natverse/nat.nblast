@@ -69,7 +69,7 @@ By default \code{create_scoringmatrix} will use all neurons in
   calls.
 }
 \examples{
-\dontrun{
+\donttest{
 # calculate scoring matrix
 # bring in some mushroom body neurons
 library(nat)
