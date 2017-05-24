@@ -36,4 +36,3 @@ Calculate distances and dot products between two sets of neurons
 Distances and dot products are the raw inputs for constructing
   scoring matrices for the nblast search algorithm.
 }
-

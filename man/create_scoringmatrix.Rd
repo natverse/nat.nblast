@@ -105,4 +105,3 @@ xlab='distance /um', ylab='abs dot product', zlab='log odds ratio')
 \code{\link{calc_score_matrix}, \link{calc_prob_mat},
   \link{calc_dists_dotprods}, \link{neuron_pairs}}
 }
-

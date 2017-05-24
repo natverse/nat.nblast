@@ -32,4 +32,3 @@ direction, or as \code{1 - normscorebar}, where \code{normscorebar} is
 \seealso{
 \code{\link{sub_dist_mat}}
 }
-

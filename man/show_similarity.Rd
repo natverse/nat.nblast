@@ -61,4 +61,3 @@ show_similarity(ab_neurons[[1]], gamma_neurons[[3]])
 The low level function \code{\link{WeightedNNBasedLinesetMatching}}
   is used to retrived the scores.
 }
-

@@ -44,4 +44,3 @@ For detailed description of the \code{OmitFailures} argument, see
 \seealso{
 \code{\link{WeightedNNBasedLinesetMatching}}
 }
-

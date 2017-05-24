@@ -50,6 +50,7 @@ Note that \code{nat} already provides a function
  It would be a good idea in the future to implement a parallel
   version of this function.
 }
+
 \examples{
 library(nat)
 kcs20.scoremat=nblast_allbyall(kcs20)
@@ -59,4 +60,3 @@ plot(kcs20.hclust)
 \seealso{
 \code{\link{nblast}, \link{sub_score_mat}, \link{nhclust}}
 }
-

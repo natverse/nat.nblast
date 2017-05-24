@@ -58,4 +58,3 @@ pairs(segvals)
 \seealso{
 \code{\link[nat]{dotprops}}
 }
-

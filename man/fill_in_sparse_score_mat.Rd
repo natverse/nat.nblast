@@ -21,4 +21,3 @@ Add one or more submatrices to a sparse score matrix
 \seealso{
 sparse_score_mat
 }
-

@@ -33,4 +33,3 @@ Insists that input matrix is square. Uses the \code{'diagonal'}
 m=fill_in_sparse_score_mat(letters[1:5])
 diagonal(m)
 }
-

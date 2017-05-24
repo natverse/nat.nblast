@@ -28,4 +28,3 @@ A sparse matrix (of class \code{\link[spam]{spam}}) with the specified score ent
 \description{
 Add forwards, reverse and self scores for a pair of neurons to a sparse score matrix
 }
-

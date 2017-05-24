@@ -28,4 +28,3 @@ neuron_pairs(nat::kcs20, n=20)
 \seealso{
 \code{\link{calc_score_matrix}, \link{expand.grid}}
 }
-

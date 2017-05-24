@@ -2,8 +2,8 @@
 % Please edit documentation in R/nat.nblast.r
 \docType{package}
 \name{nat.nblast-package}
-\alias{nat.nblast}
 \alias{nat.nblast-package}
+\alias{nat.nblast}
 \title{Neuron similarity, search and clustering tools}
 \description{
 Neuron similarity, search and clustering tools
@@ -95,6 +95,7 @@ Neuron similarity, search and clustering tools
   matrices included with the package such as code{"smat.fcwb"} or to a new
   user-constructed matrix.
 }
+
 \references{
 Costa, M., Ostrovsky, A.D., Manton, J.D., Prohaska, S., and
   Jefferis, G.S.X.E. (2014). NBLAST: Rapid, sensitive comparison of neuronal
@@ -107,4 +108,3 @@ Costa, M., Ostrovsky, A.D., Manton, J.D., Prohaska, S., and
   \code{\link{sub_score_mat}}, \code{\link{create_scoringmatrix}}
 }
 \keyword{package}
-

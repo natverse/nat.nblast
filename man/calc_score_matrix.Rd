@@ -29,4 +29,3 @@ A matrix with with \code{class=c("scoringmatrix", "table")}, with
 Calculate scoring matrix from probability matrices for matching and
 non-matching sets of neurons
 }
-

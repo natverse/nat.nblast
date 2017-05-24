@@ -26,4 +26,3 @@ Return the labels of items in 1 or more groups cut from hclust object
 \details{
 Only one of \code{h} and \code{k} should be supplied.
 }
-

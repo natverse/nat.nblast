@@ -44,4 +44,3 @@ plot3d(hclust(as.dist(x)), k=3, db=kcs20)
 \seealso{
 \code{\link{nhclust}, \link[rgl]{plot3d}, \link{slice}, \link{colour_clusters}}
 }
-

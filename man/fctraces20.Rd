@@ -30,4 +30,3 @@ carried out by Greg Jefferis, Marta Costa and James Manton[3].
   James D. Manton, Steffen Prohaska, Gregory S.X.E. Jefferis. bioRxiv doi:
   http://dx.doi.org/10.1101/006346.
 }
-

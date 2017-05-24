@@ -32,4 +32,3 @@ Most work on the flyircuit dataset has been carried out using the
 which emphasises the significance of matches between linear regions of the
 neuron (such as axons) may have some advantages.
 }
-

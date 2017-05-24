@@ -55,4 +55,3 @@ subset(hckcs, k=3)
 
 Other scoremats: \code{\link{sub_dist_mat}}
 }
-

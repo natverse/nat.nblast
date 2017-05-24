@@ -33,4 +33,3 @@ A matrix with columns as specified by \code{dotprodbreaks} and rows
 Calculate probability matrix from distances and dot products between neuron
 segments
 }
-
