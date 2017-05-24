@@ -26,8 +26,9 @@ latest).}
 \item{normalised}{whether to divide scores by the self-match score of the
 query}
 
-\item{UseAlpha}{whether to consider local directions in the similarity
-calculation (default: FALSE).}
+\item{UseAlpha}{whether to weight the similarity score for each matched
+segment to emphasise long range neurites rather then arbours (default:
+FALSE, see \bold{UseAlpha} section for details).}
 
 \item{OmitFailures}{Whether to omit neurons for which \code{FUN} gives an
 error. The default value (\code{NA}) will result in nblast stopping with an
@@ -89,7 +90,6 @@ when \code{smat=NULL} options("nat.nblast.defaultsmat") will be
 
   \eqn{f=\sqrt{|\vec{u_{i}}\cdot\vec{v_{i}}|\exp\left(-d_{i}^{2}/2\sigma^{2}\right)}}
 
-
   This is the same approach described in Kohl et al 2013 and the similarity
   scores in the interval (0,1) described in that paper can exactly
   recapitulated by setting \code{version=1} and \code{normalised=TRUE}.
@@ -113,6 +113,18 @@ when \code{smat=NULL} options("nat.nblast.defaultsmat") will be
   identifiable features of neurons (Jefferis, Potter et al 2007) are of this
   order.
 }
+
+\section{UseAlpha}{
+ In NBLAST v2, the alpha factor for a segment indicates
+  whether neighbouring segments are aligned in a similar direction (as
+  typical for e.g. a long range axonal projection) or randomly aligneed (as
+  typical for dendritic arbours). See Costa et al. for details. Setting
+  \code{UseAlpha=TRUE} will emphasise the axon, primary neurite etc of a
+  neuron. This can be a particularly useful option e.g. when you are
+  searching by a traced fragment that you know or suspect to follow an axon
+  tract.
+}
+
 \examples{
 # load sample Kenyon cell data from nat package
 data(kcs20, package='nat')
@@ -148,24 +160,23 @@ stopifnot(all.equal(scores.norm2, scores.norm))
 }
 \references{
 Kohl, J. Ostrovsky, A.D., Frechter, S., and Jefferis, G.S.X.E
-(2013). A bidirectional circuit switch reroutes pheromone signals in male and
-female brains. Cell 155 (7), 1610--23
-\href{http://dx.doi.org/10.1016/j.cell.2013.11.025}{doi:
-10.1016/j.cell.2013.11.025}.
+  (2013). A bidirectional circuit switch reroutes pheromone signals in male
+  and female brains. Cell 155 (7), 1610--23
+  \href{http://dx.doi.org/10.1016/j.cell.2013.11.025}{doi:
+  10.1016/j.cell.2013.11.025}.
 
-Costa, M., Ostrovsky, A.D., Manton, J.D., Prohaska, S., and Jefferis,
-G.S.X.E. (2014). NBLAST: Rapid, sensitive comparison of neuronal structure
-and construction of neuron family databases. Biorxiv preprint.
-\href{http://dx.doi.org/10.1101/006346}{doi: 10.1101/006346}.
+  Costa, M., Ostrovsky, A.D., Manton, J.D., Prohaska, S., and Jefferis,
+  G.S.X.E. (2014). NBLAST: Rapid, sensitive comparison of neuronal structure
+  and construction of neuron family databases. Biorxiv preprint.
+  \href{http://dx.doi.org/10.1101/006346}{doi: 10.1101/006346}.
 
-Jefferis G.S.X.E., Potter C.J., Chan A.M., Marin E.C., Rohlfing T., Maurer
-C.R.J., and Luo L. (2007). Comprehensive maps of Drosophila higher olfactory
-centers: spatially segregated fruit and pheromone representation. Cell 128
-(6), 1187--1203.
-\href{http://dx.doi.org/10.1016/j.cell.2007.01.040}{doi:10.1016/j.cell.2007.01.040}
+  Jefferis G.S.X.E., Potter C.J., Chan A.M., Marin E.C., Rohlfing T., Maurer
+  C.R.J., and Luo L. (2007). Comprehensive maps of Drosophila higher
+  olfactory centers: spatially segregated fruit and pheromone representation.
+  Cell 128 (6), 1187--1203.
+  \href{http://dx.doi.org/10.1016/j.cell.2007.01.040}{doi:10.1016/j.cell.2007.01.040}
 }
 \seealso{
 \code{\link{nat-package}}, \code{\link{nblast_allbyall}},
   \code{\link{create_scoringmatrix}}, \code{\link{smat.fcwb}}
 }
-
