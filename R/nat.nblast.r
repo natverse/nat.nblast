@@ -75,7 +75,7 @@
 #'
 #'   There is one package option \code{nat.nblast.defaultsmat} which is
 #'   \code{NULL} by default, but could for example be set to one of the scoring
-#'   matrices included with the package such as code{"smat.fcwb"} or to a new
+#'   matrices included with the package such as \code{"smat.fcwb"} or to a new
 #'   user-constructed matrix.
 #'
 #' @references Costa, M., Ostrovsky, A.D., Manton, J.D., Prohaska, S., and
