@@ -15,18 +15,19 @@ WeightedNNBasedLinesetMatching(target, query, ...)
   UseAlpha = FALSE, OnlyClosestPoints = FALSE, ...)
 }
 \arguments{
-\item{target, query}{dotprops or neuron objects to compare (must be of the
-same class)}
+\item{target, query}{\code{\link{dotprops}} or \code{\link{neuron}} objects to
+compare (must be of the same class)}
 
 \item{...}{extra arguments to pass to the distance function.}
 
 \item{UseAlpha}{Whether to scale dot product of tangent vectors (default=F)}
 
 \item{OnlyClosestPoints}{Whether to restrict searches to the closest points
-in the target (default FALSE, only implemented for dotprops).}
+in the target (default FALSE, only implemented for \code{dotprops}).}
 }
 \value{
-Value of NNDistFun passd to WeightedNNBasedLinesetMatching
+Value of \code{NNDistFun} passed to
+  \code{WeightedNNBasedLinesetMatching}
 }
 \description{
 \code{WeightedNNBasedLinesetMatching} is a low level function
@@ -39,15 +40,15 @@ Value of NNDistFun passd to WeightedNNBasedLinesetMatching
   class \code{dotprops} or \code{neuron}. The code to calculate scores
   directly for \code{neuron} objects gives broadly comparable scores to that
   for \code{dotprops} objects, but has been lightly tested. Furthermore only
-  objects in \code{dotprops} form were used in the constriction of the
+  objects in \code{dotprops} form were used in the construction of the
   scoring matrices distributed in this package. It is therefore recommended
-  to convert neuron objects to dotprops objects using the
+  to convert \code{neuron} objects to \code{dotprops} objects using the
   \code{\link{dotprops}} function.
 
 \code{UseAlpha} determines whether the alpha values
-  (eig1-eig2)/sum(eig1:3) are passed on to WeightedNNBasedLinesetMatching.
-  These will be used to scale the dot products of the direction vectors for
-  nearest neighbour pairs.
+  \code{(eig1-eig2)/sum(eig1:3)} are passed on to
+  WeightedNNBasedLinesetMatching. These will be used to scale the dot
+  products of the direction vectors for nearest neighbour pairs.
 }
 \examples{
 # Retrieve per segment distances / absolute dot products

@@ -23,13 +23,15 @@ return An object of class matrix or dist (as determined by the form
   argument), corresponding to a subset of the distance matrix
 }
 \description{
-This function can convert a raw score matrix returned by nblast
-  into a square distance matrix or \code{dist} object. It can be used with
-  file-backed matrices as well as regular R matrices resident in memory.
+This function can convert a raw score matrix returned by
+  \code{nblast} into a square distance matrix or \code{dist} object. It can
+  be used with file-backed matrices as well as regular R matrices resident in
+  memory.
 }
 \details{
 Note that if \code{neuron_names} is missing then the rownames of
-  \code{scoremat} will be used i.e. all neuron in scoremat will be used.
+  \code{scoremat} will be used i.e. every neuron in \code{scoremat} will be
+  used.
 }
 \seealso{
 Other scoremats: \code{\link{nhclust}}

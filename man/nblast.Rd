@@ -17,7 +17,7 @@ Defaults to \code{options("nat.default.neuronlist")}. See
 
 \item{smat}{the scoring matrix to use (see details)}
 
-\item{sd}{Standard deviation to use in distance dependence of nblast v1
+\item{sd}{Standard deviation to use in distance dependence of NBLAST v1
 algorithm. Ignored when \code{version=2}.}
 
 \item{version}{the version of the algorithm to use (the default, 2, is the
@@ -28,14 +28,16 @@ query}
 
 \item{UseAlpha}{whether to weight the similarity score for each matched
 segment to emphasise long range neurites rather then arbours (default:
-FALSE, see \bold{UseAlpha} section for details).}
+FALSE, see \bold{\code{UseAlpha}} section for details).}
 
 \item{OmitFailures}{Whether to omit neurons for which \code{FUN} gives an
-error. The default value (\code{NA}) will result in nblast stopping with an
-error message the moment there is an eror. For other values, see details.}
+error. The default value (\code{NA}) will result in \code{nblast} stopping
+with an error message the moment there is an error. For other values, see
+details.}
 
-\item{...}{Additional arguments passed to NeuriteBlast or the function used
-to compute scores from distances/dot products. (expert use only).}
+\item{...}{Additional arguments passed to \code{\link{NeuriteBlast}} or the
+function used to compute scores from distances/dot products. (expert use
+only).}
 }
 \value{
 Named list of similarity scores.
@@ -46,14 +48,15 @@ more control over the parameters of the algorithm, see the arguments of
 \code{\link{NeuriteBlast}}.
 }
 \details{
-when \code{smat=NULL} options("nat.nblast.defaultsmat") will be
-  checked and if NULL, then \code{smat.fcwb} or \code{smat_alpha.fcwb} will
-  be used depending on the value of \code{UseAlpha}.
+when \code{smat=NULL} \code{options("nat.nblast.defaultsmat")} will
+  be checked and if \code{NULL}, then \code{smat.fcwb} or
+  \code{smat_alpha.fcwb} will be used depending on the value of
+  \code{UseAlpha}.
 
   When \code{OmitFailures} is not \code{NA}, individual nblast calls will be
   wrapped in \code{try} to ensure that failure for any single neuron does not
-  abort the whole nblast call. When \code{OmitFailures=FALSE}, missing values
-  will be left as \code{NA}. \code{OmitFailures=TRUE} is not (yet)
+  abort the whole \code{nblast} call. When \code{OmitFailures=FALSE}, missing
+  values will be left as \code{NA}. \code{OmitFailures=TRUE} is not (yet)
   implemented. If you want to drop scores for neurons that failed you will
   need to set \code{OmitFailures=FALSE} and then use \code{\link{na.omit}} or
   similar to post-process the scores.
@@ -62,7 +65,7 @@ when \code{smat=NULL} options("nat.nblast.defaultsmat") will be
   because the call is wrapped as \code{try(expr, silent=TRUE)}.
 
   Internally, the \code{\link{plyr}} package is used to provide options for
-  parallelising NBLASTs and displaying progress. To display a progress bar as
+  parallelising NBLAST and displaying progress. To display a progress bar as
   the scores are computed, add \code{.progress="text"} to the arguments
   (non-text progress bars are available -- see
   \code{\link[plyr]{create_progress_bar}}). To parallelise, add
@@ -97,8 +100,8 @@ when \code{smat=NULL} options("nat.nblast.defaultsmat") will be
   \bold{Version 2} of the algorithm is described in Costa et al 2014. This
   uses a more sophisticated and principled scoring approach based on a
   log-odds ratio defined by the distribution of matches and non-matches in
-  sample data. This information is passed to the nblast function in the form
-  of a \emph{scoring matrix} (which can be computed by
+  sample data. This information is passed to the \code{nblast} function in
+  the form of a \emph{scoring matrix} (which can be computed by
   \code{\link{create_scoringmatrix}}); a default scoring matrix
   \code{\link{smat.fcwb}} has been constructed for \emph{Drosophila} neurons.
 
@@ -114,12 +117,12 @@ when \code{smat=NULL} options("nat.nblast.defaultsmat") will be
   order.
 }
 
-\section{UseAlpha}{
- In NBLAST v2, the alpha factor for a segment indicates
-  whether neighbouring segments are aligned in a similar direction (as
-  typical for e.g. a long range axonal projection) or randomly aligneed (as
-  typical for dendritic arbours). See Costa et al. for details. Setting
-  \code{UseAlpha=TRUE} will emphasise the axon, primary neurite etc of a
+\section{\code{UseAlpha}}{
+ In NBLAST v2, the alpha factor for a segment
+  indicates whether neighbouring segments are aligned in a similar direction
+  (as typical for e.g. a long range axonal projection) or randomly aligned
+  (as typical for dendritic arbours). See Costa et al. for details. Setting
+  \code{UseAlpha=TRUE} will emphasise the axon, primary neurite etc. of a
   neuron. This can be a particularly useful option e.g. when you are
   searching by a traced fragment that you know or suspect to follow an axon
   tract.
@@ -167,7 +170,7 @@ Kohl, J. Ostrovsky, A.D., Frechter, S., and Jefferis, G.S.X.E
 
   Costa, M., Ostrovsky, A.D., Manton, J.D., Prohaska, S., and Jefferis,
   G.S.X.E. (2014). NBLAST: Rapid, sensitive comparison of neuronal structure
-  and construction of neuron family databases. Biorxiv preprint.
+  and construction of neuron family databases. bioRxiv preprint.
   \href{http://dx.doi.org/10.1101/006346}{doi: 10.1101/006346}.
 
   Jefferis G.S.X.E., Potter C.J., Chan A.M., Marin E.C., Rohlfing T., Maurer

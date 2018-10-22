@@ -27,7 +27,7 @@ the three eigen values.
 
 }
 
-Most work on the flyircuit dataset has been carried out using the
+Most work on the flycircuit dataset has been carried out using the
 \code{smat.fcwb} scoring matrix although the \code{smat_alpha.fcwb} matrix
 which emphasises the significance of matches between linear regions of the
 neuron (such as axons) may have some advantages.

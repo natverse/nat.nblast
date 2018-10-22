@@ -1,6 +1,6 @@
 #' Cluster a set of neurons
 #'
-#' Given an nblast all by all score matrix (which may be specified by a package
+#' Given an NBLAST all by all score matrix (which may be specified by a package
 #' default) and/or a vector of neuron identifiers use \code{\link{hclust}} to
 #' carry out a hierarchical clustering. The default value of the \code{distfun}
 #' argument will handle square distance matrices and R \code{dist} objects.
@@ -10,8 +10,9 @@
 #' @param scoremat score matrix to use (see \code{sub_score_mat} for details of
 #'   default).
 #' @param distfun function to convert distance matrix returned by
-#'   \code{sub_dist_mat} into R dist object (default= \code{\link{as.dist}}).
-#' @param ... additional parameters passed to hclust.
+#'   \code{sub_dist_mat} into R \code{dist} object (default=
+#'   \code{\link{as.dist}}).
+#' @param ... additional parameters passed to \code{\link{hclust}}.
 #' @inheritParams sub_dist_mat
 #' @return An object of class \code{\link{hclust}} which describes the tree
 #'   produced by the clustering process.
@@ -49,7 +50,7 @@ nhclust <- function(neuron_names, method='ward', scoremat=NULL, distfun=as.dist,
 }
 
 
-#' Methods to identify and plot groups of neurons cut from an hclust object
+#' Methods to identify and plot groups of neurons cut from an \code{hclust} object
 #'
 #' @description \code{plot3d.hclust} uses \code{plot3d} to plot neurons from
 #'   each group, cut from the \code{hclust} object, by colour.
@@ -61,7 +62,7 @@ nhclust <- function(neuron_names, method='ward', scoremat=NULL, distfun=as.dist,
 #' @param groups numeric vector of groups to plot.
 #' @param col colours for groups (directly specified or a function).
 #' @param ... additional arguments for \code{plot3d}
-#' @return A list of rgl IDs for plotted objects (see \code{\link[rgl]{plot3d}}).
+#' @return A list of \code{rgl} IDs for plotted objects (see \code{\link[rgl]{plot3d}}).
 #' @export
 #' @seealso
 #' \code{\link{nhclust}, \link[rgl]{plot3d}, \link{slice}, \link{colour_clusters}}

@@ -16,7 +16,7 @@ Neuron similarity, search and clustering tools
   \code{\link[nat]{dotprops}} format for search. When multiple neurons are
   compared they should be in a \code{\link[nat]{neuronlist}} object.
 
-  The current nblast version (2) depends on a scoring matrix. Default
+  The current NBLAST version (2) depends on a scoring matrix. Default
   matrices trained using \emph{Drosophila} neurons in the FCWB template brain
   space are distributed with this package (see \code{\link{smat.fcwb}}); see
   \bold{Scoring Matrices} section below for creating new scoring matrices.
@@ -28,10 +28,11 @@ Neuron similarity, search and clustering tools
   two sets of segments. Neither of these functions are intended for end use.
 
   Calculating all by all similarity scores is facilitated by the
-  \code{\link{nblast_allbyall}} function which can take either a neuronlist
-  as input or a character vector naming (a subset) of neurons in a (large)
-  neuronlist. The neuronlist containing the input neurons should be resident
-  in memory i.e. not the \code{neuronlistfh}
+  \code{\link{nblast_allbyall}} function which can take either a
+  \code{\link{neuronlist}} as input or a character vector naming (a subset)
+  of neurons in a (large) \code{\link{neuronlist}}. The
+  \code{\link{neuronlist}} containing the input neurons should be resident in
+  memory i.e. not the \code{\link{neuronlistfh}}.
 }
 
 \section{Clustering}{
@@ -46,7 +47,7 @@ Neuron similarity, search and clustering tools
   object) suitable for clustering. If you need a similarity matrix or want to
   modify the normalisation then you can use \code{\link{sub_score_mat}}.
 
-  Note tha raw nblast scores are not symmetric (i.e. S(A,B) is not equal to
+  Note that raw NBLAST scores are not symmetric (i.e. S(A,B) is not equal to
   S(B,A)) so before clustering we construct a symmetric similarity/distance
   matrix \code{1/2 * ( S(A,B)/S(A,A) + S(B,A)/S(B,B) )}. See
   \code{\link{sub_score_mat}}'s documentation for details.
@@ -55,7 +56,7 @@ Neuron similarity, search and clustering tools
 \section{Cached scores}{
 
 
-  Although nblast is fast and can be parallelised, it makes sense to cache to
+  Although NBLAST is fast and can be parallelised, it makes sense to cache to
   disk all by all similarity scores for a group of neurons that will be
   subject to repeated clustering or other analysis. The matrix can simply be
   saved to disk and then reloaded using base R functions like
@@ -76,7 +77,7 @@ Neuron similarity, search and clustering tools
 \section{Calculating scoring matrices}{
 
 
-  The nblast algorithm depends on appropriately calibrated scoring matrices.
+  The NBLAST algorithm depends on appropriately calibrated scoring matrices.
   These encapsulate the log odds ratio that a pair of segments come from two
   structurally related neurons rather than two unrelated neurons, given the
   observed distance and absolute dot product of the two segments. Scoring
@@ -99,7 +100,7 @@ Neuron similarity, search and clustering tools
 \references{
 Costa, M., Ostrovsky, A.D., Manton, J.D., Prohaska, S., and
   Jefferis, G.S.X.E. (2014). NBLAST: Rapid, sensitive comparison of neuronal
-  structure and construction of neuron family databases. Biorxiv preprint.
+  structure and construction of neuron family databases. bioRxiv preprint.
   \href{http://dx.doi.org/10.1101/006346}{doi: 10.1101/006346}.
 }
 \seealso{

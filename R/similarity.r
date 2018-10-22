@@ -24,7 +24,7 @@
 #' @importFrom rgl plot3d
 #' @importFrom grDevices colorRampPalette
 #' @seealso The low level function \code{\link{WeightedNNBasedLinesetMatching}}
-#'   is used to retrived the scores.
+#'   is used to retrieve the scores.
 #' @examples
 #' \dontrun{
 #' library(nat)

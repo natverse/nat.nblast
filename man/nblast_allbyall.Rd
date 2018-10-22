@@ -15,15 +15,15 @@ nblast_allbyall(x, ...)
   normalisation = c("raw", "normalised", "mean"), ...)
 }
 \arguments{
-\item{x}{Input neurons (neuronlist or character vector)}
+\item{x}{Input neurons (\code{\link{neuronlist}} or character vector)}
 
 \item{...}{Additional arguments for methods or \code{nblast}}
 
 \item{smat}{the scoring matrix to use (see details of \code{\link{nblast}}
 for meaning of default \code{NULL} value)}
 
-\item{db}{A neuronlist or a character vector naming one. Defaults to value of
-options("nat.default.neuronlist")}
+\item{db}{A \code{\link{neuronlist}} or a character vector naming one.
+Defaults to value of \code{options("nat.default.neuronlist")}}
 
 \item{distance}{logical indicating whether to return distances or scores.}
 
@@ -34,8 +34,8 @@ If \code{distance=TRUE} then this cannot be raw.}
 }
 \description{
 Calls \code{nblast} to compute the actual scores. Can accept
-  either a neuronlist or neuron names as a character vector. This is a thin
-  wrapper around nblast and its main advantage is the option of "mean"
+  either a \code{\link{neuronlist}} or neuron names as a character vector. This is a thin
+  wrapper around \code{nblast} and its main advantage is the option of "mean"
   normalisation for forward and reverse scores, which is the most sensible
   input to give to a clustering algorithm as well as the choice of returning
   a distance matrix.

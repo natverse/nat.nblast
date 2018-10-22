@@ -22,6 +22,7 @@ Imports:
     plyr,
     spam
 Suggests:
+    spelling,
     bigmemory,
     ff,
     testthat,
@@ -33,3 +34,4 @@ LazyData: yes
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
 Remotes: jefferis/nat
+Language: en-GB

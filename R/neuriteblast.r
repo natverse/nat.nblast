@@ -4,14 +4,15 @@
 #' more control over the parameters of the algorithm, see the arguments of
 #' \code{\link{NeuriteBlast}}.
 #'
-#' @details when \code{smat=NULL} options("nat.nblast.defaultsmat") will be
-#'   checked and if NULL, then \code{smat.fcwb} or \code{smat_alpha.fcwb} will
-#'   be used depending on the value of \code{UseAlpha}.
+#' @details when \code{smat=NULL} \code{options("nat.nblast.defaultsmat")} will
+#'   be checked and if \code{NULL}, then \code{smat.fcwb} or
+#'   \code{smat_alpha.fcwb} will be used depending on the value of
+#'   \code{UseAlpha}.
 #'
 #'   When \code{OmitFailures} is not \code{NA}, individual nblast calls will be
 #'   wrapped in \code{try} to ensure that failure for any single neuron does not
-#'   abort the whole nblast call. When \code{OmitFailures=FALSE}, missing values
-#'   will be left as \code{NA}. \code{OmitFailures=TRUE} is not (yet)
+#'   abort the whole \code{nblast} call. When \code{OmitFailures=FALSE}, missing
+#'   values will be left as \code{NA}. \code{OmitFailures=TRUE} is not (yet)
 #'   implemented. If you want to drop scores for neurons that failed you will
 #'   need to set \code{OmitFailures=FALSE} and then use \code{\link{na.omit}} or
 #'   similar to post-process the scores.
@@ -20,7 +21,7 @@
 #'   because the call is wrapped as \code{try(expr, silent=TRUE)}.
 #'
 #'   Internally, the \code{\link{plyr}} package is used to provide options for
-#'   parallelising NBLASTs and displaying progress. To display a progress bar as
+#'   parallelising NBLAST and displaying progress. To display a progress bar as
 #'   the scores are computed, add \code{.progress="text"} to the arguments
 #'   (non-text progress bars are available -- see
 #'   \code{\link[plyr]{create_progress_bar}}). To parallelise, add
@@ -36,7 +37,7 @@
 #'   Defaults to \code{options("nat.default.neuronlist")}. See
 #'   \code{\link{nat-package}}.
 #' @param smat the scoring matrix to use (see details)
-#' @param sd Standard deviation to use in distance dependence of nblast v1
+#' @param sd Standard deviation to use in distance dependence of NBLAST v1
 #'   algorithm. Ignored when \code{version=2}.
 #' @param version the version of the algorithm to use (the default, 2, is the
 #'   latest).
@@ -44,12 +45,14 @@
 #'   query
 #' @param UseAlpha whether to weight the similarity score for each matched
 #'   segment to emphasise long range neurites rather then arbours (default:
-#'   FALSE, see \bold{UseAlpha} section for details).
+#'   FALSE, see \bold{\code{UseAlpha}} section for details).
 #' @param OmitFailures Whether to omit neurons for which \code{FUN} gives an
-#'   error. The default value (\code{NA}) will result in nblast stopping with an
-#'   error message the moment there is an eror. For other values, see details.
-#' @param ... Additional arguments passed to NeuriteBlast or the function used
-#'   to compute scores from distances/dot products. (expert use only).
+#'   error. The default value (\code{NA}) will result in \code{nblast} stopping
+#'   with an error message the moment there is an error. For other values, see
+#'   details.
+#' @param ... Additional arguments passed to \code{\link{NeuriteBlast}} or the
+#'   function used to compute scores from distances/dot products. (expert use
+#'   only).
 #' @return Named list of similarity scores.
 #' @section NBLAST Versions: The \code{nblast} version argument presently
 #'   exposes two versions of the algorithm; both use the same core procedure of
@@ -74,8 +77,8 @@
 #'   \bold{Version 2} of the algorithm is described in Costa et al 2014. This
 #'   uses a more sophisticated and principled scoring approach based on a
 #'   log-odds ratio defined by the distribution of matches and non-matches in
-#'   sample data. This information is passed to the nblast function in the form
-#'   of a \emph{scoring matrix} (which can be computed by
+#'   sample data. This information is passed to the \code{nblast} function in
+#'   the form of a \emph{scoring matrix} (which can be computed by
 #'   \code{\link{create_scoringmatrix}}); a default scoring matrix
 #'   \code{\link{smat.fcwb}} has been constructed for \emph{Drosophila} neurons.
 #'
@@ -90,11 +93,11 @@
 #'   identifiable features of neurons (Jefferis, Potter et al 2007) are of this
 #'   order.
 #'
-#' @section UseAlpha: In NBLAST v2, the alpha factor for a segment indicates
-#'   whether neighbouring segments are aligned in a similar direction (as
-#'   typical for e.g. a long range axonal projection) or randomly aligneed (as
-#'   typical for dendritic arbours). See Costa et al. for details. Setting
-#'   \code{UseAlpha=TRUE} will emphasise the axon, primary neurite etc of a
+#' @section \code{UseAlpha}: In NBLAST v2, the alpha factor for a segment
+#'   indicates whether neighbouring segments are aligned in a similar direction
+#'   (as typical for e.g. a long range axonal projection) or randomly aligned
+#'   (as typical for dendritic arbours). See Costa et al. for details. Setting
+#'   \code{UseAlpha=TRUE} will emphasise the axon, primary neurite etc. of a
 #'   neuron. This can be a particularly useful option e.g. when you are
 #'   searching by a traced fragment that you know or suspect to follow an axon
 #'   tract.
@@ -107,7 +110,7 @@
 #'
 #'   Costa, M., Ostrovsky, A.D., Manton, J.D., Prohaska, S., and Jefferis,
 #'   G.S.X.E. (2014). NBLAST: Rapid, sensitive comparison of neuronal structure
-#'   and construction of neuron family databases. Biorxiv preprint.
+#'   and construction of neuron family databases. bioRxiv preprint.
 #'   \href{http://dx.doi.org/10.1101/006346}{doi: 10.1101/006346}.
 #'
 #'   Jefferis G.S.X.E., Potter C.J., Chan A.M., Marin E.C., Rohlfing T., Maurer
@@ -115,6 +118,13 @@
 #'   olfactory centers: spatially segregated fruit and pheromone representation.
 #'   Cell 128 (6), 1187--1203.
 #'   \href{http://dx.doi.org/10.1016/j.cell.2007.01.040}{doi:10.1016/j.cell.2007.01.040}
+#'
+#'
+#'
+#'
+#'
+#'
+#'
 #'
 #' @seealso \code{\link{nat-package}}, \code{\link{nblast_allbyall}},
 #'   \code{\link{create_scoringmatrix}}, \code{\link{smat.fcwb}}
@@ -190,8 +200,8 @@ nblast <- function(query, target=getOption("nat.default.neuronlist"),
 #' Wrapper function to compute all by all NBLAST scores for a set of neurons
 #'
 #' @description Calls \code{nblast} to compute the actual scores. Can accept
-#'   either a neuronlist or neuron names as a character vector. This is a thin
-#'   wrapper around nblast and its main advantage is the option of "mean"
+#'   either a \code{\link{neuronlist}} or neuron names as a character vector. This is a thin
+#'   wrapper around \code{nblast} and its main advantage is the option of "mean"
 #'   normalisation for forward and reverse scores, which is the most sensible
 #'   input to give to a clustering algorithm as well as the choice of returning
 #'   a distance matrix.
@@ -203,7 +213,7 @@ nblast <- function(query, target=getOption("nat.default.neuronlist"),
 #'
 #' @section TODO: It would be a good idea in the future to implement a parallel
 #'   version of this function.
-#' @param x Input neurons (neuronlist or character vector)
+#' @param x Input neurons (\code{\link{neuronlist}} or character vector)
 #' @param smat the scoring matrix to use (see details of \code{\link{nblast}}
 #'   for meaning of default \code{NULL} value)
 #' @param ... Additional arguments for methods or \code{nblast}
@@ -217,8 +227,8 @@ nblast <- function(query, target=getOption("nat.default.neuronlist"),
 nblast_allbyall<-function(x, ...) UseMethod("nblast_allbyall")
 
 #' @rdname nblast_allbyall
-#' @param db A neuronlist or a character vector naming one. Defaults to value of
-#'   options("nat.default.neuronlist")
+#' @param db A \code{\link{neuronlist}} or a character vector naming one.
+#'   Defaults to value of \code{options("nat.default.neuronlist")}
 #' @export
 nblast_allbyall.character<-function(x, smat=NULL, db=getOption("nat.default.neuronlist"), ...){
   if(is.character(db)) {
@@ -330,14 +340,15 @@ WeightedNNBasedLinesetDistFun<-function(nndists,dotproducts,sd,...){
 #'   class \code{dotprops} or \code{neuron}. The code to calculate scores
 #'   directly for \code{neuron} objects gives broadly comparable scores to that
 #'   for \code{dotprops} objects, but has been lightly tested. Furthermore only
-#'   objects in \code{dotprops} form were used in the constriction of the
+#'   objects in \code{dotprops} form were used in the construction of the
 #'   scoring matrices distributed in this package. It is therefore recommended
-#'   to convert neuron objects to dotprops objects using the
+#'   to convert \code{neuron} objects to \code{dotprops} objects using the
 #'   \code{\link{dotprops}} function.
 #' @rdname WeightedNNBasedLinesetMatching
-#' @param target,query dotprops or neuron objects to compare (must be of the
-#'   same class)
-#' @return Value of NNDistFun passd to WeightedNNBasedLinesetMatching
+#' @param target,query \code{\link{dotprops}} or \code{\link{neuron}} objects to
+#'   compare (must be of the same class)
+#' @return Value of \code{NNDistFun} passed to
+#'   \code{WeightedNNBasedLinesetMatching}
 #' @importFrom nabor knn
 #' @export
 WeightedNNBasedLinesetMatching <- function(target, query, ...) {
@@ -346,9 +357,9 @@ WeightedNNBasedLinesetMatching <- function(target, query, ...) {
 
 
 #' @details \code{UseAlpha} determines whether the alpha values
-#'   (eig1-eig2)/sum(eig1:3) are passed on to WeightedNNBasedLinesetMatching.
-#'   These will be used to scale the dot products of the direction vectors for
-#'   nearest neighbour pairs.
+#'   \code{(eig1-eig2)/sum(eig1:3)} are passed on to
+#'   WeightedNNBasedLinesetMatching. These will be used to scale the dot
+#'   products of the direction vectors for nearest neighbour pairs.
 #' @param UseAlpha Whether to scale dot product of tangent vectors (default=F)
 #' @param ... extra arguments to pass to the distance function.
 #' @export
@@ -372,7 +383,7 @@ WeightedNNBasedLinesetMatching.dotprops<-function(target, query, UseAlpha=FALSE,
 
 #' @export
 #' @param OnlyClosestPoints Whether to restrict searches to the closest points
-#'   in the target (default FALSE, only implemented for dotprops).
+#'   in the target (default FALSE, only implemented for \code{dotprops}).
 #' @rdname WeightedNNBasedLinesetMatching
 #' @importFrom nat dotprops
 WeightedNNBasedLinesetMatching.neuron<-function(target, query, UseAlpha=FALSE,
@@ -452,7 +463,7 @@ WeightedNNBasedLinesetMatching.default<-function(target,query,dvs1=NULL,dvs2=NUL
       # for perfectly aligned points, alpha = 1, at worst alpha = 0
       # sqrt seems reasonable since if alpha1=alpha2=0.5 then
       # the scalefac will be 0.5
-      # zapsmall to make sure there are no tiny negative numbers etc
+      # zapsmall to make sure there are no tiny negative numbers etc.
       scalefac=sqrt(zapsmall(alphas1[idxArray[,1]]*alphas2[idxArray[,2]]))
       dps=dps*scalefac
     }

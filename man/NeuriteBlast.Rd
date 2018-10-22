@@ -19,8 +19,9 @@ NeuriteBlast(query, target, targetBinds = NULL, normalised = FALSE,
 query}
 
 \item{OmitFailures}{Whether to omit neurons for which \code{FUN} gives an
-error. The default value (\code{NA}) will result in nblast stopping with an
-error message the moment there is an eror. For other values, see details.}
+error. The default value (\code{NA}) will result in \code{nblast} stopping
+with an error message the moment there is an error. For other values, see
+details.}
 
 \item{simplify}{whether to simplify the scores from a list to a vector.
 \code{TRUE} by default. The only time you might want to set this false is

@@ -10,7 +10,7 @@ diagonal(x, indices = NULL)
 \method{diagonal}{default}(x, indices = NULL)
 }
 \arguments{
-\item{x}{A sqaure matrix}
+\item{x}{A square matrix}
 
 \item{indices}{specifies a subset of the diagonal using a character vector of
 names, a logical vector or integer indices. The default (\code{NULL})
@@ -26,7 +26,7 @@ Extract diagonal terms from a variety of matrix types
 Insists that input matrix is square. Uses the \code{'diagonal'}
   attribute when available and has specialised handling of \code{ff},
   \code{big.matrix}, \code{dgCMatrix} matrices. Does not check that row and
-  colunm names are identical for those matrix clases (unlike the base
+  column names are identical for those matrix classes (unlike the base
   \code{\link{diag}} function, but always uses rownames.
 }
 \examples{

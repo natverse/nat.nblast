@@ -10,8 +10,8 @@ sub_score_mat(query, target, scoremat = NULL, distance = FALSE,
 \arguments{
 \item{query, target}{character vectors of neuron identifiers.}
 
-\item{scoremat}{a matrix, ff matrix, bigmatrix or a character vector
-specifiying the name of an ff matrix containing the all by all score
+\item{scoremat}{a matrix, ff matrix, \code{bigmatrix} or a character vector
+specifying the name of an ff matrix containing the all by all score
 matrix.}
 
 \item{distance}{logical indicating whether to return distances or scores.}

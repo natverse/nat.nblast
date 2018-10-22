@@ -7,8 +7,8 @@
 #' direction, or as \code{1 - normscorebar}, where \code{normscorebar} is
 #' \code{normscore} averaged across both directions.
 #' @param query,target character vectors of neuron identifiers.
-#' @param scoremat a matrix, ff matrix, bigmatrix or a character vector
-#'   specifiying the name of an ff matrix containing the all by all score
+#' @param scoremat a matrix, ff matrix, \code{bigmatrix} or a character vector
+#'   specifying the name of an ff matrix containing the all by all score
 #'   matrix.
 #' @param distance logical indicating whether to return distances or scores.
 #' @param normalisation the type of normalisation procedure that should be
@@ -94,12 +94,14 @@ sub_score_mat <- function(query, target, scoremat=NULL, distance=FALSE, normalis
 
 #' Convert (a subset of) a raw score matrix to a distance matrix
 #'
-#' @description This function can convert a raw score matrix returned by nblast
-#'   into a square distance matrix or \code{dist} object. It can be used with
-#'   file-backed matrices as well as regular R matrices resident in memory.
+#' @description This function can convert a raw score matrix returned by
+#'   \code{nblast} into a square distance matrix or \code{dist} object. It can
+#'   be used with file-backed matrices as well as regular R matrices resident in
+#'   memory.
 #'
 #' @details Note that if \code{neuron_names} is missing then the rownames of
-#'   \code{scoremat} will be used i.e. all neuron in scoremat will be used.
+#'   \code{scoremat} will be used i.e. every neuron in \code{scoremat} will be
+#'   used.
 #'
 #' @inheritParams nhclust
 #' @param form the type of object to return.
@@ -131,9 +133,9 @@ sub_dist_mat <- function(neuron_names, scoremat=NULL, form=c('matrix', 'dist'), 
 #' @details Insists that input matrix is square. Uses the \code{'diagonal'}
 #'   attribute when available and has specialised handling of \code{ff},
 #'   \code{big.matrix}, \code{dgCMatrix} matrices. Does not check that row and
-#'   colunm names are identical for those matrix clases (unlike the base
+#'   column names are identical for those matrix classes (unlike the base
 #'   \code{\link{diag}} function, but always uses rownames.
-#' @param x A sqaure matrix
+#' @param x A square matrix
 #' @param indices specifies a subset of the diagonal using a character vector of
 #'   names, a logical vector or integer indices. The default (\code{NULL})
 #'   implies all elements.

@@ -59,5 +59,5 @@ show_similarity(ab_neurons[[1]], gamma_neurons[[3]])
 }
 \seealso{
 The low level function \code{\link{WeightedNNBasedLinesetMatching}}
-  is used to retrived the scores.
+  is used to retrieve the scores.
 }

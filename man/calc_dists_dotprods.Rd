@@ -26,7 +26,7 @@ neuron against itself (default \code{TRUE}).}
 }
 \value{
 A list, one element for for pair of neurons with a 2 column
-  data.frame containing one column of distances and s secon of absolute dot
+  data.frame containing one column of distances and another of absolute dot
   products.
 }
 \description{
@@ -34,5 +34,5 @@ Calculate distances and dot products between two sets of neurons
 }
 \details{
 Distances and dot products are the raw inputs for constructing
-  scoring matrices for the nblast search algorithm.
+  scoring matrices for the NBLAST search algorithm.
 }

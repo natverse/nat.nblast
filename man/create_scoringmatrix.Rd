@@ -36,7 +36,7 @@ final scores.}
 the log odds ratio in the probability matrix.}
 
 \item{...}{extra arguments to pass to \code{\link{NeuriteBlast}} or options
-for the call to \code{\link[plyr]{mlply}} call that actaully iterates over
+for the call to \code{\link[plyr]{mlply}} call that actually iterates over
 neuron pairs.}
 }
 \value{
