@@ -1,3 +1,9 @@
+# nat.nblast 1.6.4
+
+* pkgdown documentation
+* use development version of nat package when doing install_github of nat.nblast
+* spelling
+
 # nat.nblast 1.6.3
 
 * fixes/examples for show_similarity
