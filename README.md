@@ -1,7 +1,7 @@
 # nat.nblast
-[![Release Version](https://img.shields.io/github/release/jefferislab/nat.nblast.svg)](https://github.com/jefferislab/nat.nblast/releases/latest) 
+[![Release Version](https://img.shields.io/github/release/natverse/nat.nblast.svg)](https://github.com/natverse/nat.nblast/releases/latest) 
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/nat.nblast)](https://cran.r-project.org/package=nat.nblast) 
-[![Build Status](https://travis-ci.org/jefferislab/nat.nblast.svg?branch=master)](https://travis-ci.org/jefferislab/nat.nblast)
+[![Build Status](https://travis-ci.org/natverse/nat.nblast.svg?branch=master)](https://travis-ci.org/natverse/nat.nblast)
 
 **nat.nblast** is part of the [NeuroAnatomy Toolbox](https://jefferislab.github.io/)
 suite of R packages.
@@ -13,7 +13,7 @@ For the impatient ...
 ```r
 # install
 if (!require("devtools")) install.packages("devtools")
-devtools::install_github(c("jefferis/nat", "jefferislab/nat.nblast"))
+devtools::install_github(c("natverse/nat", "natverse/nat.nblast"))
 
 # use
 library(nat.nblast)
@@ -73,7 +73,7 @@ Use **devtools** to install the development version:
 # install devtools if required
 if (!require("devtools")) install.packages("devtools")
 # then nat.nblast
-devtools::install_github("nat.nblast", "jefferislab")
+devtools::install_github("natverse/nat.nblast")
 ```
 Note that this will also update the [nat package](https://github.com/jefferis/nat)
 to the latest development version from github. Windows users need 

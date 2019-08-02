@@ -11,8 +11,8 @@ Authors@R: c(
     )
 Description: Extends package 'nat' (NeuroAnatomy Toolbox) by providing a
     collection of NBLAST-related functions.
-URL: https://github.com/jefferislab/nat.nblast, http://jefferislab.org
-BugReports: https://github.com/jefferislab/nat.nblast/issues
+URL: https://github.com/natverse/nat.nblast, https://natverse.github.io
+BugReports: https://github.com/natverse/nat.nblast/issues
 Depends:
     R (>= 2.15.1),
     rgl,
