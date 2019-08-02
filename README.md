@@ -7,6 +7,8 @@
 [![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](https://natverse.github.io/nat.nblast/reference/)
 <!-- badges: end -->
 
+<img align="right" width="300px" src="https://raw.githubusercontent.com/natverse/nat.nblast/master/inst/images/hex-natnblast.png">
+
 **nat.nblast** is part of the [NeuroAnatomy Toolbox](https://jefferislab.github.io/)
 suite of R packages.
 
@@ -82,3 +84,7 @@ devtools::install_github("natverse/nat.nblast")
 Note that this will also update the [nat package](https://github.com/jefferis/nat)
 to the latest development version from github. Windows users need 
 [Rtools](http://www.murdoch-sutherland.com/Rtools/) to install this way.
+
+<p align="center">
+<img width="300px" src="https://raw.githubusercontent.com/natverse/nat.nblast/master/inst/images/hex-natverse_logo.png"/>
+</p> 
