@@ -37,11 +37,15 @@ Note that the colours are in the order of the dendrogram as assigned
 # 20 Kenyon cells
 data(kcs20, package='nat')
 # calculate mean, normalised NBLAST scores
-x=nblast(kcs20, kcs20, normalised=TRUE)
-x=(x+t(x))/2
+kcs20.aba=nblast_allbyall(kcs20)
+kcs20.hc=nhclust(scoremat = kcs20.aba)
+# plot the resultant dendrogram
+plot(kcs20.hc)
+
+# now plot the neurons in 3D coloured by cluster group
 # note that specifying db explicitly could be avoided by use of the
 # \\code{nat.default.neuronlist} option.
-plot3d(hclust(as.dist(x)), k=3, db=kcs20)
+plot3d(kcs20.hc, k=3, db=kcs20)
 }
 \seealso{
 \code{\link{nhclust}, \link[rgl]{plot3d}, \link{slice},
