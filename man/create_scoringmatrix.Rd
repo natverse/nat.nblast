@@ -5,9 +5,9 @@
 \title{Create a scoring matrix given matching and non-matching sets of neurons}
 \usage{
 create_scoringmatrix(matching_neurons, nonmatching_neurons,
-  matching_subset = NULL, non_matching_subset = NULL, ignoreSelf = TRUE,
-  distbreaks, dotprodbreaks = seq(0, 1, by = 0.1), logbase = 2,
-  epsilon = 1e-06, ...)
+  matching_subset = NULL, non_matching_subset = NULL,
+  ignoreSelf = TRUE, distbreaks, dotprodbreaks = seq(0, 1, by = 0.1),
+  logbase = 2, epsilon = 1e-06, ...)
 }
 \arguments{
 \item{matching_neurons}{a \code{\link[nat]{neuronlist}} of matching neurons.}

@@ -36,3 +36,4 @@ Note that if \code{neuron_names} is missing then the rownames of
 \seealso{
 Other scoremats: \code{\link{nhclust}}
 }
+\concept{scoremats}

@@ -4,8 +4,8 @@
 \alias{nhclust}
 \title{Cluster a set of neurons}
 \usage{
-nhclust(neuron_names, method = "ward", scoremat = NULL, distfun = as.dist,
-  ..., maxneurons = 4000)
+nhclust(neuron_names, method = "ward", scoremat = NULL,
+  distfun = as.dist, ..., maxneurons = 4000)
 }
 \arguments{
 \item{neuron_names}{character vector of neuron identifiers.}
@@ -56,3 +56,4 @@ subset(hckcs, k=3)
 
 Other scoremats: \code{\link{sub_dist_mat}}
 }
+\concept{scoremats}

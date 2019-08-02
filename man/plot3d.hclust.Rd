@@ -2,7 +2,8 @@
 % Please edit documentation in R/clustering.r
 \name{plot3d.hclust}
 \alias{plot3d.hclust}
-\title{Methods to identify and plot groups of neurons cut from an \code{hclust} object}
+\title{Methods to identify and plot groups of neurons cut from an \code{hclust}
+object}
 \usage{
 \method{plot3d}{hclust}(x, k = NULL, h = NULL, groups = NULL,
   col = rainbow, ...)
@@ -21,7 +22,8 @@
 \item{...}{additional arguments for \code{plot3d}}
 }
 \value{
-A list of \code{rgl} IDs for plotted objects (see \code{\link[rgl]{plot3d}}).
+A list of \code{rgl} IDs for plotted objects (see
+  \code{\link[rgl]{plot3d}}).
 }
 \description{
 \code{plot3d.hclust} uses \code{plot3d} to plot neurons from
@@ -42,5 +44,6 @@ x=(x+t(x))/2
 plot3d(hclust(as.dist(x)), k=3, db=kcs20)
 }
 \seealso{
-\code{\link{nhclust}, \link[rgl]{plot3d}, \link{slice}, \link{colour_clusters}}
+\code{\link{nhclust}, \link[rgl]{plot3d}, \link{slice},
+\link{colour_clusters}}
 }

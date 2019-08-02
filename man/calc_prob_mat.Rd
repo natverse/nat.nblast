@@ -5,8 +5,8 @@
 \title{Calculate probability matrix from distances and dot products between neuron
 segments}
 \usage{
-calc_prob_mat(nndists, dotprods, distbreaks, dotprodbreaks = seq(0, 1, by =
-  0.1), ReturnCounts = FALSE)
+calc_prob_mat(nndists, dotprods, distbreaks, dotprodbreaks = seq(0, 1, by
+  = 0.1), ReturnCounts = FALSE)
 }
 \arguments{
 \item{nndists}{a list of nearest-neighbour distances or a list of both

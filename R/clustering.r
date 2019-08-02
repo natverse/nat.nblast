@@ -50,7 +50,8 @@ nhclust <- function(neuron_names, method='ward', scoremat=NULL, distfun=as.dist,
 }
 
 
-#' Methods to identify and plot groups of neurons cut from an \code{hclust} object
+#' Methods to identify and plot groups of neurons cut from an \code{hclust}
+#' object
 #'
 #' @description \code{plot3d.hclust} uses \code{plot3d} to plot neurons from
 #'   each group, cut from the \code{hclust} object, by colour.
@@ -62,10 +63,11 @@ nhclust <- function(neuron_names, method='ward', scoremat=NULL, distfun=as.dist,
 #' @param groups numeric vector of groups to plot.
 #' @param col colours for groups (directly specified or a function).
 #' @param ... additional arguments for \code{plot3d}
-#' @return A list of \code{rgl} IDs for plotted objects (see \code{\link[rgl]{plot3d}}).
+#' @return A list of \code{rgl} IDs for plotted objects (see
+#'   \code{\link[rgl]{plot3d}}).
 #' @export
-#' @seealso
-#' \code{\link{nhclust}, \link[rgl]{plot3d}, \link{slice}, \link{colour_clusters}}
+#' @seealso \code{\link{nhclust}, \link[rgl]{plot3d}, \link{slice},
+#' \link{colour_clusters}}
 #' @importFrom dendroextras slice
 #' @importFrom grDevices rainbow
 #' @examples

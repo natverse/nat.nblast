@@ -31,6 +31,7 @@ Suggests:
 License: GPL-3
 LazyData: yes
 VignetteBuilder: knitr
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 Remotes: jefferis/nat
 Language: en-GB
+Encoding: UTF-8

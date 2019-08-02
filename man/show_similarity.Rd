@@ -4,9 +4,9 @@
 \alias{show_similarity}
 \title{Display two neurons with segments in the query coloured by similarity}
 \usage{
-show_similarity(query, target, smat = NULL, cols = colorRampPalette(c("red",
-  "yellow", "cyan", "navy")), col = "black", AbsoluteScale = FALSE,
-  PlotVectors = TRUE, ...)
+show_similarity(query, target, smat = NULL,
+  cols = colorRampPalette(c("red", "yellow", "cyan", "navy")),
+  col = "black", AbsoluteScale = FALSE, PlotVectors = TRUE, ...)
 }
 \arguments{
 \item{query}{a neuron to compare and colour.}

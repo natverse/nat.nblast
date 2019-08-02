@@ -4,15 +4,10 @@
 \name{[}
 \alias{[}
 \alias{[,spam,character,character,logical-method}
-\alias{[}
 \alias{[,spam,character,character,missing-method}
-\alias{[}
 \alias{[,spam,character,missing,logical-method}
-\alias{[}
 \alias{[,spam,character,missing,missing-method}
-\alias{[}
 \alias{[,spam,missing,character,logical-method}
-\alias{[}
 \alias{[,spam,missing,character,missing-method}
 \title{Extract parts of a sparse \code{spam} matrix}
 \usage{
