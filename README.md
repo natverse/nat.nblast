@@ -44,7 +44,7 @@ Databases.Neuron. 2016 Jul 20;91(2):293-311. doi:
 [10.1016/j.neuron.2016.06.012](http://doi.org/10.1016/j.neuron.2016.06.012). 
 
 In addition to basic pairwise comparison, the package implements search of
-databases of neurons. There is also suport for all x all comparison for a group
+databases of neurons. There is also support for all x all comparison for a group
 of neurons. This can produce a distance matrix suitable for hierarchical clustering,
 which is also implemented in the package.
 

@@ -55,7 +55,7 @@
 # nat.nblast 1.1
 
 * fix: make smat.fcwb the default scoring matrix (rather than smat_alpha) when
-  nblast's UseAlpha paramater is FALSE (the default) and smat_alpha.fcwb the
+  nblast's UseAlpha parameter is FALSE (the default) and smat_alpha.fcwb the
   default when UseAlpha=TRUE.
 * rename smat->smat.fcwb and smat_alpha->smat_alpha.fcwb to make it clear that
   these are defined in the FCWB template space (though they should work OK for
