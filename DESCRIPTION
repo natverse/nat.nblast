@@ -27,8 +27,7 @@ Suggests:
     ff,
     testthat,
     knitr,
-    rmarkdown,
-    rglwidget
+    rmarkdown
 License: GPL-3
 LazyData: yes
 VignetteBuilder: knitr
