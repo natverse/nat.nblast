@@ -4,8 +4,10 @@ Title: NeuroAnatomy Toolbox ('nat') Extension for Assessing Neuron Similarity
     and Clustering
 Version: 1.6.4
 Authors@R: c(
-    person("Gregory", "Jefferis", email= "jefferis@gmail.com", role = c("aut")),
-    person("James", "Manton", email="ajd.manton@googlemail.com", role = c("aut", "cre"))
+    person("Gregory", "Jefferis", email= "jefferis@gmail.com", 
+      role = c("aut"), comment = c(ORCID = "0000-0002-0587-9355")),
+    person("James", "Manton", email="ajd.manton@googlemail.com", 
+      role = c("aut", "cre"), comment = c(ORCID = "0000-0001-9260-3156"))
     )
 Description: Extends package 'nat' (NeuroAnatomy Toolbox) by providing a
     collection of NBLAST-related functions.
