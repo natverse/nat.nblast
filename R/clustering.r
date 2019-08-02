@@ -62,6 +62,8 @@ nhclust <- function(neuron_names, method='ward', scoremat=NULL, distfun=as.dist,
 #' @param h height to cut \code{\link{hclust}} object.
 #' @param groups numeric vector of groups to plot.
 #' @param col colours for groups (directly specified or a function).
+#' @param colour.selected When set to \code{TRUE} the colour palette only
+#'   applies to the displayed cluster groups (default \code{FALSE}).
 #' @param ... additional arguments for \code{plot3d}
 #' @return A list of \code{rgl} IDs for plotted objects (see
 #'   \code{\link[rgl]{plot3d}}).
@@ -82,15 +84,20 @@ nhclust <- function(neuron_names, method='ward', scoremat=NULL, distfun=as.dist,
 #' # now plot the neurons in 3D coloured by cluster group
 #' # note that specifying db explicitly could be avoided by use of the
 #' # \code{nat.default.neuronlist} option.
-plot3d.hclust <- function(x, k=NULL, h=NULL, groups=NULL, col=rainbow, ...) {
 #' plot3d(kcs20.hc, k=3, db=kcs20)
+#'
+#' # only plot first two groups
+#' # (will plot in same colours as when all groups are plotted)
+#' plot3d(kcs20.hc, k=3, db=kcs20, groups=1:2)
+#' # only plot first two groups
+#' # (will be coloured with a two-tone palette)
+#' plot3d(kcs20.hc, k=3, db=kcs20, groups=1:2, colour.selected=TRUE)
+plot3d.hclust <- function(x, k=NULL, h=NULL, groups=NULL, col=rainbow,
+                          colour.selected=FALSE, ...) {
   # Cut the dendrogram into k groups of neurons. Note that these will now have
   # the neurons in dendrogram order
   kgroups <- slice(x,k,h)
   k <- max(kgroups)
-  if(is.function(col))
-    col <- col(k)
-  else if(length(col)==1) col=rep(col,k)
   neurons <- names(kgroups)
 
   if(!is.null(groups)){
@@ -98,6 +105,20 @@ plot3d.hclust <- function(x, k=NULL, h=NULL, groups=NULL, col=rainbow, ...) {
     kgroups <- kgroups[matching]
     neurons <- neurons[matching]
   }
+
+  if(colour.selected) {
+    k=length(unique(groups))
+    if(is.function(col))
+      col <- col(k)
+    else if(length(col)==1) col=rep(col,k)
+    kgroups=match(kgroups,unique(groups))
+  } else {
+    if(is.function(col))
+      col <- col(k)
+    else if(length(col)==1) col=rep(col,k)
+
+  }
+
   # NB we need to substitute right away to ensure that the non-standard
   # evaluation of col does not fail with a lookup problem for kgroups
   plot3d(neurons, col=substitute(col[kgroups]), ..., SUBSTITUTE=FALSE)
