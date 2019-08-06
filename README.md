@@ -5,8 +5,8 @@
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/nat.nblast)](https://cran.r-project.org/package=nat.nblast) 
 [![Build Status](https://travis-ci.org/natverse/nat.nblast.svg?branch=master)](https://travis-ci.org/natverse/nat.nblast)
 [![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](https://natverse.github.io/nat.nblast/reference/)
-<!-- badges: end -->
 <img src="man/figures/logo.svg" align="right" height="139" />
+<!-- badges: end -->
 
 **nat.nblast** is part of the [NeuroAnatomy Toolbox](https://jefferislab.github.io/)
 suite of R packages.
