@@ -53,12 +53,12 @@ databases of neurons. There is also support for all x all comparison for a group
 of neurons. This can produce a distance matrix suitable for hierarchical clustering,
 which is also implemented in the package.
 
-These tools are designed as an addon for the [NeuroAnatomy Toolbox](https://github.com/jefferis/nat)
+These tools are designed as an addon for the [NeuroAnatomy Toolbox](https://natverse.github.io/nat)
 (nat) R package, which will be installed as dependency.
 
 You will probably find the following online documentation helpful:
 
-* http://jefferislab.github.io/nat.nblast - Online documentation for this R package
+* https://natverse.github.io/nat.nblast - Online documentation for this R package
 * http://jefferislab.org/si/nblast - Overview of NBLAST algorithm and online tools 
 
 ## Installation
@@ -80,7 +80,7 @@ if (!require("devtools")) install.packages("devtools")
 # then nat.nblast
 devtools::install_github("natverse/nat.nblast")
 ```
-Note that this will also update the [nat package](https://github.com/jefferis/nat)
+Note that this will also update the [nat package](https://github.com/natverse/nat)
 to the latest development version from github. Windows users need 
 [Rtools](http://www.murdoch-sutherland.com/Rtools/) to install this way.
 
