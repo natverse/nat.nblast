@@ -7,6 +7,7 @@ navbar:
     - articles
     - tutorials
     - news
+    - help
     right:
     - natverse
     - github
@@ -31,11 +32,13 @@ navbar:
     github:
       icon: fa-github fa-lg
       href: https://github.com/natverse/nat.nblast
+    help:
+      text: Help
+      href: SUPPORT.html
 reference:
 - title: Package Overview
   desc: Provides an overview of key functions and classes
-  contents:
-  - nat.nblast-package
+  contents: nat.nblast-package
 - title: Key functions
   desc: The main entry points to neuron search and clustering
   contents:
@@ -57,9 +60,8 @@ reference:
   - calc_dists_dotprods
   - smat.fcwb
 - title: Mid level functions for result matrices
-  desc: >
-    Functions that you might use to manipulate matrices containing all by all
-    NBLAST results for use with other clustering strategies (besides nhclust)
+  desc: |
+    Functions that you might use to manipulate matrices containing all by all NBLAST results for use with other clustering strategies (besides nhclust)
   contents:
   - sub_score_mat
   - sub_dist_mat
@@ -78,3 +80,4 @@ reference:
   - '['
   - fill_in_sparse_score_mat
   - fill_pairs_sparse_score_mat
+
