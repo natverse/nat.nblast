@@ -19,8 +19,10 @@ test_that("plot3d.hclust", {
   hc <- nhclust(names(testneurons), scoremat=test_score_mat)
   open3d()
 
-  expect_equal(attr(plot3d(hc, k=3, db=testneurons),'df')$col,
-               c("#FF0000FF", "#FF0000FF", "#00FF00FF", "#0000FFFF", "#0000FFFF"))
+  # workaround for the fact that colours are rgb or rgba
+  cols <- attr(plot3d(hc, k=3, db=testneurons),'df')$col
+  baseline <- c("#FF0000", "#FF0000", "#00FF00", "#0000FF", "#0000FF")
+  expect_equal(col2rgb(cols), col2rgb(baseline))
   clear3d()
   plot3d(hc, h=2, db=testneurons)
   clear3d()
