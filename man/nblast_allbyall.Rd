@@ -8,11 +8,15 @@
 \usage{
 nblast_allbyall(x, ...)
 
-\method{nblast_allbyall}{character}(x, smat = NULL,
-  db = getOption("nat.default.neuronlist"), ...)
+\method{nblast_allbyall}{character}(x, smat = NULL, db = getOption("nat.default.neuronlist"), ...)
 
-\method{nblast_allbyall}{neuronlist}(x, smat = NULL, distance = FALSE,
-  normalisation = c("raw", "normalised", "mean"), ...)
+\method{nblast_allbyall}{neuronlist}(
+  x,
+  smat = NULL,
+  distance = FALSE,
+  normalisation = c("raw", "normalised", "mean"),
+  ...
+)
 }
 \arguments{
 \item{x}{Input neurons (\code{\link{neuronlist}} or character vector)}

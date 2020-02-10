@@ -4,8 +4,15 @@
 \alias{fill_pairs_sparse_score_mat}
 \title{Add forwards, reverse and self scores for a pair of neurons to a sparse score matrix}
 \usage{
-fill_pairs_sparse_score_mat(sparse_matrix, n1, n2, dense_matrix,
-  reverse = TRUE, self = TRUE, reverse_self = (reverse && self))
+fill_pairs_sparse_score_mat(
+  sparse_matrix,
+  n1,
+  n2,
+  dense_matrix,
+  reverse = TRUE,
+  self = TRUE,
+  reverse_self = (reverse && self)
+)
 }
 \arguments{
 \item{sparse_matrix}{the sparse matrix to fill in.}

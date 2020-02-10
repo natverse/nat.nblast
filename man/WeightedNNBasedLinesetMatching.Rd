@@ -8,11 +8,15 @@
 \usage{
 WeightedNNBasedLinesetMatching(target, query, ...)
 
-\method{WeightedNNBasedLinesetMatching}{dotprops}(target, query,
-  UseAlpha = FALSE, ...)
+\method{WeightedNNBasedLinesetMatching}{dotprops}(target, query, UseAlpha = FALSE, ...)
 
-\method{WeightedNNBasedLinesetMatching}{neuron}(target, query,
-  UseAlpha = FALSE, OnlyClosestPoints = FALSE, ...)
+\method{WeightedNNBasedLinesetMatching}{neuron}(
+  target,
+  query,
+  UseAlpha = FALSE,
+  OnlyClosestPoints = FALSE,
+  ...
+)
 }
 \arguments{
 \item{target, query}{\code{\link{dotprops}} or \code{\link{neuron}} objects to

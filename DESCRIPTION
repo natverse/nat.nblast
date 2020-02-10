@@ -2,15 +2,15 @@ Package: nat.nblast
 Type: Package
 Title: NeuroAnatomy Toolbox ('nat') Extension for Assessing Neuron Similarity
     and Clustering
-Version: 1.6.4.9000
+Version: 1.6.5
 Authors@R: c(
-    person("Gregory", "Jefferis", email= "jefferis@gmail.com", 
+    person("Gregory", "Jefferis", email= "jefferis@gmail.com",
       role = c("aut"), comment = c(ORCID = "0000-0002-0587-9355")),
-    person("James", "Manton", email="ajd.manton@googlemail.com", 
+    person("James", "Manton", email="ajd.manton@googlemail.com",
       role = c("aut", "cre"), comment = c(ORCID = "0000-0001-9260-3156"))
     )
 Description: Extends package 'nat' (NeuroAnatomy Toolbox) by providing a
-    collection of NBLAST-related functions.
+    collection of NBLAST-related functions for neuronal morphology comparison (Costa et al. (2016) <doi: 10.1016/j.neuron.2016.06.012>).
 URL: https://github.com/natverse/nat.nblast, https://natverse.github.io
 BugReports: https://github.com/natverse/nat.nblast/issues
 Depends:
@@ -33,7 +33,6 @@ Suggests:
 License: GPL-3
 LazyData: yes
 VignetteBuilder: knitr
-RoxygenNote: 6.1.1
-Remotes: natverse/nat
+RoxygenNote: 7.0.2
 Language: en-GB
 Encoding: UTF-8

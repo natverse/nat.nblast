@@ -4,8 +4,12 @@
 \alias{sub_dist_mat}
 \title{Convert (a subset of) a raw score matrix to a distance matrix}
 \usage{
-sub_dist_mat(neuron_names, scoremat = NULL, form = c("matrix", "dist"),
-  maxneurons = NA)
+sub_dist_mat(
+  neuron_names,
+  scoremat = NULL,
+  form = c("matrix", "dist"),
+  maxneurons = NA
+)
 }
 \arguments{
 \item{neuron_names}{character vector of neuron identifiers.}
@@ -34,6 +38,7 @@ Note that if \code{neuron_names} is missing then the rownames of
   used.
 }
 \seealso{
-Other scoremats: \code{\link{nhclust}}
+Other scoremats: 
+\code{\link{nhclust}()}
 }
 \concept{scoremats}

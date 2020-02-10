@@ -4,9 +4,17 @@
 \alias{nblast}
 \title{Calculate similarity score for neuron morphologies}
 \usage{
-nblast(query, target = getOption("nat.default.neuronlist"),
-  smat = NULL, sd = 3, version = c(2, 1), normalised = FALSE,
-  UseAlpha = FALSE, OmitFailures = NA, ...)
+nblast(
+  query,
+  target = getOption("nat.default.neuronlist"),
+  smat = NULL,
+  sd = 3,
+  version = c(2, 1),
+  normalised = FALSE,
+  UseAlpha = FALSE,
+  OmitFailures = NA,
+  ...
+)
 }
 \arguments{
 \item{query}{the query neuron.}

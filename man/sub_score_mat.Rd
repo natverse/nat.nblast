@@ -4,8 +4,13 @@
 \alias{sub_score_mat}
 \title{Return scores (or distances) for given query and target neurons}
 \usage{
-sub_score_mat(query, target, scoremat = NULL, distance = FALSE,
-  normalisation = c("raw", "normalised", "mean"))
+sub_score_mat(
+  query,
+  target,
+  scoremat = NULL,
+  distance = FALSE,
+  normalisation = c("raw", "normalised", "mean")
+)
 }
 \arguments{
 \item{query, target}{character vectors of neuron identifiers.}

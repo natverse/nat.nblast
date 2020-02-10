@@ -4,8 +4,15 @@
 \alias{NeuriteBlast}
 \title{Produce similarity score for neuron morphologies}
 \usage{
-NeuriteBlast(query, target, targetBinds = NULL, normalised = FALSE,
-  OmitFailures = NA, simplify = TRUE, ...)
+NeuriteBlast(
+  query,
+  target,
+  targetBinds = NULL,
+  normalised = FALSE,
+  OmitFailures = NA,
+  simplify = TRUE,
+  ...
+)
 }
 \arguments{
 \item{query}{either a single query neuron or a \code{\link[nat]{neuronlist}}}
