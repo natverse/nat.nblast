@@ -22,9 +22,37 @@ test_that("nblast v2 handles a neuronlist as query", {
 })
 
 test_that("we can calculate normalised nblast v2 scores", {
-  scores <- nblast(testneurons[1:2], testneurons, version=2)
-  scores.norm=scale(scores, scale=c(scores[1,1],scores[2,2]), center = FALSE)
+  expect_is(scores <- nblast(testneurons[1:2], testneurons, version=2), 'matrix')
+
+  expect_is(scores.norm <-
+              scale(scores, scale=c(scores[1,1],scores[2,2]), center = FALSE),
+            'matrix')
   expect_equivalent(nblast(testneurons[1:2], testneurons, normalised=TRUE), scores.norm)
+
+  expect_equal(scoresaba <- nblast_allbyall(testneurons,
+                                            version=2,
+                                            normalisation = 'normalised'),
+               nblast(testneurons, testneurons, version=2, normalised = TRUE))
+
+  scores.rect <- nblast(testneurons[1:2], testneurons[3:5], version = 2)
+  scores.rect.norm <-
+    nblast(testneurons[1:2],
+           testneurons[3:5],
+           version = 2,
+           normalised = T)
+  expect_equal(scores.rect.norm,
+                    scale(
+                      scores.rect,
+                      center = FALSE,
+                      scale = attr(scores.rect.norm, 'scaled:scale')
+                    ))
+
+  # the simple subset will drop the scaled attribute
+  baseline=scores.rect.norm[, 1, drop = FALSE]
+  attr(baseline, 'scaled:scale')=attr(scores.rect.norm, 'scaled:scale')[1]
+  expect_equal(nblast(testneurons[1], testneurons[3:5], version = 2, normalised = T),
+               baseline)
+
 })
 
 test_that("we can calculate scores for regular neurons",{
