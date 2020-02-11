@@ -21,6 +21,13 @@ test_that("nblast v2 handles a neuronlist as query", {
   expect_equal(scores, scores.expected)
 })
 
+test_that("we can calculate scores for non square matrices", {
+  expect_equal(scoresaba <- nblast_allbyall(testneurons, version=2),
+               nblast(testneurons, testneurons, version=2))
+  expect_equal(nblast(testneurons[1:2], testneurons[3:5], version=2),
+               scoresaba[3:5, 1:2])
+})
+
 test_that("we can calculate normalised nblast v2 scores", {
   expect_is(scores <- nblast(testneurons[1:2], testneurons, version=2), 'matrix')
 
@@ -56,8 +63,7 @@ test_that("we can calculate normalised nblast v2 scores", {
 })
 
 test_that("we can calculate scores for regular neurons",{
-  library(nat)
-  nblast_allbyall(Cell07PNs[1:4])
+  expect_is(nblast_allbyall(Cell07PNs[1:4]), 'matrix')
 })
 
 test_that("we can calculate scores using getOption('nat.default.neuronlist')", {
@@ -85,13 +91,12 @@ test_that("we can handle OmitFailures", {
 })
 
 test_that("we can handle all combinations of dotprops and neurons, both as neuronlists and singly", {
-  nblast(testneurons[[1]], Cell07PNs[1:3])
-  nblast(testneurons[1:3], Cell07PNs[1:3])
-  nblast(testneurons[[1]], Cell07PNs[[1]])
-  nblast(testneurons[1:3], Cell07PNs[[1]])
-
-  nblast(Cell07PNs[[1]], testneurons[1:3])
-  nblast(Cell07PNs[1:3], testneurons[1:3])
-  nblast(Cell07PNs[[1]], testneurons[[1]])
-  nblast(Cell07PNs[1:3], testneurons[[1]])
+  expect_is(nblast(testneurons[[1]], Cell07PNs[1:3]), 'numeric')
+  expect_is(nblast(testneurons[1:3], Cell07PNs[1:3]), 'matrix')
+  expect_is(nblast(testneurons[[1]], Cell07PNs[[1]]), 'numeric')
+  expect_is(nblast(testneurons[1:3], Cell07PNs[[1]]), 'numeric')
+  expect_is(nblast(Cell07PNs[[1]], testneurons[1:3]), 'numeric')
+  expect_is(nblast(Cell07PNs[1:3], testneurons[1:3]), 'matrix')
+  expect_is(nblast(Cell07PNs[[1]], testneurons[[1]]), 'numeric')
+  expect_is(nblast(Cell07PNs[1:3], testneurons[[1]]), 'numeric')
 })
