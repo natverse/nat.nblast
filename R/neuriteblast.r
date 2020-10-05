@@ -289,8 +289,13 @@ NeuriteBlast <- function(query, target, targetBinds=NULL, normalised=FALSE,
   if(nat::is.neuronlist(query)) {
     res=plyr::llply(query, NeuriteBlast, target=target, targetBinds=targetBinds,
                   normalised=normalised, OmitFailures=OmitFailures, simplify=simplify, ...=...)
-    if (!identical(simplify, FALSE) && length(res))
+    if (!identical(simplify, FALSE) && length(res)){
+      if(normalised)
+        selfscores=sapply(res, "attr", "scaled:scale")
       res=simplify2array(res, higher = (simplify == "array"))
+      if(normalised)
+        attr(res,'scaled:scale')=selfscores
+    }
     return(res)
   } else {
     if(is.null(targetBinds))
@@ -315,8 +320,12 @@ NeuriteBlast <- function(query, target, targetBinds=NULL, normalised=FALSE,
   }
 
   if(normalised){
-    if(is.list(scores)) stop("Cannot normalise results when they are not a single number")
-    scores=scores/NeuriteBlast(query, neuronlist(query), normalised=FALSE, ...)
+    if(is.list(scores))
+      stop("Cannot normalise results when they are not a single number")
+    # nb roll our own scale, since scale turns vector into matrix
+    selfscore=NeuriteBlast(query, neuronlist(query), normalised=FALSE, ...)
+    scores=scores/selfscore
+    attr(scores,'scaled:scale')=selfscore
   }
   scores
 }
