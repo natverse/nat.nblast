@@ -473,7 +473,9 @@ WeightedNNBasedLinesetMatching.default<-function(target,query,dvs1=NULL,dvs2=NUL
       # sqrt seems reasonable since if alpha1=alpha2=0.5 then
       # the scalefac will be 0.5
       # zapsmall to make sure there are no tiny negative numbers etc.
-      scalefac=sqrt(zapsmall(alphas1[idxArray[,1]]*alphas2[idxArray[,2]]))
+      #scalefac=sqrt(zapsmall(alphas1[idxArray[,1]]*alphas2[idxArray[,2]]))
+      maxlen = max(max(alphas1), max(alphas2))
+      scalefac = zapsmall(1 - (abs(alphas1[idxArray[,1]] - alphas2[idxArray[,2]])^2)/maxlen)
       dps=dps*scalefac
     }
   }
