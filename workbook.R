@@ -1,9 +1,6 @@
 library(nat)
 library(catmaid)
 
-conn <- catmaid_login(server="https://neuropil.janelia.org/tracing/fafb/v14/",
-                      authname="fly", authpassword="superfly",
-                      token = "c3990b12d59fb66d59107fb16e0540c4f3e91aa5")
 catmaid_login(conn)
 
 neurons <- read_catmaid_selection("../tnblast/data/DA1s.json", readNeurons = TRUE)
