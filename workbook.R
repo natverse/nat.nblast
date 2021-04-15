@@ -1,7 +1,7 @@
 library(nat)
 library(catmaid)
 
-catmaid_login(conn)
+catmaid_login()
 
 neurons <- read_catmaid_selection("../tnblast/data/DA1s.json", readNeurons = TRUE)
 neurons <- resample(prune_twigs(neurons/1e3, twig_length = 2), stepsize=1)
