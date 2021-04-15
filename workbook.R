@@ -11,28 +11,9 @@ neurons <- resample(prune_twigs(neurons/1e3, twig_length = 2), stepsize=1)
 
 dps <- nat::dotprops(neurons)
 
-nrn1 <- neurons[[1]]
-nrn2 <- neurons[[2]]
-nrn3 <- neurons[[3]]
-nrn4 <- neurons[[4]]
-
-#somaid(nns) # resampled neurons don't have soma
-
-dps1 <- dps[[1]]
-dps2 <- dps[[2]]
-dps3 <- dps[[3]]
-dps4 <- dps[[4]]
-
-gw1 <- as.ngraph(nrn1, weights=TRUE)
-gw2 <- as.ngraph(nrn2, weights=TRUE)
-gw3 <- as.ngraph(nrn3, weights=TRUE)
-gw4 <- as.ngraph(nrn4, weights=TRUE)
-
-igraph::topo_sort(as.ngraph(nrn4))
-
-max(igraph::diameter(gw1), igraph::diameter(gw2))
-
-dst1 <- igraph::distances(gw1, v=as.character(rootpoints(nrn1)))
+#somaid(neurons) # resampled neurons don't have soma
+#igraph::topo_sort(as.ngraph(nrn4))
+#max(igraph::diameter(gw1), igraph::diameter(gw2))
 
 get_dist_to_soma <- function(nrn) {
   gw <- as.ngraph(nrn, weights=TRUE)
@@ -40,18 +21,27 @@ get_dist_to_soma <- function(nrn) {
   as.numeric(dst)
 }
 
-dps1$alpha <- get_dist_to_soma(nrn1)
-dps2$alpha <- get_dist_to_soma(nrn2)
-dps3$alpha <- get_dist_to_soma(nrn3)
-dps4$alpha <- get_dist_to_soma(nrn4)
+make_topo_dotprops <- function(nrn) {
+  tdps <- nat::dotprops(nrn)
+  tdps$alpha <- get_dist_to_soma(nrn)
+  tdps
+}
 
-dps_list <- neuronlist(dps1, dps2, dps3, dps4)
+dps_list <- nlapply(neurons, make_topo_dotprops)
 
 devtools::load_all()
 
 dps_aba1 <- nblast_allbyall(dps_list, normalisation = "raw")
 dps_aba2 <- nblast_allbyall(dps_list, UseAlpha = T, normalisation = "raw")
-par(mfrow=c(1,2))
-heatmap(dps_aba1)
-heatmap(dps_aba2)
 
+par(mfrow = c(1,2))
+image(dps_aba1)
+title("NBLAST")
+image(dps_aba2)
+title("TNBLAST")
+
+par(mfrow = c(1,2))
+image(dps_aba1 / diag(dps_aba1))
+title("NBLAST")
+image(dps_aba2 / diag(dps_aba2))
+title("TNBLAST")
