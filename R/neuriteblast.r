@@ -474,8 +474,21 @@ WeightedNNBasedLinesetMatching.default<-function(target,query,dvs1=NULL,dvs2=NUL
       # the scalefac will be 0.5
       # zapsmall to make sure there are no tiny negative numbers etc.
       #scalefac=sqrt(zapsmall(alphas1[idxArray[,1]]*alphas2[idxArray[,2]]))
-      maxlen = max(max(alphas1), max(alphas2))
-      scalefac = zapsmall(1 - (abs(alphas1[idxArray[,1]] - alphas2[idxArray[,2]])/maxlen)^0.5)
+      if (is.numeric(alphas1) && is.numeric(alphas2)) {
+        maxlen = max(max(alphas1), max(alphas2))
+        scalefac = zapsmall(1 - (abs(alphas1[idxArray[,1]] - alphas2[idxArray[,2]])/maxlen)^0.5)
+      } else if (is.list(alphas1) && is.list(alphas2)) {
+        # distance from soma
+        maxlen = max(max(alphas1$distance), max(alphas2$distance))
+        scalefac1 = zapsmall(1 - (abs(alphas1$distance[idxArray[,1]] - alphas2$distance[idxArray[,2]])/maxlen)^0.5)
+        # strenghten by  Strahler Order
+        maxlen = max(max(alphas1$so), max(alphas2$so))
+        scalefac2 = zapsmall(1 - (abs(alphas1$so[idxArray[,1]] - alphas2$so[idxArray[,2]])/maxlen)^0.5)
+        scalefac = scalefac1 * scalefac2
+      } else{
+        warning("Unknown alpha format")
+        scalefac = rep(1, length(dps))
+      }
       dps=dps*scalefac
     }
   }
