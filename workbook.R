@@ -1,49 +1,30 @@
 library(nat)
 library(catmaid)
+library(dendroextras)
+
+devtools::load_all()
 
 catmaid_login()
 
 neurons <- read_catmaid_selection("../tnblast/data/DA1s.json", readNeurons = TRUE)
 neurons <- resample(prune_twigs(neurons/1e3, twig_length = 2), stepsize=1)
 
-dps <- nat::dotprops(neurons)
+plot3d(neurons, soma = TRUE)
 
 #somaid(neurons) # resampled neurons don't have soma
 #igraph::topo_sort(as.ngraph(nrn4))
 #max(igraph::diameter(gw1), igraph::diameter(gw2))
 
-get_dist_to_soma <- function(nrn) {
-  gw <- as.ngraph(nrn, weights=TRUE)
-  dst <- igraph::distances(gw, v=as.character(rootpoints(nrn)))
-  as.numeric(dst)
-}
-
-make_topo_dotprops <- function(nrn) {
-  tdps <- nat::dotprops(nrn)
-  tdps$alpha <- get_dist_to_soma(nrn)
-  tdps
-}
-
 dps_list <- nlapply(neurons, make_topo_dotprops)
-
-devtools::load_all()
 
 dps_aba1 <- nblast_allbyall(dps_list, normalisation = "raw")
 dps_aba2 <- nblast_allbyall(dps_list, UseAlpha = T, normalisation = "raw")
 
 par(mfrow = c(1,2))
-image(dps_aba1 / diag(dps_aba1))
+image(dps_aba1 / diag(dps_aba1), zlim= c(0,1), yaxt='n', xaxt='n')
 title("NBLAST")
-image(dps_aba2 / diag(dps_aba2))
+image(dps_aba2 / diag(dps_aba2), zlim= c(0,1), yaxt='n', xaxt='n')
 title("TNBLAST")
-
-make_sotopo_dotprops <- function(nrn) {
-  tdps <- nat::dotprops(nrn)
-  tdps$alpha <- list()
-  tdps$alpha$distance <- get_dist_to_soma(nrn)
-  tdps$alpha$so <- strahler_order(nrn)$points
-  tdps
-}
 
 dps_list2 <- nlapply(neurons, make_sotopo_dotprops)
 
@@ -51,7 +32,31 @@ dps_aba21 <- nblast_allbyall(dps_list2, normalisation = "raw")
 dps_aba22 <- nblast_allbyall(dps_list2, UseAlpha = T, normalisation = "raw")
 
 par(mfrow = c(1,2))
-image(dps_aba21 / diag(dps_aba21))
+image(dps_aba21 / diag(dps_aba21), zlim= c(0,1), yaxt='n', xaxt='n')
 title("NBLAST")
-image(dps_aba22 / diag(dps_aba22))
+image(dps_aba22 / diag(dps_aba22), zlim= c(0,1), yaxt='n', xaxt='n')
 title("TNBLAST + SO")
+
+# ---------------------- artificial neurons
+nrn3x <- neurons[[3]]
+nrn3x$StartPoint <- endpoints(neurons[[3]])[length(endpoints(neurons[[3]]))]
+
+nrn3x <- neurons[[3]]
+nrn3x$StartPoint <- endpoints(neurons[[3]])[106]
+nrn4x <- neurons[[4]]
+nrn4x$StartPoint <- endpoints(neurons[[4]])[length(endpoints(neurons[[4]]))]
+
+newnrns <- neuronlist(neurons[[1]], neurons[[2]], nrn3x, nrn4x)
+
+plot(newnrns,soma = T)
+
+dps_listT1 <- nlapply(newnrns, make_topo_dotprops)
+
+dps_aba1 <- nblast_allbyall(dps_listT1, normalisation = "raw")
+dps_aba2 <- nblast_allbyall(dps_listT1, UseAlpha = T, normalisation = "raw")
+
+par(mfrow = c(1,2))
+image(dps_aba1 / diag(dps_aba1), zlim= c(0,1), yaxt='n', xaxt='n')
+title("NBLAST")
+image(dps_aba2 / diag(dps_aba2), zlim= c(0,1), yaxt='n', xaxt='n')
+title("TNBLAST")
