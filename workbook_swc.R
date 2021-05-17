@@ -1,8 +1,10 @@
 library(nat)
 library(fafbseg)
 library(dendroextras)
+library(dendextend)
 library(elmr)
 library('fossil')
+library('clValid')
 
 devtools::load_all()
 
@@ -13,8 +15,8 @@ plot3d(nrns, soma=T)
 lin_type <- unlist(nlapply(nrns, function(n) strsplit(n$NeuronName, "PN_")[[1]][[1]]))
 
 nrns <- nrns/1e3
-nrns_s <- nlapply(nrns, function(x) elmr::unspike(x, threshold=5))
-nrns_s <- nlapply(nrns_s, function(x) smooth_neuron(x, sigma=1))
+nrns_s <- nlapply(nrns, function(x) elmr::unspike(x, threshold=4))
+nrns_s <- nlapply(nrns_s, function(x) smooth_neuron(x, sigma=0.8))
 nrns_cl <- prune_twigs(nrns_s, twig_length=5, OmitFailures=T)
 
 plot3d(nrns_cl, soma=T)
@@ -60,7 +62,7 @@ labels(dkcs2) <- lin_type
 plot(dkcs2)
 
 dkcs3 = colour_clusters(hcpn3, k=k)
-labels(dkcs2) <- lin_type
+labels(dkcs3) <- lin_type
 plot(dkcs3)
 
 cutk1 <- cutree(hcpn1, k = k)

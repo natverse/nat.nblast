@@ -60,3 +60,13 @@ image(dps_aba1 / diag(dps_aba1), zlim= c(0,1), yaxt='n', xaxt='n')
 title("NBLAST")
 image(dps_aba2 / diag(dps_aba2), zlim= c(0,1), yaxt='n', xaxt='n')
 title("TNBLAST")
+
+dps_listT2 <- nlapply(newnrns, make_sotopo_dotprops)
+
+dps_aba3 <- nblast_allbyall(dps_listT2, UseAlpha = T, normalisation = "raw")
+
+par(mfrow = c(1,2))
+image(dps_aba1 / diag(dps_aba1), zlim= c(0,1), yaxt='n', xaxt='n')
+title("NBLAST")
+image(dps_aba3 / diag(dps_aba2), zlim= c(0,1), yaxt='n', xaxt='n')
+title("TNBLAST + SO")
