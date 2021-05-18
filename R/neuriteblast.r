@@ -46,6 +46,8 @@
 #' @param UseAlpha whether to weight the similarity score for each matched
 #'   segment to emphasise long range neurites rather then arbours (default:
 #'   FALSE, see \bold{\code{UseAlpha}} section for details).
+#' @param UseTopo whether to weight the similarity score for each matched
+#'   segment to relative topology of the neurons (default: FALSE).
 #' @param OmitFailures Whether to omit neurons for which \code{FUN} gives an
 #'   error. The default value (\code{NA}) will result in \code{nblast} stopping
 #'   with an error message the moment there is an error. For other values, see
@@ -370,6 +372,8 @@ WeightedNNBasedLinesetMatching <- function(target, query, ...) {
 #'   WeightedNNBasedLinesetMatching. These will be used to scale the dot
 #'   products of the direction vectors for nearest neighbour pairs.
 #' @param UseAlpha Whether to scale dot product of tangent vectors (default=F)
+#' @param UseTopo Whether to use topological information to scale dot products
+#'  of tangent vectors (default=F)
 #' @param ... extra arguments to pass to the distance function.
 #' @export
 #' @seealso \code{\link[nat]{dotprops}}
@@ -380,12 +384,17 @@ WeightedNNBasedLinesetMatching <- function(target, query, ...) {
 #' segvals=WeightedNNBasedLinesetMatching(kcs20[[1]], kcs20[[2]], NNDistFun=list)
 #' names(segvals)=c("dist", "adotprod")
 #' pairs(segvals)
-WeightedNNBasedLinesetMatching.dotprops<-function(target, query, UseAlpha=FALSE, ...) {
+WeightedNNBasedLinesetMatching.dotprops<-function(target, query, UseAlpha=FALSE,
+                                                  UseTopo=FALSE, ...) {
   if(!"dotprops" %in% class(query)) query <- dotprops(query)
   if(UseAlpha)
     WeightedNNBasedLinesetMatching(target$points,query$points,dvs1=target$vect,dvs2=query$vect,
                                    alphas1=target$alpha,alphas2=query$alpha,...)
-  else
+  else if(UseTopo) {
+    if(!"topo.dotprops" %in% class(query)) stop("query must be `topo.dotprops`")
+    WeightedNNBasedLinesetMatching(target$points,query$points,dvs1=target$vect,dvs2=query$vect,
+                                   topo1=target$topo,topo2=query$topo,...)
+  } else
     WeightedNNBasedLinesetMatching(target$points,query$points,dvs1=target$vect,dvs2=query$vect,...)
 }
 
@@ -413,7 +422,8 @@ WeightedNNBasedLinesetMatching.neuron<-function(target, query, UseAlpha=FALSE,
 
 WeightedNNBasedLinesetMatching.default<-function(target,query,dvs1=NULL,dvs2=NULL,alphas1=NULL,
                                         alphas2=NULL,NNDistFun=WeightedNNBasedLinesetDistFun,Verbose=FALSE,
-                                        BothDirections=FALSE,BothDirectionsFun=list,OnlyClosestPoints=FALSE,...){
+                                        BothDirections=FALSE,BothDirectionsFun=list,OnlyClosestPoints=FALSE,
+                                        topo1=NULL,topo2=NULL,...){
   # return a score based on the similarity of nearest neighbour location
   # and the dot product of the direction vectors
 
@@ -474,6 +484,17 @@ WeightedNNBasedLinesetMatching.default<-function(target,query,dvs1=NULL,dvs2=NUL
       # the scalefac will be 0.5
       # zapsmall to make sure there are no tiny negative numbers etc.
       scalefac=sqrt(zapsmall(alphas1[idxArray[,1]]*alphas2[idxArray[,2]]))
+      dps=dps*scalefac
+    }
+    if(!is.null(topo1) && !is.null(topo2)){
+      # use of local neuron topology
+      ## distance from body
+      maxlen = max(max(topo1$distance), max(topo2$distance))
+      scalefac1 = zapsmall(1 - (abs(topo1$distance[idxArray[,1]] - topo2$distance[idxArray[,2]])/maxlen)^2)
+      ## strengthen by reversed Strahler's Order
+      maxlen = max(max(topo1$rso), max(topo2$rso))
+      scalefac2 = zapsmall(1 - (abs(topo1$rso[idxArray[,1]] - topo2$rso[idxArray[,2]])/maxlen)^0.5)
+      scalefac = scalefac1 * scalefac2
       dps=dps*scalefac
     }
   }
