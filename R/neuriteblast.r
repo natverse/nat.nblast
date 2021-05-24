@@ -22,8 +22,8 @@
 #'
 #'   Internally, the \code{\link{plyr}} package is used to provide options for
 #'   parallelising NBLAST and displaying progress. To display a progress bar as
-#'   the scores are computed, add \code{.progress="text"} to the arguments
-#'   (non-text progress bars are available -- see
+#'   the scores are computed, add \code{.progress="natprogress"} to the
+#'   arguments (non-text progress bars are available -- see
 #'   \code{\link[plyr]{create_progress_bar}}). To parallelise, add
 #'   \code{.parallel=TRUE} to the arguments. In order to make use of parallel
 #'   calculation, you must register a parallel backend that will distribute the
@@ -149,7 +149,7 @@
 #'
 #' # normalised scores (i.e. self match = 1) of all neurons vs each other
 #' # note use of progress bar
-#' scores.norm=nblast(kcs20, kcs20, normalised = TRUE, .progress="text")
+#' scores.norm=nblast(kcs20, kcs20, normalised = TRUE, .progress="natprogress")
 #' hist(scores.norm, breaks=25, col='grey')
 #' # produce a heatmap from normalised scores
 #' jet.colors <- colorRampPalette( c("blue", "green", "yellow", "red") )
