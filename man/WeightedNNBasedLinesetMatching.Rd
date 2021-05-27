@@ -8,7 +8,13 @@
 \usage{
 WeightedNNBasedLinesetMatching(target, query, ...)
 
-\method{WeightedNNBasedLinesetMatching}{dotprops}(target, query, UseAlpha = FALSE, ...)
+\method{WeightedNNBasedLinesetMatching}{dotprops}(
+  target,
+  query,
+  UseAlpha = FALSE,
+  UseTopo = FALSE,
+  ...
+)
 
 \method{WeightedNNBasedLinesetMatching}{neuron}(
   target,
@@ -25,6 +31,9 @@ compare (must be of the same class)}
 \item{...}{extra arguments to pass to the distance function.}
 
 \item{UseAlpha}{Whether to scale dot product of tangent vectors (default=F)}
+
+\item{UseTopo}{Whether to use topological information to scale dot products
+of tangent vectors (default=F)}
 
 \item{OnlyClosestPoints}{Whether to restrict searches to the closest points
 in the target (default FALSE, only implemented for \code{dotprops}).}

@@ -46,6 +46,9 @@ details.}
 \item{...}{Additional arguments passed to \code{\link{NeuriteBlast}} or the
 function used to compute scores from distances/dot products. (expert use
 only).}
+
+\item{UseTopo}{whether to weight the similarity score for each matched
+segment to relative topology of the neurons (default: FALSE).}
 }
 \value{
 Named list of similarity scores.
