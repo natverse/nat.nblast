@@ -166,7 +166,7 @@
 #' }
 nblast <- function(query, target=getOption("nat.default.neuronlist"),
                    smat=NULL, sd=3, version=c(2, 1), normalised=FALSE,
-                   UseAlpha=FALSE, OmitFailures=NA, ...) {
+                   UseAlpha=FALSE, UseTopo = FALSE, OmitFailures=NA, ...) {
   version <- as.character(version)
   version <- match.arg(version, c('2', '1'))
 
