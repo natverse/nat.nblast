@@ -189,10 +189,11 @@ nblast <- function(query, target=getOption("nat.default.neuronlist"),
     }
     if(is.character(smat)) smat=get(smat)
     NeuriteBlast(query=query, target=target, NNDistFun=lodsby2dhist, smat=smat,
-                 UseAlpha=UseAlpha, normalised=normalised, OmitFailures=OmitFailures, ...)
+                 UseAlpha=UseAlpha, UseTopo=UseTopo, normalised=normalised,
+                 OmitFailures=OmitFailures, ...)
   } else if(version == '1') {
     NeuriteBlast(query=query, target=target, NNDistFun=WeightedNNBasedLinesetDistFun,
-                 UseAlpha=UseAlpha, sd=sd, normalised=normalised,
+                 UseAlpha=UseAlpha, sd=sd, normalised=normalised, UseTopo=UseTopo,
                  OmitFailures=OmitFailures, ...)
   } else {
     stop("Only NBLAST versions 1 and 2 are currently implemented. For more advanced control, see NeuriteBlast.")
