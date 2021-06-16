@@ -8,21 +8,36 @@
 
 <title>Calculate similarity score for neuron morphologies — nblast • nat.nblast</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,14 +45,13 @@
 
 
 
-<meta property="og:title" content="Calculate similarity score for neuron morphologies — nblast" />
 
+<meta property="og:title" content="Calculate similarity score for neuron morphologies — nblast" />
 <meta property="og:description" content="Uses the NBLAST algorithm that compares the morphology of two neurons. For
 more control over the parameters of the algorithm, see the arguments of
 NeuriteBlast." />
+<meta property="og:image" content="/logo.svg" />
 
-<meta property="og:image" content="/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -51,9 +65,10 @@ NeuriteBlast." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -67,7 +82,7 @@ NeuriteBlast." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nat.nblast</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.4.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.6</span>
       </span>
     </div>
 
@@ -75,7 +90,7 @@ NeuriteBlast." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -101,14 +116,13 @@ NeuriteBlast." />
   <a href="../SUPPORT.html">Help</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://natverse.github.io">natverse</a>
 </li>
 <li>
   <a href="https://github.com/natverse/nat.nblast">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -119,6 +133,7 @@ NeuriteBlast." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -130,17 +145,23 @@ NeuriteBlast." />
     </div>
 
     <div class="ref-description">
-    
     <p>Uses the NBLAST algorithm that compares the morphology of two neurons. For
 more control over the parameters of the algorithm, see the arguments of
 <code><a href='NeuriteBlast.html'>NeuriteBlast</a></code>.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>nblast</span>(<span class='no'>query</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span>(<span class='st'>"nat.default.neuronlist"</span>),
-  <span class='kw'>smat</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sd</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>version</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>1</span>), <span class='kw'>normalised</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>UseAlpha</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>OmitFailures</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>nblast</span><span class='op'>(</span>
+  <span class='va'>query</span>,
+  target <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"nat.default.neuronlist"</span><span class='op'>)</span>,
+  smat <span class='op'>=</span> <span class='cn'>NULL</span>,
+  sd <span class='op'>=</span> <span class='fl'>3</span>,
+  version <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>1</span><span class='op'>)</span>,
+  normalised <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  UseAlpha <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  OmitFailures <span class='op'>=</span> <span class='cn'>NA</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -150,9 +171,9 @@ more control over the parameters of the algorithm, see the arguments of
     </tr>
     <tr>
       <th>target</th>
-      <td><p>a <code><a href='https://www.rdocumentation.org/packages/nat/topics/neuronlist'>neuronlist</a></code> to compare neuron against.
-Defaults to <code><a href='https://www.rdocumentation.org/packages/base/topics/options'>options("nat.default.neuronlist")</a></code>. See
-<code>nat-package</code>.</p></td>
+      <td><p>a <code><a href='https://rdrr.io/pkg/nat/man/neuronlist.html'>neuronlist</a></code> to compare neuron against.
+Defaults to <code><a href='https://rdrr.io/r/base/options.html'>options("nat.default.neuronlist")</a></code>. See
+<code><a href='https://rdrr.io/pkg/nat/man/nat-package.html'>nat-package</a></code>.</p></td>
     </tr>
     <tr>
       <th>smat</th>
@@ -193,14 +214,13 @@ function used to compute scores from distances/dot products. (expert use
 only).</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Named list of similarity scores.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>when <code>smat=NULL</code> <code><a href='https://www.rdocumentation.org/packages/base/topics/options'>options("nat.nblast.defaultsmat")</a></code> will
+    <p>when <code>smat=NULL</code> <code><a href='https://rdrr.io/r/base/options.html'>options("nat.nblast.defaultsmat")</a></code> will
   be checked and if <code>NULL</code>, then <code>smat.fcwb</code> or
   <code>smat_alpha.fcwb</code> will be used depending on the value of
   <code>UseAlpha</code>.</p>
@@ -209,22 +229,21 @@ only).</p></td>
   abort the whole <code>nblast</code> call. When <code>OmitFailures=FALSE</code>, missing
   values will be left as <code>NA</code>. <code>OmitFailures=TRUE</code> is not (yet)
   implemented. If you want to drop scores for neurons that failed you will
-  need to set <code>OmitFailures=FALSE</code> and then use <code><a href='https://www.rdocumentation.org/packages/stats/topics/na.fail'>na.omit</a></code> or
+  need to set <code>OmitFailures=FALSE</code> and then use <code><a href='https://rdrr.io/r/stats/na.fail.html'>na.omit</a></code> or
   similar to post-process the scores.</p>
 <p>Note that when <code>OmitFailures=FALSE</code> error messages will not be printed
-  because the call is wrapped as <code><a href='https://www.rdocumentation.org/packages/base/topics/try'>try(expr, silent=TRUE)</a></code>.</p>
+  because the call is wrapped as <code><a href='https://rdrr.io/r/base/try.html'>try(expr, silent=TRUE)</a></code>.</p>
 <p>Internally, the <code>plyr</code> package is used to provide options for
   parallelising NBLAST and displaying progress. To display a progress bar as
-  the scores are computed, add <code>.progress="text"</code> to the arguments
-  (non-text progress bars are available -- see
-  <code><a href='https://www.rdocumentation.org/packages/plyr/topics/create_progress_bar'>create_progress_bar</a></code>). To parallelise, add
+  the scores are computed, add <code>.progress="natprogress"</code> to the
+  arguments (non-text progress bars are available -- see
+  <code><a href='https://rdrr.io/pkg/plyr/man/create_progress_bar.html'>create_progress_bar</a></code>). To parallelise, add
   <code>.parallel=TRUE</code> to the arguments. In order to make use of parallel
   calculation, you must register a parallel backend that will distribute the
   computations. There are several possible backends, the simplest of which is
   the multicore option made available by <code>doMC</code>, which spreads the load
   across cores of the same machine. Before using this, the backend must be
   registered using <code>registerDoMC</code> (see example below).</p>
-    
     <h2 class="hasAnchor" id="nblast-versions"><a class="anchor" href="#nblast-versions"></a>NBLAST Versions</h2>
 
     <p>The <code>nblast</code> version argument presently
@@ -260,7 +279,6 @@ only).</p></td>
   \(\sigma=3\) microns, since previous estimates of the localisation of
   identifiable features of neurons (Jefferis, Potter et al 2007) are of this
   order.</p>
-    
     <h2 class="hasAnchor" id="usealpha"><a class="anchor" href="#usealpha"></a><code>UseAlpha</code></h2>
 
     <p>In NBLAST v2, the alpha factor for a segment
@@ -271,7 +289,6 @@ only).</p></td>
   neuron. This can be a particularly useful option e.g. when you are
   searching by a traced fragment that you know or suspect to follow an axon
   tract.</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Kohl, J. Ostrovsky, A.D., Frechter, S., and Jefferis, G.S.X.E
@@ -288,20 +305,19 @@ only).</p></td>
   olfactory centers: spatially segregated fruit and pheromone representation.
   Cell 128 (6), 1187--1203.
   <a href='http://dx.doi.org/10.1016/j.cell.2007.01.040'>doi:10.1016/j.cell.2007.01.040</a></p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code>nat-package</code>, <code><a href='nblast_allbyall.html'>nblast_allbyall</a></code>,
+    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/nat/man/nat-package.html'>nat-package</a></code>, <code><a href='nblast_allbyall.html'>nblast_allbyall</a></code>,
   <code><a href='create_scoringmatrix.html'>create_scoringmatrix</a></code>, <code><a href='smat.fcwb.html'>smat.fcwb</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load sample Kenyon cell data from nat package</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>kcs20</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>'nat'</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>kcs20</span>, package<span class='op'>=</span><span class='st'>'nat'</span><span class='op'>)</span>
 <span class='co'># search one neuron against all neurons</span>
-<span class='no'>scores</span><span class='kw'>=</span><span class='fu'>nblast</span>(<span class='no'>kcs20</span><span class='kw'>[[</span><span class='st'>'GadMARCM-F000142_seg002'</span>]], <span class='no'>kcs20</span>)
+<span class='va'>scores</span><span class='op'>=</span><span class='fu'>nblast</span><span class='op'>(</span><span class='va'>kcs20</span><span class='op'>[[</span><span class='st'>'GadMARCM-F000142_seg002'</span><span class='op'>]</span><span class='op'>]</span>, <span class='va'>kcs20</span><span class='op'>)</span>
 <span class='co'># scores from best to worst, top hit is of course same neuron</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sort'>sort</a></span>(<span class='no'>scores</span>, <span class='kw'>decreasing</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; GadMARCM-F000142_seg002 ChaMARCM-F000586_seg002 GadMARCM-F000423_seg001 
+<span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span><span class='op'>(</span><span class='va'>scores</span>, decreasing <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; GadMARCM-F000142_seg002 ChaMARCM-F000586_seg002 GadMARCM-F000423_seg001 
 #&gt;               4043.1766               1914.8224               1772.8506 
 #&gt; GadMARCM-F000442_seg002 FruMARCM-M000115_seg001 FruMARCM-F000085_seg001 
 #&gt;               1007.4565                853.8108                713.2106 
@@ -314,49 +330,41 @@ only).</p></td>
 #&gt; FruMARCM-M000842_seg002 FruMARCM-M001051_seg002 FruMARCM-M001205_seg002 
 #&gt;                196.4543                140.8164               -251.4999 
 #&gt; GadMARCM-F000122_seg001 FruMARCM-F001115_seg002 
-#&gt;               -262.2352               -520.2581 </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/hist'>hist</a></span>(<span class='no'>scores</span>, <span class='kw'>breaks</span><span class='kw'>=</span><span class='fl'>25</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>'grey'</span>)</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/abline'>abline</a></span>(<span class='kw'>v</span><span class='kw'>=</span><span class='fl'>1500</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>'red'</span>)</div><div class='img'><img src='nblast-1.png' alt='' width='700' height='433' /></div><div class='input'>
+#&gt;               -262.2352               -520.2581 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span><span class='op'>(</span><span class='va'>scores</span>, breaks<span class='op'>=</span><span class='fl'>25</span>, col<span class='op'>=</span><span class='st'>'grey'</span><span class='op'>)</span>
+</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span><span class='op'>(</span>v<span class='op'>=</span><span class='fl'>1500</span>, col<span class='op'>=</span><span class='st'>'red'</span><span class='op'>)</span>
+</div><div class='img'><img src='nblast-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># plot query neuron</span>
-<span class='fu'>open3d</span>()</div><div class='output co'>#&gt; glX 
+<span class='fu'>open3d</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; glX 
 #&gt;   2 </div><div class='input'><span class='co'># plot top 3 hits (including self match with thicker lines)</span>
-<span class='fu'>plot3d</span>(<span class='no'>kcs20</span>[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/which'>which</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sort'>sort</a></span>(<span class='no'>scores</span>, <span class='kw'>decreasing</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)<span class='kw'>&gt;</span><span class='fl'>1500</span>)], <span class='kw'>lwd</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>1</span>))
-<span class='no'>rest</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/which'>which</a></span>(<span class='no'>scores</span><span class='kw'>&lt;</span><span class='fl'>1500</span>))
-<span class='fu'>plot3d</span>(<span class='no'>rest</span>, <span class='kw'>db</span><span class='kw'>=</span><span class='no'>kcs20</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>'grey'</span>, <span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>0.5</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/nat/man/plot3d.html'>plot3d</a></span><span class='op'>(</span><span class='va'>kcs20</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span><span class='op'>(</span><span class='va'>scores</span>, decreasing <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>&gt;</span><span class='fl'>1500</span><span class='op'>)</span><span class='op'>]</span>, lwd<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>rest</span><span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='va'>scores</span><span class='op'>&lt;</span><span class='fl'>1500</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/nat/man/plot3d.html'>plot3d</a></span><span class='op'>(</span><span class='va'>rest</span>, db<span class='op'>=</span><span class='va'>kcs20</span>, col<span class='op'>=</span><span class='st'>'grey'</span>, lwd<span class='op'>=</span><span class='fl'>0.5</span><span class='op'>)</span>
 
 <span class='co'># normalised scores (i.e. self match = 1) of all neurons vs each other</span>
 <span class='co'># note use of progress bar</span>
-<span class='no'>scores.norm</span><span class='kw'>=</span><span class='fu'>nblast</span>(<span class='no'>kcs20</span>, <span class='no'>kcs20</span>, <span class='kw'>normalised</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>.progress</span><span class='kw'>=</span><span class='st'>"text"</span>)</div><div class='output co'>#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |====                                                                  |   5%  |                                                                              |=======                                                               |  10%  |                                                                              |==========                                                            |  15%  |                                                                              |==============                                                        |  20%  |                                                                              |==================                                                    |  25%  |                                                                              |=====================                                                 |  30%  |                                                                              |========================                                              |  35%  |                                                                              |============================                                          |  40%  |                                                                              |================================                                      |  45%  |                                                                              |===================================                                   |  50%  |                                                                              |======================================                                |  55%  |                                                                              |==========================================                            |  60%  |                                                                              |==============================================                        |  65%  |                                                                              |=================================================                     |  70%  |                                                                              |====================================================                  |  75%  |                                                                              |========================================================              |  80%  |                                                                              |============================================================          |  85%  |                                                                              |===============================================================       |  90%  |                                                                              |==================================================================    |  95%  |                                                                              |======================================================================| 100%</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/hist'>hist</a></span>(<span class='no'>scores.norm</span>, <span class='kw'>breaks</span><span class='kw'>=</span><span class='fl'>25</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>'grey'</span>)</div><div class='img'><img src='nblast-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># produce a heatmap from normalised scores</span>
-<span class='no'>jet.colors</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/grDevices/topics/colorRamp'>colorRampPalette</a></span>( <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"blue"</span>, <span class='st'>"green"</span>, <span class='st'>"yellow"</span>, <span class='st'>"red"</span>) )
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/heatmap'>heatmap</a></span>(<span class='no'>scores.norm</span>, <span class='kw'>labCol</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/with'>with</a></span>(<span class='no'>kcs20</span>,<span class='no'>type</span>), <span class='kw'>col</span><span class='kw'>=</span><span class='fu'>jet.colors</span>(<span class='fl'>20</span>), <span class='kw'>symm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='nblast-3.png' alt='' width='700' height='433' /></div><div class='input'>
-</div><span class='co'># NOT RUN {</span>
+<span class='va'>scores.norm</span><span class='op'>=</span><span class='fu'>nblast</span><span class='op'>(</span><span class='va'>kcs20</span>, <span class='va'>kcs20</span>, normalised <span class='op'>=</span> <span class='cn'>TRUE</span>, .progress<span class='op'>=</span><span class='st'>"natprogress"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span><span class='op'>(</span><span class='va'>scores.norm</span>, breaks<span class='op'>=</span><span class='fl'>25</span>, col<span class='op'>=</span><span class='st'>'grey'</span><span class='op'>)</span>
+</div><div class='img'><img src='nblast-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># produce a heatmap from normalised scores</span>
+<span class='va'>jet.colors</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/colorRamp.html'>colorRampPalette</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"blue"</span>, <span class='st'>"green"</span>, <span class='st'>"yellow"</span>, <span class='st'>"red"</span><span class='op'>)</span> <span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/heatmap.html'>heatmap</a></span><span class='op'>(</span><span class='va'>scores.norm</span>, labCol <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/nat/man/neuronlist-dataframe-methods.html'>with</a></span><span class='op'>(</span><span class='va'>kcs20</span>,<span class='va'>type</span><span class='op'>)</span>, col<span class='op'>=</span><span class='fu'>jet.colors</span><span class='op'>(</span><span class='fl'>20</span><span class='op'>)</span>, symm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='nblast-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># Parallelise NBLASTing across 4 cores using doMC package</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>doMC</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/doMC/topics/registerDoMC'>registerDoMC</a></span>(<span class='fl'>4</span>)
-<span class='no'>scores.norm2</span><span class='kw'>=</span><span class='fu'>nblast</span>(<span class='no'>kcs20</span>, <span class='no'>kcs20</span>, <span class='kw'>normalised</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>.parallel</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/stopifnot'>stopifnot</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/all.equal'>all.equal</a></span>(<span class='no'>scores.norm2</span>, <span class='no'>scores.norm</span>))
-<span class='co'># }</span></pre>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>doMC</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/doMC/man/registerDoMC.html'>registerDoMC</a></span><span class='op'>(</span><span class='fl'>4</span><span class='op'>)</span>
+<span class='va'>scores.norm2</span><span class='op'>=</span><span class='fu'>nblast</span><span class='op'>(</span><span class='va'>kcs20</span>, <span class='va'>kcs20</span>, normalised<span class='op'>=</span><span class='cn'>TRUE</span>, .parallel<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/stopifnot.html'>stopifnot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='va'>scores.norm2</span>, <span class='va'>scores.norm</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#nblast-versions">NBLAST Versions</a></li>
-
-      <li><a href="#usealpha"><code>UseAlpha</code></a></li>
-
-      <li><a href="#references">References</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -364,13 +372,16 @@ only).</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

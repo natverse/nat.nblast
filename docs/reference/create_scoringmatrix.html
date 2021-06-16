@@ -8,21 +8,36 @@
 
 <title>Create a scoring matrix given matching and non-matching sets of neurons — create_scoringmatrix • nat.nblast</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,16 +45,15 @@
 
 
 
-<meta property="og:title" content="Create a scoring matrix given matching and non-matching sets of neurons — create_scoringmatrix" />
 
+<meta property="og:title" content="Create a scoring matrix given matching and non-matching sets of neurons — create_scoringmatrix" />
 <meta property="og:description" content="Calculate a scoring matrix embodying the logarithm of the odds
   that a matching pair of neurite segments come from a structurally related
   rather than random pair of neurons. This function embodies sensible default
   behaviours and is recommended for end users. More control is available by
   using the individual functions listed in See Also." />
+<meta property="og:image" content="/logo.svg" />
 
-<meta property="og:image" content="/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -53,9 +67,10 @@
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -69,7 +84,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nat.nblast</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.4.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.6</span>
       </span>
     </div>
 
@@ -77,7 +92,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -103,14 +118,13 @@
   <a href="../SUPPORT.html">Help</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://natverse.github.io">natverse</a>
 </li>
 <li>
   <a href="https://github.com/natverse/nat.nblast">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -121,6 +135,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -132,30 +147,36 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Calculate a scoring matrix embodying the logarithm of the odds
   that a matching pair of neurite segments come from a structurally related
   rather than random pair of neurons. This function embodies sensible default
   behaviours and is recommended for end users. More control is available by
   using the individual functions listed in <b>See Also</b>.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>create_scoringmatrix</span>(<span class='no'>matching_neurons</span>, <span class='no'>nonmatching_neurons</span>,
-  <span class='kw'>matching_subset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>non_matching_subset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ignoreSelf</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>distbreaks</span>, <span class='kw'>dotprodbreaks</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>0.1</span>),
-  <span class='kw'>logbase</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>epsilon</span> <span class='kw'>=</span> <span class='fl'>1e-06</span>, <span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>create_scoringmatrix</span><span class='op'>(</span>
+  <span class='va'>matching_neurons</span>,
+  <span class='va'>nonmatching_neurons</span>,
+  matching_subset <span class='op'>=</span> <span class='cn'>NULL</span>,
+  non_matching_subset <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ignoreSelf <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>distbreaks</span>,
+  dotprodbreaks <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, by <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span>,
+  logbase <span class='op'>=</span> <span class='fl'>2</span>,
+  epsilon <span class='op'>=</span> <span class='fl'>1e-06</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>matching_neurons</th>
-      <td><p>a <code><a href='https://www.rdocumentation.org/packages/nat/topics/neuronlist'>neuronlist</a></code> of matching neurons.</p></td>
+      <td><p>a <code><a href='https://rdrr.io/pkg/nat/man/neuronlist.html'>neuronlist</a></code> of matching neurons.</p></td>
     </tr>
     <tr>
       <th>nonmatching_neurons</th>
-      <td><p>a <code><a href='https://www.rdocumentation.org/packages/nat/topics/neuronlist'>neuronlist</a></code> of non-matching
+      <td><p>a <code><a href='https://rdrr.io/pkg/nat/man/neuronlist.html'>neuronlist</a></code> of non-matching
 neurons.</p></td>
     </tr>
     <tr>
@@ -193,17 +214,16 @@ the log odds ratio in the probability matrix.</p></td>
     <tr>
       <th>...</th>
       <td><p>extra arguments to pass to <code><a href='NeuriteBlast.html'>NeuriteBlast</a></code> or options
-for the call to <code><a href='https://www.rdocumentation.org/packages/plyr/topics/mlply'>mlply</a></code> call that actually iterates over
+for the call to <code><a href='https://rdrr.io/pkg/plyr/man/mlply.html'>mlply</a></code> call that actually iterates over
 neuron pairs.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A matrix with columns as specified by <code>dotprodbreaks</code> and rows
   as specified by <code>distbreaks</code>, containing log odd scores for neuron
   segments with the given distance and dot product.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>By default <code>create_scoringmatrix</code> will use all neurons in
@@ -217,62 +237,55 @@ neuron pairs.</p></td>
   random pairs will be equal to the number of matching pairs defined by
   <code>matching_neurons</code> This is appropriate if non_matching_neurons
   contains a large collection of neurons of different types. You may wish to
-  set the random seed using <code><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></code> if you want to ensure that
+  set the random seed using <code><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></code> if you want to ensure that
   exactly the same (pseudo-)random pairs of neurons are used in subsequent
   calls.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='calc_score_matrix.html'>calc_score_matrix</a>, <a href='calc_prob_mat.html'>calc_prob_mat</a>,
   <a href='calc_dists_dotprods.html'>calc_dists_dotprods</a>, <a href='neuron_pairs.html'>neuron_pairs</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># calculate scoring matrix</span>
+    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
+<span class='co'># calculate scoring matrix</span>
 <span class='co'># bring in some mushroom body neurons</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>nat</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>kcs20</span>)
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/natverse/nat'>nat</a></span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>kcs20</span><span class='op'>)</span>
 <span class='co'># convert the (connected) tracings into dotprops (point and vector)</span>
 <span class='co'># representation, resampling at 1 micron intervals along neuron</span>
-<span class='no'>fctraces20.dps</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/nat/topics/dotprops'>dotprops</a></span>(<span class='no'>fctraces20</span>, <span class='kw'>resample</span><span class='kw'>=</span><span class='fl'>1</span>)
+<span class='va'>fctraces20.dps</span><span class='op'>=</span><span class='fu'><a href='https://rdrr.io/pkg/nat/man/dotprops.html'>dotprops</a></span><span class='op'>(</span><span class='va'>fctraces20</span>, resample<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>
 <span class='co'># we will use both all kcs vs all fctraces20 and fctraces20 vs fctraces20</span>
 <span class='co'># as random_pairs to make the null distribution</span>
-<span class='no'>random_pairs</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/cbind'>rbind</a></span>(<span class='fu'><a href='neuron_pairs.html'>neuron_pairs</a></span>(<span class='no'>fctraces20</span>), <span class='fu'><a href='neuron_pairs.html'>neuron_pairs</a></span>(<span class='kw pkg'>nat</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/nat/topics/kcs20'>kcs20</a></span>, <span class='no'>fctraces20</span>))
-<span class='co'># you can add .progress='text' if this looks like taking a while</span>
-<span class='no'>smat</span><span class='kw'>=</span><span class='fu'>create_scoringmatrix</span>(<span class='no'>kcs20</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='no'>kcs20</span>, <span class='no'>fctraces20.dps</span>),
-                          <span class='kw'>non_matching_subset</span><span class='kw'>=</span><span class='no'>random_pairs</span>)
+<span class='va'>random_pairs</span><span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='fu'><a href='neuron_pairs.html'>neuron_pairs</a></span><span class='op'>(</span><span class='va'>fctraces20</span><span class='op'>)</span>, <span class='fu'><a href='neuron_pairs.html'>neuron_pairs</a></span><span class='op'>(</span><span class='fu'>nat</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/nat/man/kcs20.html'>kcs20</a></span>, <span class='va'>fctraces20</span><span class='op'>)</span><span class='op'>)</span>
+<span class='co'># you can add .progress='natprogress' if this looks like taking a while</span>
+<span class='va'>smat</span><span class='op'>=</span><span class='fu'>create_scoringmatrix</span><span class='op'>(</span><span class='va'>kcs20</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>kcs20</span>, <span class='va'>fctraces20.dps</span><span class='op'>)</span>,
+                          non_matching_subset<span class='op'>=</span><span class='va'>random_pairs</span><span class='op'>)</span>
 
 <span class='co'># now plot the scoring matrix</span>
-<span class='no'>distbreaks</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/attr'>attr</a></span>(<span class='no'>smat</span>,<span class='st'>'distbreaks'</span>)
-<span class='no'>distbreaks</span><span class='kw'>=</span><span class='no'>distbreaks</span>[-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>distbreaks</span>)]
-<span class='no'>dotprodbreaks</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/attr'>attr</a></span>(<span class='no'>smat</span>,<span class='st'>'dotprodbreaks'</span>)[-<span class='fl'>1</span>]
+<span class='va'>distbreaks</span><span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span><span class='op'>(</span><span class='va'>smat</span>,<span class='st'>'distbreaks'</span><span class='op'>)</span>
+<span class='va'>distbreaks</span><span class='op'>=</span><span class='va'>distbreaks</span><span class='op'>[</span><span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>distbreaks</span><span class='op'>)</span><span class='op'>]</span>
+<span class='va'>dotprodbreaks</span><span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span><span class='op'>(</span><span class='va'>smat</span>,<span class='st'>'dotprodbreaks'</span><span class='op'>)</span><span class='op'>[</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span>
 <span class='co'># Create a function interpolating colors in the range of specified colors</span>
-<span class='no'>jet.colors</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/grDevices/topics/colorRamp'>colorRampPalette</a></span>( <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"blue"</span>, <span class='st'>"green"</span>, <span class='st'>"yellow"</span>, <span class='st'>"red"</span>) )
+<span class='va'>jet.colors</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/colorRamp.html'>colorRampPalette</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"blue"</span>, <span class='st'>"green"</span>, <span class='st'>"yellow"</span>, <span class='st'>"red"</span><span class='op'>)</span> <span class='op'>)</span>
 <span class='co'># 2d filled contour plot of scoring matrix. Notice that the there is a region</span>
 <span class='co'># at small distances and large abs dot product with the highest log odds ratio</span>
 <span class='co'># i.e. most indicative of a match rather than non-match</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/filled.contour'>filled.contour</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>distbreaks</span>, <span class='kw'>y</span><span class='kw'>=</span><span class='no'>dotprodbreaks</span>, <span class='kw'>z</span><span class='kw'>=</span><span class='no'>smat</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='fu'>jet.colors</span>(<span class='fl'>20</span>),
-  <span class='kw'>main</span><span class='kw'>=</span><span class='st'>'smat: log odds ratio'</span>, <span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>'distance /um'</span>, <span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>'abs dot product'</span>)</div><div class='img'><img src='create_scoringmatrix-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/graphics/filled.contour.html'>filled.contour</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>distbreaks</span>, y<span class='op'>=</span><span class='va'>dotprodbreaks</span>, z<span class='op'>=</span><span class='va'>smat</span>, col<span class='op'>=</span><span class='fu'>jet.colors</span><span class='op'>(</span><span class='fl'>20</span><span class='op'>)</span>,
+  main<span class='op'>=</span><span class='st'>'smat: log odds ratio'</span>, xlab<span class='op'>=</span><span class='st'>'distance /um'</span>, ylab<span class='op'>=</span><span class='st'>'abs dot product'</span><span class='op'>)</span>
+</div><div class='img'><img src='create_scoringmatrix-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># 3d perspective plot of the scoring matrix</span>
-<span class='fu'>persp3d</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>distbreaks</span>, <span class='kw'>y</span><span class='kw'>=</span><span class='no'>dotprodbreaks</span>, <span class='kw'>z</span><span class='kw'>=</span><span class='no'>smat</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='fu'>jet.colors</span>(<span class='fl'>20</span>)[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/cut'>cut</a></span>(<span class='no'>smat</span>,<span class='fl'>20</span>)],
-<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>'distance /um'</span>, <span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>'abs dot product'</span>, <span class='kw'>zlab</span><span class='kw'>=</span><span class='st'>'log odds ratio'</span>)</div></pre>
+<span class='fu'>persp3d</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>distbreaks</span>, y<span class='op'>=</span><span class='va'>dotprodbreaks</span>, z<span class='op'>=</span><span class='va'>smat</span>, col<span class='op'>=</span><span class='fu'>jet.colors</span><span class='op'>(</span><span class='fl'>20</span><span class='op'>)</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/cut.html'>cut</a></span><span class='op'>(</span><span class='va'>smat</span>,<span class='fl'>20</span><span class='op'>)</span><span class='op'>]</span>,
+xlab<span class='op'>=</span><span class='st'>'distance /um'</span>, ylab<span class='op'>=</span><span class='st'>'abs dot product'</span>, zlab<span class='op'>=</span><span class='st'>'log odds ratio'</span><span class='op'>)</span>
+<span class='co'># }</span>
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -280,13 +293,16 @@ neuron pairs.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

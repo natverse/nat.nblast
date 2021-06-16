@@ -8,21 +8,36 @@
 
 <title>Neuron similarity, search and clustering tools — nat.nblast-package • nat.nblast</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,12 +45,10 @@
 
 
 
+
 <meta property="og:title" content="Neuron similarity, search and clustering tools — nat.nblast-package" />
+<meta property="og:image" content="/logo.svg" />
 
-<meta property="og:description" content="Neuron similarity, search and clustering tools" />
-
-<meta property="og:image" content="/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -49,9 +62,10 @@
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -65,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nat.nblast</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.4.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.6</span>
       </span>
     </div>
 
@@ -73,7 +87,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -99,14 +113,13 @@
   <a href="../SUPPORT.html">Help</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://natverse.github.io">natverse</a>
 </li>
 <li>
   <a href="https://github.com/natverse/nat.nblast">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -117,6 +130,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -128,19 +142,19 @@
     </div>
 
     <div class="ref-description">
-    
-    <p>Neuron similarity, search and clustering tools</p>
-    
     </div>
 
-        
+
+
     <h2 class="hasAnchor" id="similarity-and-search"><a class="anchor" href="#similarity-and-search"></a>Similarity and search</h2>
 
     
-    <p>The main entry point for similarity and search functions is
+
+
+<p>The main entry point for similarity and search functions is
   <code><a href='nblast.html'>nblast</a></code>. Traced neurons will normally be converted to the
-  <code><a href='https://www.rdocumentation.org/packages/nat/topics/dotprops'>dotprops</a></code> format for search. When multiple neurons are
-  compared they should be in a <code><a href='https://www.rdocumentation.org/packages/nat/topics/neuronlist'>neuronlist</a></code> object.</p>
+  <code><a href='https://rdrr.io/pkg/nat/man/dotprops.html'>dotprops</a></code> format for search. When multiple neurons are
+  compared they should be in a <code><a href='https://rdrr.io/pkg/nat/man/neuronlist.html'>neuronlist</a></code> object.</p>
 <p>The current NBLAST version (2) depends on a scoring matrix. Default
   matrices trained using <em>Drosophila</em> neurons in the FCWB template brain
   space are distributed with this package (see <code><a href='smat.fcwb.html'>smat.fcwb</a></code>); see
@@ -152,35 +166,37 @@
   two sets of segments. Neither of these functions are intended for end use.</p>
 <p>Calculating all by all similarity scores is facilitated by the
   <code><a href='nblast_allbyall.html'>nblast_allbyall</a></code> function which can take either a
-  <code>neuronlist</code> as input or a character vector naming (a subset)
-  of neurons in a (large) <code>neuronlist</code>. The
-  <code>neuronlist</code> containing the input neurons should be resident in
-  memory i.e. not the <code>neuronlistfh</code>.</p>
-    
+  <code><a href='https://rdrr.io/pkg/nat/man/neuronlist.html'>neuronlist</a></code> as input or a character vector naming (a subset)
+  of neurons in a (large) <code><a href='https://rdrr.io/pkg/nat/man/neuronlist.html'>neuronlist</a></code>. The
+  <code><a href='https://rdrr.io/pkg/nat/man/neuronlist.html'>neuronlist</a></code> containing the input neurons should be resident in
+  memory i.e. not the <code><a href='https://rdrr.io/pkg/nat/man/neuronlistfh.html'>neuronlistfh</a></code>.</p>
     <h2 class="hasAnchor" id="clustering"><a class="anchor" href="#clustering"></a>Clustering</h2>
 
     
-    <p>Once an all by all similarity score matrix is available it can be used as
+
+
+<p>Once an all by all similarity score matrix is available it can be used as
   the input to a variety of clustering algorithms. <code><a href='nhclust.html'>nhclust</a></code>
   provides a convenient wrapper for R's hierarchical clustering function
-  <code><a href='https://www.rdocumentation.org/packages/stats/topics/hclust'>hclust</a></code>. If you wish to use another clustering function, then
+  <code><a href='https://rdrr.io/r/stats/hclust.html'>hclust</a></code>. If you wish to use another clustering function, then
   you can use the <code><a href='sub_dist_mat.html'>sub_dist_mat</a></code> to convert a raw similarity
-  score matrix into a normalised distance matrix (or R <code><a href='https://www.rdocumentation.org/packages/stats/topics/dist'>dist</a></code>
+  score matrix into a normalised distance matrix (or R <code><a href='https://rdrr.io/r/stats/dist.html'>dist</a></code>
   object) suitable for clustering. If you need a similarity matrix or want to
   modify the normalisation then you can use <code><a href='sub_score_mat.html'>sub_score_mat</a></code>.</p>
 <p>Note that raw NBLAST scores are not symmetric (i.e. S(A,B) is not equal to
   S(B,A)) so before clustering we construct a symmetric similarity/distance
   matrix <code>1/2 * ( S(A,B)/S(A,A) + S(B,A)/S(B,B) )</code>. See
   <code><a href='sub_score_mat.html'>sub_score_mat</a></code>'s documentation for details.</p>
-    
     <h2 class="hasAnchor" id="cached-scores"><a class="anchor" href="#cached-scores"></a>Cached scores</h2>
 
     
-    <p>Although NBLAST is fast and can be parallelised, it makes sense to cache to
+
+
+<p>Although NBLAST is fast and can be parallelised, it makes sense to cache to
   disk all by all similarity scores for a group of neurons that will be
   subject to repeated clustering or other analysis. The matrix can simply be
   saved to disk and then reloaded using base R functions like
-  <code><a href='https://www.rdocumentation.org/packages/base/topics/save'>save</a></code> and <code><a href='https://www.rdocumentation.org/packages/base/topics/load'>load</a></code>. <code><a href='sub_score_mat.html'>sub_score_mat</a></code> and
+  <code><a href='https://rdrr.io/r/base/save.html'>save</a></code> and <code><a href='https://rdrr.io/r/base/load.html'>load</a></code>. <code><a href='sub_score_mat.html'>sub_score_mat</a></code> and
   <code><a href='sub_dist_mat.html'>sub_dist_mat</a></code> can be used to extract a subset of scores from
   this raw score matrix. For large matrices, the <code>bigmemory</code> or
   <code>ff</code> packages allow matrices to be stored on disk and portions loaded
@@ -191,11 +207,12 @@
   260,144,641 comparisons took about 250 hours of compute time (half a day on
   ~20 cores). When saved to disk as single precision (i.e. 4 bytes per score)
   <code>ff</code> matrix they occupy just over 1Gb.</p>
-    
     <h2 class="hasAnchor" id="calculating-scoring-matrices"><a class="anchor" href="#calculating-scoring-matrices"></a>Calculating scoring matrices</h2>
 
     
-    <p>The NBLAST algorithm depends on appropriately calibrated scoring matrices.
+
+
+<p>The NBLAST algorithm depends on appropriately calibrated scoring matrices.
   These encapsulate the log odds ratio that a pair of segments come from two
   structurally related neurons rather than two unrelated neurons, given the
   observed distance and absolute dot product of the two segments. Scoring
@@ -204,51 +221,35 @@
   neurons. See the <code>create_scoringmatrix</code> documentation for links to
   lower-level functions that provide finer control over construction of the
   scoring matrix.</p>
-    
     <h2 class="hasAnchor" id="package-options"><a class="anchor" href="#package-options"></a>Package Options</h2>
 
     
-    <p>There is one package option <code>nat.nblast.defaultsmat</code> which is
+
+
+<p>There is one package option <code>nat.nblast.defaultsmat</code> which is
   <code>NULL</code> by default, but could for example be set to one of the scoring
   matrices included with the package such as <code>"smat.fcwb"</code> or to a new
   user-constructed matrix.</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Costa, M., Ostrovsky, A.D., Manton, J.D., Prohaska, S., and
   Jefferis, G.S.X.E. (2014). NBLAST: Rapid, sensitive comparison of neuronal
   structure and construction of neuron family databases. bioRxiv preprint.
   <a href='http://dx.doi.org/10.1101/006346'>doi: 10.1101/006346</a>.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='nblast.html'>nblast</a></code>, <code><a href='smat.fcwb.html'>smat.fcwb</a></code>,
   <code><a href='nhclust.html'>nhclust</a></code>, <code><a href='sub_dist_mat.html'>sub_dist_mat</a></code>,
   <code><a href='sub_score_mat.html'>sub_score_mat</a></code>, <code><a href='create_scoringmatrix.html'>create_scoringmatrix</a></code></p></div>
-    
 
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      
-      <li><a href="#similarity-and-search">Similarity and search</a></li>
-
-      <li><a href="#clustering">Clustering</a></li>
-
-      <li><a href="#cached-scores">Cached scores</a></li>
-
-      <li><a href="#calculating-scoring-matrices">Calculating scoring matrices</a></li>
-
-      <li><a href="#package-options">Package Options</a></li>
-
-      <li><a href="#references">References</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-          </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -256,13 +257,16 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
