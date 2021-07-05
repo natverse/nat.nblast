@@ -2,6 +2,7 @@ context("NBLAST v2")
 
 testneurons <- readRDS('testdata/testneurons.rds')
 
+
 test_that("nblast v2 produces expected scores", {
   scores <- nblast(testneurons[[1]], testneurons, version=2)
   scores.expected <- structure(c(43518.2468824115, -34509.2778341796, -36608.1290149345, -18366.0246697251, -36782.7167494325), .Names = c("5HT1bMARCM-F000001_seg001", "5HT1bMARCM-F000002_seg001", "5HT1bMARCM-F000003_seg001", "5HT1bMARCM-F000004_seg001", "5HT1bMARCM-F000005_seg001"))
@@ -99,4 +100,15 @@ test_that("we can handle all combinations of dotprops and neurons, both as neuro
   expect_is(nblast(Cell07PNs[1:3], testneurons[1:3]), 'matrix')
   expect_is(nblast(Cell07PNs[[1]], testneurons[[1]]), 'numeric')
   expect_is(nblast(Cell07PNs[1:3], testneurons[[1]]), 'numeric')
+})
+
+
+testtopodps <- readRDS('testdata/testtopodps.rds')
+
+test_that("topoNBLAST works correct", {
+  scores <- nblast_allbyall(testtopodps, version=2, UseTopo = TRUE)
+  expect_true(scores["18820","20262"] > 0)
+  scores <- nblast_allbyall(testtopodps, version=2,
+                            normalisation = "normalised", UseTopo = TRUE)
+  expect_true(scores["18820","20262"] > 0.9)
 })

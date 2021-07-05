@@ -406,10 +406,13 @@ WeightedNNBasedLinesetMatching.dotprops<-function(target, query, UseAlpha=FALSE,
 #' @rdname WeightedNNBasedLinesetMatching
 #' @importFrom nat dotprops
 WeightedNNBasedLinesetMatching.neuron<-function(target, query, UseAlpha=FALSE,
+                                                UseTopo=FALSE,
                                                 OnlyClosestPoints=FALSE,...) {
   if(!"neuron" %in% class(query)) {
     target <- dotprops(target)
-    return(WeightedNNBasedLinesetMatching(target=target, query=query, UseAlpha=UseAlpha, OnlyClosestPoints=OnlyClosestPoints, ...))
+    return(WeightedNNBasedLinesetMatching(target=target, query=query,
+                                          UseTopo=UseTopo, UseAlpha=UseAlpha,
+                                          OnlyClosestPoints=OnlyClosestPoints, ...))
   }
   if(UseAlpha)
     stop("UseAlpha is not yet implemented for neurons!")
@@ -491,11 +494,14 @@ WeightedNNBasedLinesetMatching.default<-function(target,query,dvs1=NULL,dvs2=NUL
       # use of local neuron topology
       ## distance from body
       maxlen = max(max(topo1$distance), max(topo2$distance))
-      scalefac1 = zapsmall(1 - (abs(topo1$distance[idxArray[,1]] - topo2$distance[idxArray[,2]])/maxlen)^2)
+      scalefact_dist = zapsmall(1 - (abs(topo1$distance[idxArray[,1]] - topo2$distance[idxArray[,2]])/maxlen)^2)
       ## strengthen by reversed Strahler's Order
-      maxlen = max(max(topo1$rso), max(topo2$rso))
-      scalefac2 = zapsmall(1 - (abs(topo1$rso[idxArray[,1]] - topo2$rso[idxArray[,2]])/maxlen)^0.5)
-      scalefac = scalefac1 * scalefac2
+      max_so = max(max(topo1$rso), max(topo2$rso))
+      if (max_so != 0) {
+        scalefac_rso = zapsmall(1 - (abs(topo1$rso[idxArray[,1]] - topo2$rso[idxArray[,2]])/maxlen)^0.5)
+      } else scalefac_rso = 1
+
+      scalefac = scalefact_dist * scalefac_rso
       dps=dps*scalefac
     }
   }
