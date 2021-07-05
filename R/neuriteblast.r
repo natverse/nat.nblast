@@ -46,6 +46,8 @@
 #' @param UseAlpha whether to weight the similarity score for each matched
 #'   segment to emphasise long range neurites rather then arbours (default:
 #'   FALSE, see \bold{\code{UseAlpha}} section for details).
+#' @param UseTopo whether to weight the similarity score for each matched
+#'   segment to relative topology of the neurons (default: FALSE).
 #' @param OmitFailures Whether to omit neurons for which \code{FUN} gives an
 #'   error. The default value (\code{NA}) will result in \code{nblast} stopping
 #'   with an error message the moment there is an error. For other values, see
@@ -164,7 +166,7 @@
 #' }
 nblast <- function(query, target=getOption("nat.default.neuronlist"),
                    smat=NULL, sd=3, version=c(2, 1), normalised=FALSE,
-                   UseAlpha=FALSE, OmitFailures=NA, ...) {
+                   UseAlpha=FALSE, UseTopo = FALSE, OmitFailures=NA, ...) {
   version <- as.character(version)
   version <- match.arg(version, c('2', '1'))
 
@@ -187,10 +189,11 @@ nblast <- function(query, target=getOption("nat.default.neuronlist"),
     }
     if(is.character(smat)) smat=get(smat)
     NeuriteBlast(query=query, target=target, NNDistFun=lodsby2dhist, smat=smat,
-                 UseAlpha=UseAlpha, normalised=normalised, OmitFailures=OmitFailures, ...)
+                 UseAlpha=UseAlpha, UseTopo=UseTopo, normalised=normalised,
+                 OmitFailures=OmitFailures, ...)
   } else if(version == '1') {
     NeuriteBlast(query=query, target=target, NNDistFun=WeightedNNBasedLinesetDistFun,
-                 UseAlpha=UseAlpha, sd=sd, normalised=normalised,
+                 UseAlpha=UseAlpha, sd=sd, normalised=normalised, UseTopo=UseTopo,
                  OmitFailures=OmitFailures, ...)
   } else {
     stop("Only NBLAST versions 1 and 2 are currently implemented. For more advanced control, see NeuriteBlast.")
@@ -370,6 +373,8 @@ WeightedNNBasedLinesetMatching <- function(target, query, ...) {
 #'   WeightedNNBasedLinesetMatching. These will be used to scale the dot
 #'   products of the direction vectors for nearest neighbour pairs.
 #' @param UseAlpha Whether to scale dot product of tangent vectors (default=F)
+#' @param UseTopo Whether to use topological information to scale dot products
+#'  of tangent vectors (default=F)
 #' @param ... extra arguments to pass to the distance function.
 #' @export
 #' @seealso \code{\link[nat]{dotprops}}
@@ -380,12 +385,17 @@ WeightedNNBasedLinesetMatching <- function(target, query, ...) {
 #' segvals=WeightedNNBasedLinesetMatching(kcs20[[1]], kcs20[[2]], NNDistFun=list)
 #' names(segvals)=c("dist", "adotprod")
 #' pairs(segvals)
-WeightedNNBasedLinesetMatching.dotprops<-function(target, query, UseAlpha=FALSE, ...) {
+WeightedNNBasedLinesetMatching.dotprops<-function(target, query, UseAlpha=FALSE,
+                                                  UseTopo=FALSE, ...) {
   if(!"dotprops" %in% class(query)) query <- dotprops(query)
   if(UseAlpha)
     WeightedNNBasedLinesetMatching(target$points,query$points,dvs1=target$vect,dvs2=query$vect,
                                    alphas1=target$alpha,alphas2=query$alpha,...)
-  else
+  else if(UseTopo) {
+    if(!"topo.dotprops" %in% class(query)) stop("query must be `topo.dotprops`")
+    WeightedNNBasedLinesetMatching(target$points,query$points,dvs1=target$vect,dvs2=query$vect,
+                                   topo1=target$topo,topo2=query$topo,...)
+  } else
     WeightedNNBasedLinesetMatching(target$points,query$points,dvs1=target$vect,dvs2=query$vect,...)
 }
 
@@ -396,10 +406,13 @@ WeightedNNBasedLinesetMatching.dotprops<-function(target, query, UseAlpha=FALSE,
 #' @rdname WeightedNNBasedLinesetMatching
 #' @importFrom nat dotprops
 WeightedNNBasedLinesetMatching.neuron<-function(target, query, UseAlpha=FALSE,
+                                                UseTopo=FALSE,
                                                 OnlyClosestPoints=FALSE,...) {
   if(!"neuron" %in% class(query)) {
     target <- dotprops(target)
-    return(WeightedNNBasedLinesetMatching(target=target, query=query, UseAlpha=UseAlpha, OnlyClosestPoints=OnlyClosestPoints, ...))
+    return(WeightedNNBasedLinesetMatching(target=target, query=query,
+                                          UseTopo=UseTopo, UseAlpha=UseAlpha,
+                                          OnlyClosestPoints=OnlyClosestPoints, ...))
   }
   if(UseAlpha)
     stop("UseAlpha is not yet implemented for neurons!")
@@ -413,7 +426,8 @@ WeightedNNBasedLinesetMatching.neuron<-function(target, query, UseAlpha=FALSE,
 
 WeightedNNBasedLinesetMatching.default<-function(target,query,dvs1=NULL,dvs2=NULL,alphas1=NULL,
                                         alphas2=NULL,NNDistFun=WeightedNNBasedLinesetDistFun,Verbose=FALSE,
-                                        BothDirections=FALSE,BothDirectionsFun=list,OnlyClosestPoints=FALSE,...){
+                                        BothDirections=FALSE,BothDirectionsFun=list,OnlyClosestPoints=FALSE,
+                                        topo1=NULL,topo2=NULL,...){
   # return a score based on the similarity of nearest neighbour location
   # and the dot product of the direction vectors
 
@@ -474,6 +488,19 @@ WeightedNNBasedLinesetMatching.default<-function(target,query,dvs1=NULL,dvs2=NUL
       # the scalefac will be 0.5
       # zapsmall to make sure there are no tiny negative numbers etc.
       scalefac=sqrt(zapsmall(alphas1[idxArray[,1]]*alphas2[idxArray[,2]]))
+      dps=dps*scalefac
+    }
+    if(!is.null(topo1) && !is.null(topo2)){
+      # use of local neuron topology
+      ## distance from body
+      maxlen = max(max(topo1$distance), max(topo2$distance))
+      scalefact_dist = zapsmall(1 - (abs(topo1$distance[idxArray[,1]] - topo2$distance[idxArray[,2]])/maxlen)^2)
+      ## strengthen by reversed Strahler's Order
+      max_rso = max(max(topo1$rso), max(topo2$rso))
+      if (max_rso != 0) {
+        scalefac_rso = zapsmall(1 - (abs(topo1$rso[idxArray[,1]] - topo2$rso[idxArray[,2]])/max_rso)^0.5)
+      } else scalefac_rso = 1
+      scalefac = scalefact_dist * scalefac_rso
       dps=dps*scalefac
     }
   }
