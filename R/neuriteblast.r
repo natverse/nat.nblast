@@ -496,11 +496,10 @@ WeightedNNBasedLinesetMatching.default<-function(target,query,dvs1=NULL,dvs2=NUL
       maxlen = max(max(topo1$distance), max(topo2$distance))
       scalefact_dist = zapsmall(1 - (abs(topo1$distance[idxArray[,1]] - topo2$distance[idxArray[,2]])/maxlen)^2)
       ## strengthen by reversed Strahler's Order
-      max_so = max(max(topo1$rso), max(topo2$rso))
+      max_rso = max(max(topo1$rso), max(topo2$rso))
       if (max_so != 0) {
-        scalefac_rso = zapsmall(1 - (abs(topo1$rso[idxArray[,1]] - topo2$rso[idxArray[,2]])/maxlen)^0.5)
+        scalefac_rso = zapsmall(1 - (abs(topo1$rso[idxArray[,1]] - topo2$rso[idxArray[,2]])/max_rso)^0.5)
       } else scalefac_rso = 1
-
       scalefac = scalefact_dist * scalefac_rso
       dps=dps*scalefac
     }
