@@ -17,7 +17,7 @@ nblast(
 )
 }
 \arguments{
-\item{query}{the query neuron.}
+\item{query}{the query neuron, or neurons (\code{\link[nat]{neuronlist}}).}
 
 \item{target}{a \code{\link[nat]{neuronlist}} to compare neuron against.
 Defaults to \code{options("nat.default.neuronlist")}. See
