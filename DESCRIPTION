@@ -33,6 +33,6 @@ Suggests:
 License: GPL-3
 LazyData: yes
 VignetteBuilder: knitr
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.2
 Language: en-GB
 Encoding: UTF-8

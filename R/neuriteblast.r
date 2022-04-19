@@ -32,7 +32,7 @@
 #'   across cores of the same machine. Before using this, the backend must be
 #'   registered using \code{registerDoMC} (see example below).
 #'
-#' @param query the query neuron.
+#' @param query the query neuron, or neurons (\code{\link[nat]{neuronlist}}).
 #' @param target a \code{\link[nat]{neuronlist}} to compare neuron against.
 #'   Defaults to \code{options("nat.default.neuronlist")}. See
 #'   \code{\link{nat-package}}.
