@@ -5,9 +5,6 @@
 \alias{nat.nblast-package}
 \alias{nat.nblast}
 \title{Neuron similarity, search and clustering tools}
-\description{
-Neuron similarity, search and clustering tools
-}
 \section{Similarity and search}{
 
 

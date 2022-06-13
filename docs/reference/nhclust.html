@@ -8,21 +8,36 @@
 
 <title>Cluster a set of neurons — nhclust • nat.nblast</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,15 +45,14 @@
 
 
 
-<meta property="og:title" content="Cluster a set of neurons — nhclust" />
 
+<meta property="og:title" content="Cluster a set of neurons — nhclust" />
 <meta property="og:description" content="Given an NBLAST all by all score matrix (which may be specified by a package
 default) and/or a vector of neuron identifiers use hclust to
 carry out a hierarchical clustering. The default value of the distfun
 argument will handle square distance matrices and R dist objects." />
+<meta property="og:image" content="/logo.svg" />
 
-<meta property="og:image" content="/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -52,9 +66,10 @@ argument will handle square distance matrices and R dist objects." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -68,7 +83,7 @@ argument will handle square distance matrices and R dist objects." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nat.nblast</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.4.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.6</span>
       </span>
     </div>
 
@@ -76,7 +91,7 @@ argument will handle square distance matrices and R dist objects." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -102,14 +117,13 @@ argument will handle square distance matrices and R dist objects." />
   <a href="../SUPPORT.html">Help</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://natverse.github.io">natverse</a>
 </li>
 <li>
   <a href="https://github.com/natverse/nat.nblast">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -120,6 +134,7 @@ argument will handle square distance matrices and R dist objects." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -131,17 +146,21 @@ argument will handle square distance matrices and R dist objects." />
     </div>
 
     <div class="ref-description">
-    
     <p>Given an NBLAST all by all score matrix (which may be specified by a package
-default) and/or a vector of neuron identifiers use <code><a href='https://www.rdocumentation.org/packages/stats/topics/hclust'>hclust</a></code> to
+default) and/or a vector of neuron identifiers use <code><a href='https://rdrr.io/r/stats/hclust.html'>hclust</a></code> to
 carry out a hierarchical clustering. The default value of the <code>distfun</code>
 argument will handle square distance matrices and R <code>dist</code> objects.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>nhclust</span>(<span class='no'>neuron_names</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"ward"</span>, <span class='kw'>scoremat</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>distfun</span> <span class='kw'>=</span> <span class='no'>as.dist</span>, <span class='no'>...</span>, <span class='kw'>maxneurons</span> <span class='kw'>=</span> <span class='fl'>4000</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>nhclust</span><span class='op'>(</span>
+  <span class='va'>neuron_names</span>,
+  method <span class='op'>=</span> <span class='st'>"ward"</span>,
+  scoremat <span class='op'>=</span> <span class='cn'>NULL</span>,
+  distfun <span class='op'>=</span> <span class='va'>as.dist</span>,
+  <span class='va'>...</span>,
+  maxneurons <span class='op'>=</span> <span class='fl'>4000</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -162,11 +181,11 @@ default).</p></td>
       <th>distfun</th>
       <td><p>function to convert distance matrix returned by
 <code>sub_dist_mat</code> into R <code>dist</code> object (default=
-<code><a href='https://www.rdocumentation.org/packages/stats/topics/dist'>as.dist</a></code>).</p></td>
+<code><a href='https://rdrr.io/r/stats/dist.html'>as.dist</a></code>).</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>additional parameters passed to <code><a href='https://www.rdocumentation.org/packages/stats/topics/hclust'>hclust</a></code>.</p></td>
+      <td><p>additional parameters passed to <code><a href='https://rdrr.io/r/stats/hclust.html'>hclust</a></code>.</p></td>
     </tr>
     <tr>
       <th>maxneurons</th>
@@ -174,32 +193,35 @@ default).</p></td>
 N^2) distances directly into memory.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An object of class <code><a href='https://www.rdocumentation.org/packages/stats/topics/hclust'>hclust</a></code> which describes the tree
+    <p>An object of class <code><a href='https://rdrr.io/r/stats/hclust.html'>hclust</a></code> which describes the tree
   produced by the clustering process.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://www.rdocumentation.org/packages/stats/topics/hclust'>hclust</a>, <a href='https://www.rdocumentation.org/packages/stats/topics/dist'>dist</a></code></p>
-<p>Other scoremats: <code><a href='sub_dist_mat.html'>sub_dist_mat</a></code></p></div>
-    
+    <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/hclust.html'>hclust</a>, <a href='https://rdrr.io/r/stats/dist.html'>dist</a></code></p>
+<p>Other scoremats: 
+<code><a href='sub_dist_mat.html'>sub_dist_mat</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>nat</span>)
-<span class='no'>kcscores</span><span class='kw'>=</span><span class='fu'><a href='nblast_allbyall.html'>nblast_allbyall</a></span>(<span class='no'>kcs20</span>)
-<span class='no'>hckcs</span><span class='kw'>=</span><span class='fu'>nhclust</span>(<span class='kw'>scoremat</span><span class='kw'>=</span><span class='no'>kcscores</span>)</div><div class='output co'>#&gt; <span class='message'>The "ward" method has been renamed to "ward.D"; note new "ward.D2"</span></div><div class='input'><span class='co'># divide hclust object into 3 groups</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dendroextras</span>)
-<span class='no'>dkcs</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/dendroextras/topics/colour_clusters'>colour_clusters</a></span>(<span class='no'>hckcs</span>, <span class='kw'>k</span><span class='kw'>=</span><span class='fl'>3</span>)
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/natverse/nat'>nat</a></span><span class='op'>)</span>
+<span class='va'>kcscores</span><span class='op'>=</span><span class='fu'><a href='nblast_allbyall.html'>nblast_allbyall</a></span><span class='op'>(</span><span class='va'>kcs20</span><span class='op'>)</span>
+<span class='va'>hckcs</span><span class='op'>=</span><span class='fu'>nhclust</span><span class='op'>(</span>scoremat<span class='op'>=</span><span class='va'>kcscores</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>The "ward" method has been renamed to "ward.D"; note new "ward.D2"</span></div><div class='input'><span class='co'># divide hclust object into 3 groups</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>dendroextras</span><span class='op'>)</span>
+<span class='va'>dkcs</span><span class='op'>=</span><span class='fu'><a href='https://rdrr.io/pkg/dendroextras/man/colour_clusters.html'>colour_clusters</a></span><span class='op'>(</span><span class='va'>hckcs</span>, k<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>
 <span class='co'># change dendrogram labels to neuron type, extracting this information</span>
 <span class='co'># from type column in the metadata data.frame attached to kcs20 neuronlist</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/labels'>labels</a></span>(<span class='no'>dkcs</span>)<span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/nat/topics/neuronlist-dataframe-methods'>with</a></span>(<span class='no'>kcs20</span>[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/labels'>labels</a></span>(<span class='no'>dkcs</span>)], <span class='no'>type</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>dkcs</span>)</div><div class='img'><img src='nhclust-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># 3d plot of neurons in those clusters (with matching colours)</span>
-<span class='fu'>open3d</span>()</div><div class='output co'>#&gt; glX 
-#&gt;   3 </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/nat/topics/plot3d'>plot3d</a></span>(<span class='no'>hckcs</span>, <span class='kw'>k</span><span class='kw'>=</span><span class='fl'>3</span>, <span class='kw'>db</span><span class='kw'>=</span><span class='no'>kcs20</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/labels.html'>labels</a></span><span class='op'>(</span><span class='va'>dkcs</span><span class='op'>)</span><span class='op'>=</span><span class='fu'><a href='https://rdrr.io/pkg/nat/man/neuronlist-dataframe-methods.html'>with</a></span><span class='op'>(</span><span class='va'>kcs20</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/labels.html'>labels</a></span><span class='op'>(</span><span class='va'>dkcs</span><span class='op'>)</span><span class='op'>]</span>, <span class='va'>type</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>dkcs</span><span class='op'>)</span>
+</div><div class='img'><img src='nhclust-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># 3d plot of neurons in those clusters (with matching colours)</span>
+<span class='fu'>open3d</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; glX 
+#&gt;   3 </div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/nat/man/plot3d.html'>plot3d</a></span><span class='op'>(</span><span class='va'>hckcs</span>, k<span class='op'>=</span><span class='fl'>3</span>, db<span class='op'>=</span><span class='va'>kcs20</span><span class='op'>)</span>
 <span class='co'># names of neurons in 3 groups</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/nat/topics/subset'>subset</a></span>(<span class='no'>hckcs</span>, <span class='kw'>k</span><span class='kw'>=</span><span class='fl'>3</span>)</div><div class='output co'>#&gt;  [1] "FruMARCM-F000706_seg001" "FruMARCM-M000842_seg002"
+<span class='fu'><a href='https://rdrr.io/pkg/nat/man/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>hckcs</span>, k<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1] "FruMARCM-F000706_seg001" "FruMARCM-M000842_seg002"
 #&gt;  [3] "GadMARCM-F000050_seg001" "FruMARCM-M001339_seg001"
 #&gt;  [5] "FruMARCM-F001115_seg002" "FruMARCM-M001051_seg002"
 #&gt;  [7] "FruMARCM-F001494_seg002" "FruMARCM-F000188_seg001"
@@ -210,20 +232,13 @@ N^2) distances directly into memory.</p></td>
 #&gt; [17] "FruMARCM-F000085_seg001" "GadMARCM-F000071_seg001"
 #&gt; [19] "FruMARCM-M000115_seg001" "GadMARCM-F000442_seg002"</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -231,13 +246,16 @@ N^2) distances directly into memory.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

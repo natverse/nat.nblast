@@ -1,4 +1,7 @@
-# nat.nblast (development version)
+# nat.nblast 1.6.6
+
+* Keep scale factor when normalising (#38)
+* Doc fixes
 
 # nat.nblast 1.6.4
 
