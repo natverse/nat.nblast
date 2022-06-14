@@ -25,3 +25,10 @@ test_that("we can calculate normalised nblast v1 scores", {
   scores.norm=scale(scores, scale=c(scores[1,1],scores[2,2]), center = FALSE)
   expect_equivalent(nblast(testneurons[1:2], testneurons, version=1, normalised=TRUE), scores.norm)
 })
+
+testtopodps <- readRDS('testdata/testtopodps.rds')
+
+test_that("topoNBLAST works correct", {
+  scores <- nblast_allbyall(testtopodps, version=1, UseTopo = TRUE)
+  expect_true(scores["18820","20262"] < 0.1)
+})

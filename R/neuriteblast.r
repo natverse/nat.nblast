@@ -46,6 +46,8 @@
 #' @param UseAlpha whether to weight the similarity score for each matched
 #'   segment to emphasise long range neurites rather then arbours (default:
 #'   FALSE, see \bold{\code{UseAlpha}} section for details).
+#' @param UseTopo whether to weight the similarity score for each matched
+#'   segment to relative topology of the neurons (default: FALSE).
 #' @param OmitFailures Whether to omit neurons for which \code{FUN} gives an
 #'   error. The default value (\code{NA}) will result in \code{nblast} stopping
 #'   with an error message the moment there is an error. For other values, see
@@ -164,7 +166,7 @@
 #' }
 nblast <- function(query, target=getOption("nat.default.neuronlist"),
                    smat=NULL, sd=3, version=c(2, 1), normalised=FALSE,
-                   UseAlpha=FALSE, OmitFailures=NA, ...) {
+                   UseAlpha=FALSE, UseTopo = FALSE, OmitFailures=NA, ...) {
   version <- as.character(version)
   version <- match.arg(version, c('2', '1'))
 
@@ -187,10 +189,11 @@ nblast <- function(query, target=getOption("nat.default.neuronlist"),
     }
     if(is.character(smat)) smat=get(smat)
     NeuriteBlast(query=query, target=target, NNDistFun=lodsby2dhist, smat=smat,
-                 UseAlpha=UseAlpha, normalised=normalised, OmitFailures=OmitFailures, ...)
+                 UseAlpha=UseAlpha, UseTopo=UseTopo, normalised=normalised,
+                 OmitFailures=OmitFailures, ...)
   } else if(version == '1') {
     NeuriteBlast(query=query, target=target, NNDistFun=WeightedNNBasedLinesetDistFun,
-                 UseAlpha=UseAlpha, sd=sd, normalised=normalised,
+                 UseAlpha=UseAlpha, UseTopo=UseTopo, sd=sd, normalised=normalised,
                  OmitFailures=OmitFailures, ...)
   } else {
     stop("Only NBLAST versions 1 and 2 are currently implemented. For more advanced control, see NeuriteBlast.")
@@ -370,6 +373,8 @@ WeightedNNBasedLinesetMatching <- function(target, query, ...) {
 #'   WeightedNNBasedLinesetMatching. These will be used to scale the dot
 #'   products of the direction vectors for nearest neighbour pairs.
 #' @param UseAlpha Whether to scale dot product of tangent vectors (default=F)
+#' @param UseTopo Whether to use topological information to scale dot products
+#'  of tangent vectors (default=F)
 #' @param ... extra arguments to pass to the distance function.
 #' @export
 #' @seealso \code{\link[nat]{dotprops}}
@@ -380,12 +385,18 @@ WeightedNNBasedLinesetMatching <- function(target, query, ...) {
 #' segvals=WeightedNNBasedLinesetMatching(kcs20[[1]], kcs20[[2]], NNDistFun=list)
 #' names(segvals)=c("dist", "adotprod")
 #' pairs(segvals)
-WeightedNNBasedLinesetMatching.dotprops<-function(target, query, UseAlpha=FALSE, ...) {
+WeightedNNBasedLinesetMatching.dotprops<-function(target, query, UseAlpha=FALSE,
+                                                  UseTopo=FALSE,
+                                                  ...) {
   if(!"dotprops" %in% class(query)) query <- dotprops(query)
   if(UseAlpha)
     WeightedNNBasedLinesetMatching(target$points,query$points,dvs1=target$vect,dvs2=query$vect,
                                    alphas1=target$alpha,alphas2=query$alpha,...)
-  else
+  else if(UseTopo) {
+    if(!"topo.dotprops" %in% class(query)) stop("query must be `topo.dotprops`")
+    WeightedNNBasedLinesetMatching(target$points,query$points,dvs1=target$vect,dvs2=query$vect,
+                                   alphas1=target$topo,alphas2=query$topo,...)
+  } else
     WeightedNNBasedLinesetMatching(target$points,query$points,dvs1=target$vect,dvs2=query$vect,...)
 }
 
@@ -396,10 +407,13 @@ WeightedNNBasedLinesetMatching.dotprops<-function(target, query, UseAlpha=FALSE,
 #' @rdname WeightedNNBasedLinesetMatching
 #' @importFrom nat dotprops
 WeightedNNBasedLinesetMatching.neuron<-function(target, query, UseAlpha=FALSE,
+                                                UseTopo=FALSE,
                                                 OnlyClosestPoints=FALSE,...) {
   if(!"neuron" %in% class(query)) {
     target <- dotprops(target)
-    return(WeightedNNBasedLinesetMatching(target=target, query=query, UseAlpha=UseAlpha, OnlyClosestPoints=OnlyClosestPoints, ...))
+    return(WeightedNNBasedLinesetMatching(target=target, query=query,
+                                          UseAlpha=UseAlpha, UseTopo=FALSE,
+                                          OnlyClosestPoints=OnlyClosestPoints, ...))
   }
   if(UseAlpha)
     stop("UseAlpha is not yet implemented for neurons!")
@@ -475,16 +489,21 @@ WeightedNNBasedLinesetMatching.default<-function(target,query,dvs1=NULL,dvs2=NUL
       # zapsmall to make sure there are no tiny negative numbers etc.
       #scalefac=sqrt(zapsmall(alphas1[idxArray[,1]]*alphas2[idxArray[,2]]))
       if (is.numeric(alphas1) && is.numeric(alphas2)) {
-        maxlen = max(max(alphas1), max(alphas2))
-        scalefac = zapsmall(1 - (abs(alphas1[idxArray[,1]] - alphas2[idxArray[,2]])/maxlen)^2)
+        scalefac=sqrt(zapsmall(alphas1[idxArray[,1]]*alphas2[idxArray[,2]]))
       } else if (is.list(alphas1) && is.list(alphas2)) {
-        # distance from soma
-        maxlen = max(max(alphas1$distance), max(alphas2$distance))
-        scalefac1 = zapsmall(1 - (abs(alphas1$distance[idxArray[,1]] - alphas2$distance[idxArray[,2]])/maxlen)^2)
-        # strenghten by  Strahler Order
-        maxlen = max(max(alphas1$so), max(alphas2$so))
-        scalefac2 = zapsmall(1 - (abs(alphas1$so[idxArray[,1]] - alphas2$so[idxArray[,2]])/maxlen)^0.5)
-        scalefac = scalefac1 * scalefac2
+        # use local neuron topology
+        if (any(names(alphas1) != names(alphas2)))
+          stop("Topo features not consistent between neurons.")
+        compare_feature <- function(feat) {
+          #' compares the features between points according to metric
+          #' 1 - ( |f_1 - f_2| / max(features))^2
+          maxlen = max(max(alphas1[[feat]]), max(alphas2[[feat]])) + .Machine$double.eps
+          zapsmall(1 - (abs(alphas1[[feat]][idxArray[,1]] - alphas2[[feat]][idxArray[,2]])/maxlen)^2)
+        }
+        sim_scores <- sapply(names(alphas1), compare_feature,
+                             USE.NAMES = TRUE, simplify = TRUE)
+        # Aggregate feature scores
+        scalefac = apply(sim_scores, 1, prod)
       } else{
         warning("Unknown alpha format")
         scalefac = rep(1, length(dps))
