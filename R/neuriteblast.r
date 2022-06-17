@@ -503,7 +503,8 @@ WeightedNNBasedLinesetMatching.default<-function(target,query,dvs1=NULL,dvs2=NUL
         sim_scores <- sapply(names(alphas1), compare_feature,
                              USE.NAMES = TRUE, simplify = TRUE)
         # Aggregate feature scores
-        scalefac = apply(sim_scores, 1, prod)
+        scalefac = apply(sim_scores, 1, mean)
+        scalefac = scales::rescale(scalefac)
       } else{
         warning("Unknown alpha format")
         scalefac = rep(1, length(dps))
