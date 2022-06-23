@@ -335,7 +335,15 @@ NeuriteBlast <- function(query, target, targetBinds=NULL, normalised=FALSE,
 
 
 #' @importFrom stats dnorm
-WeightedNNBasedLinesetDistFun<-function(nndists,dotproducts,sd,...){
+WeightedNNBasedLinesetDistFun<-function(nndists,dotproducts,sd, sd_dp=0.5,...){
+  summaryfun=function(x) 1-mean(sqrt(x),na.rm=T)
+  sapply(sd,function(sd) summaryfun(
+    (dnorm(nndists,sd=sd)/dnorm(0,sd=sd)) * (dnorm(1-dotproducts,sd=sd_dp)/dnorm(0,sd=sd_dp))
+  ))
+}
+
+#' @importFrom stats dnorm
+WeightedNNBasedLinesetDistFun.ORIG<-function(nndists,dotproducts,sd,...){
   summaryfun=function(x) 1-mean(sqrt(x),na.rm=T)
   sapply(sd,function(sd) summaryfun(dnorm(nndists,sd=sd)*dotproducts/dnorm(0,sd=sd)))
 }
@@ -481,7 +489,9 @@ WeightedNNBasedLinesetMatching.default<-function(target,query,dvs1=NULL,dvs2=NUL
       idxArray=idxArray[!targetdupes,,drop=FALSE]
       nntarget$nn.dists=nntarget$nn.dists[!targetdupes]
     }
-    dps=abs(dotprod(dvs1[idxArray[,1],],dvs2[idxArray[,2],]))
+    dps=dotprod(dvs1[idxArray[,1],],dvs2[idxArray[,2],])
+    #dps=abs(dps)
+    dps[dps<0] = 0
     if(!is.null(alphas1) && !is.null(alphas2)){
       # for perfectly aligned points, alpha = 1, at worst alpha = 0
       # sqrt seems reasonable since if alpha1=alpha2=0.5 then
@@ -504,18 +514,31 @@ WeightedNNBasedLinesetMatching.default<-function(target,query,dvs1=NULL,dvs2=NUL
                              USE.NAMES = TRUE, simplify = TRUE)
         # Aggregate feature scores
         scalefac = apply(sim_scores, 1, mean)
-        scalefac = scales::rescale(scalefac)
+        #scalefac = scales::rescale(scalefac)
       } else{
         warning("Unknown alpha format")
         scalefac = rep(1, length(dps))
       }
+      # dps = rep(1, length(dps))
       dps=dps*scalefac
     }
   }
+  #if (!all(dps == 1))
+  #  dps <- runif(length(dps))
+  dists <- disc_distance(nntarget$nn.idx, nntarget$nn.dists)
 
-  NNDistFun(as.vector(nntarget$nn.dists),dps,...)
+  NNDistFun(dists,dps,...)
 }
 
+disc_distance <- function(nn_idx, nn_dist) {
+  tbl = table(nn_idx)
+  for (idx in names(tbl)) {
+    cnt = as.numeric(tbl[idx])
+    idx = as.integer(idx)
+    nn_dist[nn_idx == idx,] = cnt * nn_dist[nn_idx == idx,]
+  }
+  nn_dist
+}
 
 dotprod=function(a,b){
   # expects 2 matrices with n cols each
