@@ -526,7 +526,7 @@ WeightedNNBasedLinesetMatching.default<-function(target,query,dvs1=NULL,dvs2=NUL
   #if (!all(dps == 1))
   #  dps <- runif(length(dps))
   dists <- disc_distance(nntarget$nn.idx, nntarget$nn.dists)
-
+  #dists <- nntarget$nn.dists
   NNDistFun(dists,dps,...)
 }
 
@@ -535,6 +535,7 @@ disc_distance <- function(nn_idx, nn_dist) {
   for (idx in names(tbl)) {
     cnt = as.numeric(tbl[idx])
     idx = as.integer(idx)
+    cnt = 1 + log(cnt)
     nn_dist[nn_idx == idx,] = cnt * nn_dist[nn_idx == idx,]
   }
   nn_dist
