@@ -490,7 +490,6 @@ WeightedNNBasedLinesetMatching.default<-function(target,query,dvs1=NULL,dvs2=NUL
       nntarget$nn.dists=nntarget$nn.dists[!targetdupes]
     }
     dps=dotprod(dvs1[idxArray[,1],],dvs2[idxArray[,2],])
-    #dps=abs(dps)
     dps[dps<0] = 0
     if(!is.null(alphas1) && !is.null(alphas2)){
       # for perfectly aligned points, alpha = 1, at worst alpha = 0
@@ -514,31 +513,15 @@ WeightedNNBasedLinesetMatching.default<-function(target,query,dvs1=NULL,dvs2=NUL
                              USE.NAMES = TRUE, simplify = TRUE)
         # Aggregate feature scores
         scalefac = apply(sim_scores, 1, mean)
-        #scalefac = scales::rescale(scalefac)
       } else{
         warning("Unknown alpha format")
         scalefac = rep(1, length(dps))
       }
-      # dps = rep(1, length(dps))
       dps=dps*scalefac
     }
   }
-  #if (!all(dps == 1))
-  #  dps <- runif(length(dps))
-  dists <- disc_distance(nntarget$nn.idx, nntarget$nn.dists)
-  #dists <- nntarget$nn.dists
+  dists <- nntarget$nn.dists
   NNDistFun(dists,dps,...)
-}
-
-disc_distance <- function(nn_idx, nn_dist) {
-  tbl = table(nn_idx)
-  for (idx in names(tbl)) {
-    cnt = as.numeric(tbl[idx])
-    idx = as.integer(idx)
-    cnt = 1 + log(cnt)
-    nn_dist[nn_idx == idx,] = cnt * nn_dist[nn_idx == idx,]
-  }
-  nn_dist
 }
 
 dotprod=function(a,b){
