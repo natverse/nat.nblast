@@ -39,8 +39,8 @@ query}
 segment to emphasise long range neurites rather then arbours (default:
 FALSE, see \bold{\code{UseAlpha}} section for details).}
 
-\item{UseTopo}{whether to weight the similarity score for each matched
-segment to relative topology of the neurons (default: FALSE).}
+\item{UseTopo}{whether to use directed dotprops vectors (pointing towards
+soma) and features in neuron nodes (default: FALSE).}
 
 \item{OmitFailures}{Whether to omit neurons for which \code{FUN} gives an
 error. The default value (\code{NA}) will result in \code{nblast} stopping

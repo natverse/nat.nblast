@@ -46,8 +46,8 @@
 #' @param UseAlpha whether to weight the similarity score for each matched
 #'   segment to emphasise long range neurites rather then arbours (default:
 #'   FALSE, see \bold{\code{UseAlpha}} section for details).
-#' @param UseTopo whether to weight the similarity score for each matched
-#'   segment to relative topology of the neurons (default: FALSE).
+#' @param UseTopo whether to use directed dotprops vectors (pointing towards
+#'    soma) and features in neuron nodes (default: FALSE).
 #' @param OmitFailures Whether to omit neurons for which \code{FUN} gives an
 #'   error. The default value (\code{NA}) will result in \code{nblast} stopping
 #'   with an error message the moment there is an error. For other values, see
@@ -335,15 +335,7 @@ NeuriteBlast <- function(query, target, targetBinds=NULL, normalised=FALSE,
 
 
 #' @importFrom stats dnorm
-WeightedNNBasedLinesetDistFun<-function(nndists,dotproducts,sd, sd_dp=0.5,...){
-  summaryfun=function(x) 1-mean(sqrt(x),na.rm=T)
-  sapply(sd,function(sd) summaryfun(
-    (dnorm(nndists,sd=sd)/dnorm(0,sd=sd)) * (dnorm(1-dotproducts,sd=sd_dp)/dnorm(0,sd=sd_dp))
-  ))
-}
-
-#' @importFrom stats dnorm
-WeightedNNBasedLinesetDistFun.ORIG<-function(nndists,dotproducts,sd,...){
+WeightedNNBasedLinesetDistFun<-function(nndists,dotproducts,sd,...){
   summaryfun=function(x) 1-mean(sqrt(x),na.rm=T)
   sapply(sd,function(sd) summaryfun(dnorm(nndists,sd=sd)*dotproducts/dnorm(0,sd=sd)))
 }
@@ -489,8 +481,12 @@ WeightedNNBasedLinesetMatching.default<-function(target,query,dvs1=NULL,dvs2=NUL
       idxArray=idxArray[!targetdupes,,drop=FALSE]
       nntarget$nn.dists=nntarget$nn.dists[!targetdupes]
     }
-    dps = dotprod(dvs1[idxArray[,1],],dvs2[idxArray[,2],])
-    dps[dps < 0] = 0
+    if (!is.list(alphas1)) {
+      dps = abs(dotprod(dvs1[idxArray[,1],],dvs2[idxArray[,2],]))
+    } else {
+      dps = dotprod(dvs1[idxArray[,1],],dvs2[idxArray[,2],])
+      dps[dps < 0] = 0
+    }
     if(!is.null(alphas1) && !is.null(alphas2)){
       # for perfectly aligned points, alpha = 1, at worst alpha = 0
       # sqrt seems reasonable since if alpha1=alpha2=0.5 then
@@ -520,8 +516,7 @@ WeightedNNBasedLinesetMatching.default<-function(target,query,dvs1=NULL,dvs2=NUL
       dps=dps*scalefac
     }
   }
-  dists <- nntarget$nn.dists
-  NNDistFun(dists,dps,...)
+  NNDistFun(as.vector(nntarget$nn.dists),dps,...)
 }
 
 dotprod=function(a,b){
