@@ -100,3 +100,14 @@ test_that("we can handle all combinations of dotprops and neurons, both as neuro
   expect_is(nblast(Cell07PNs[[1]], testneurons[[1]]), 'numeric')
   expect_is(nblast(Cell07PNs[1:3], testneurons[[1]]), 'numeric')
 })
+
+
+testtopodps <- readRDS('testdata/testtopodps.rds')
+
+test_that("topoNBLAST works correct", {
+  scores <- nblast_allbyall(testtopodps, version=2, UseTopo = TRUE)
+  expect_true(scores["18820","20262"] > 0)
+  scores <- nblast_allbyall(testtopodps, version=2,
+                            normalisation = "normalised", UseTopo = TRUE)
+  expect_true(scores["18820","20262"] > 0.9)
+})
