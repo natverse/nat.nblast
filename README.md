@@ -1,10 +1,10 @@
 # nat.nblast <img src="man/figures/logo.svg" align="right" height="139" />
 <!-- badges: start -->
-[![natverse](https://img.shields.io/badge/natverse-Part%20of%20the%20natverse-a241b6)](https://natverse.github.io)
+[![natverse](https://img.shields.io/badge/natverse-Part%20of%20the%20natverse-a241b6)](https://natverse.org/)
 [![Release Version](https://img.shields.io/github/release/natverse/nat.nblast.svg)](https://github.com/natverse/nat.nblast/releases/latest) 
 [![CRAN status](https://www.r-pkg.org/badges/version/nat.nblast)](https://CRAN.R-project.org/package=nat.nblast)
-[![Build Status](https://travis-ci.org/natverse/nat.nblast.svg?branch=master)](https://travis-ci.org/natverse/nat.nblast)
-[![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](https://natverse.github.io/nat.nblast/reference/)
+[![Build Status](https://travis-ci.org/natverse/nat.nblast.svg?branch=master)](https://app.travis-ci.com/natverse/nat.nblast)
+[![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](https://natverse.org/nat.nblast/reference/)
 <!-- badges: end -->
 
 **nat.nblast** is part of the [NeuroAnatomy Toolbox](https://jefferislab.github.io/)
@@ -52,13 +52,13 @@ databases of neurons. There is also support for all x all comparison for a group
 of neurons. This can produce a distance matrix suitable for hierarchical clustering,
 which is also implemented in the package.
 
-These tools are designed as an addon for the [NeuroAnatomy Toolbox](https://natverse.github.io/nat)
+These tools are designed as an addon for the [NeuroAnatomy Toolbox](https://natverse.org/nat/)
 (nat) R package, which will be installed as dependency.
 
 You will probably find the following online documentation helpful:
 
-* https://natverse.github.io/nat.nblast - Online documentation for this R package
-* http://jefferislab.org/si/nblast - Overview of NBLAST algorithm and online tools 
+* https://natverse.org/nat.nblast/ - Online documentation for this R package
+* https://jefferislab.org/si/nblast/ - Overview of NBLAST algorithm and online tools 
 
 ## Installation
 This package has been released to [CRAN](https://cran.r-project.org/package=nat.nblast)
@@ -81,6 +81,6 @@ devtools::install_github("natverse/nat.nblast")
 ```
 Note that this will also update the [nat package](https://github.com/natverse/nat)
 to the latest development version from github. Windows users need 
-[Rtools](http://www.murdoch-sutherland.com/Rtools/) to install this way.
+[Rtools](https://www.murdoch-sutherland.com/Rtools/) to install this way.
 
 

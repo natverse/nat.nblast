@@ -12,8 +12,8 @@ same type, rather than unrelated neurons.
 }
 \details{
 These scoring matrices were generated using all by all pairs from 150 DL2
-antennal lobe projection neurons from the \url{http://flycircuit.tw} dataset
-and 5000 random pairs from the same dataset.
+antennal lobe projection neurons from the FlyCircuit dataset and 5000 random
+pairs from the same dataset.
 
 \itemize{
 

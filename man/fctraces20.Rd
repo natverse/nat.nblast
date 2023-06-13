@@ -7,10 +7,10 @@
 \description{
 This R list (which has additional class \code{neuronlist}) contains 15
 skeletonized \emph{Drosophila} neurons as \code{dotprops} objects. Original
-data is due to Chiang et al. [1], who have generously shared their raw data
-at \url{http://flycircuit.tw}. Automated tracing of neuron skeletons was
-carried out by Lee et al [2]. Image registration and further processing was
-carried out by Greg Jefferis, Marta Costa and James Manton[3].
+data is due to Chiang et al. [1], who have generously shared their raw data.
+Automated tracing of neuron skeletons was carried out by Lee et al [2]. Image
+registration and further processing was carried out by Greg Jefferis, Marta
+Costa and James Manton[3].
 }
 \references{
 [1] Chiang A.S., Lin C.Y., Chuang C.C., Chang H.M., Hsieh C.H.,
@@ -18,16 +18,16 @@ carried out by Greg Jefferis, Marta Costa and James Manton[3].
   Ching Y.T., Lee P.C., Lin C.Y., Lin H.H., Wu C.C., Hsu H.W., Huang Y.A.,
   Chen J.Y., et al. (2011). Three-dimensional reconstruction of brain-wide
   wiring networks in Drosophila at single-cell resolution. Curr Biol 21 (1),
-  1--11. doi: \url{http://doi.org/10.1016/j.cub.2010.11.056}
+  1--11. doi: \doi{10.1016/j.cub.2010.11.056}
 
   [2] P.-C. Lee, C.-C. Chuang, A.-S. Chiang, and Y.-T. Ching. (2012).
   High-throughput computer method for 3d neuronal structure reconstruction
   from the image stack of the Drosophila brain and its applications. PLoS
   Comput Biol, 8(9):e1002658, Sep 2012. doi:
-  \url{http://doi.org/10.1371/journal.pcbi.1002658}.
+  \doi{10.1371/journal.pcbi.1002658}.
 
   [3] NBLAST: Rapid, sensitive comparison of neuronal structure and
   construction of neuron family databases. Marta Costa, Aaron D. Ostrovsky,
   James D. Manton, Steffen Prohaska, Gregory S.X.E. Jefferis. bioRxiv doi:
-  \url{http://doi.org/10.1101/006346}.
+  \doi{10.1101/006346}.
 }

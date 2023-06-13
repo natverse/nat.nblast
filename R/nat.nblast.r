@@ -1,5 +1,8 @@
 #' Neuron similarity, search and clustering tools
 #'
+#' \bold{nat.nblast} provides tools to compare neuronal morphology using the
+#' NBLAST algorithm (Costa et al. 2016).
+#'
 #' @section Similarity and search:
 #'
 #'   The main entry point for similarity and search functions is
@@ -82,7 +85,7 @@
 #' @references Costa, M., Ostrovsky, A.D., Manton, J.D., Prohaska, S., and
 #'   Jefferis, G.S.X.E. (2014). NBLAST: Rapid, sensitive comparison of neuronal
 #'   structure and construction of neuron family databases. bioRxiv preprint.
-#'   \href{http://dx.doi.org/10.1101/006346}{doi: 10.1101/006346}.
+#'   \doi{10.1101/006346}.
 #'
 #' @name nat.nblast-package
 #' @aliases nat.nblast
