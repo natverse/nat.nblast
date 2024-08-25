@@ -1,3 +1,6 @@
+url: https://natverse.org/nat.nblast/
+template:
+  bootstrap: 5
 navbar:
   structure:
     left:
@@ -80,4 +83,3 @@ reference:
   - '['
   - fill_in_sparse_score_mat
   - fill_pairs_sparse_score_mat
-

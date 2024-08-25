@@ -11,7 +11,7 @@ Authors@R: c(
     )
 Description: Extends package 'nat' (NeuroAnatomy Toolbox) by providing a
     collection of NBLAST-related functions for neuronal morphology comparison (Costa et al. (2016) <doi: 10.1016/j.neuron.2016.06.012>).
-URL: https://natverse.org/nat.nblast/
+URL: https://natverse.org/nat.nblast/, http://natverse.org/nat.nblast/
 BugReports: https://github.com/natverse/nat.nblast/issues
 Depends:
     R (>= 2.15.1),
