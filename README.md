@@ -5,6 +5,8 @@
 [![CRAN status](https://www.r-pkg.org/badges/version/nat.nblast)](https://CRAN.R-project.org/package=nat.nblast)
 [![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](https://natverse.org/nat.nblast/reference/)
 [![R-CMD-check](https://github.com/natverse/nat.nblast/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/natverse/nat.nblast/actions/workflows/R-CMD-check.yaml)
+[![codecov](https://codecov.io/gh/natverse/nat.nblast/graph/badge.svg?token=VqX3HEdELo)](https://codecov.io/gh/natverse/nat.nblast)
+
 <!-- badges: end -->
 
 **nat.nblast** is part of the [NeuroAnatomy Toolbox](https://jefferislab.github.io/)
