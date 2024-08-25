@@ -3,8 +3,8 @@
 [![natverse](https://img.shields.io/badge/natverse-Part%20of%20the%20natverse-a241b6)](https://natverse.org/)
 [![Release Version](https://img.shields.io/github/release/natverse/nat.nblast.svg)](https://github.com/natverse/nat.nblast/releases/latest) 
 [![CRAN status](https://www.r-pkg.org/badges/version/nat.nblast)](https://CRAN.R-project.org/package=nat.nblast)
-[![Build Status](https://travis-ci.org/natverse/nat.nblast.svg?branch=master)](https://app.travis-ci.com/natverse/nat.nblast)
 [![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](https://natverse.org/nat.nblast/reference/)
+[![R-CMD-check](https://github.com/natverse/nat.nblast/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/natverse/nat.nblast/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 **nat.nblast** is part of the [NeuroAnatomy Toolbox](https://jefferislab.github.io/)
