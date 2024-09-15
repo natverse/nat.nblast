@@ -26,6 +26,8 @@ sub_score_mat <- function(query, target, scoremat=NULL, distance=FALSE, normalis
   if(!identical(length(dim(scoremat)),2L)) stop("scoremat must be a matrix!")
 
   # Check for missing query and target neurons
+  if (is.null(rownames(scoremat)))
+    rownames(scoremat) <- as.character(1:nrow(scoremat))
   rnames <- rownames(scoremat)
   if(missing(target)) target <- rnames
   else {
@@ -35,6 +37,8 @@ sub_score_mat <- function(query, target, scoremat=NULL, distance=FALSE, normalis
       target <- intersect(target, rnames)
     }
   }
+  if (is.null(colnames(scoremat)))
+    colnames(scoremat) <- as.character(1:ncol(scoremat))
   cnames=colnames(scoremat)
   if(missing(query)) query <- cnames
   else {
