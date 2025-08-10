@@ -20,9 +20,9 @@
 #'   Note that when \code{OmitFailures=FALSE} error messages will not be printed
 #'   because the call is wrapped as \code{try(expr, silent=TRUE)}.
 #'
-#'   Internally, the \code{\link{plyr}} package is used to provide options for
-#'   parallelising NBLAST and displaying progress. To display a progress bar as
-#'   the scores are computed, add \code{.progress="natprogress"} to the
+#'   Internally, the \code{\link[plyr]{plyr}} package is used to provide options
+#'   for parallelising NBLAST and displaying progress. To display a progress bar
+#'   as the scores are computed, add \code{.progress="natprogress"} to the
 #'   arguments (non-text progress bars are available -- see
 #'   \code{\link[plyr]{create_progress_bar}}). To parallelise, add
 #'   \code{.parallel=TRUE} to the arguments. In order to make use of parallel
@@ -35,7 +35,7 @@
 #' @param query the query neuron.
 #' @param target a \code{\link[nat]{neuronlist}} to compare neuron against.
 #'   Defaults to \code{options("nat.default.neuronlist")}. See
-#'   \code{\link{nat-package}}.
+#'   \code{\link[nat]{nat-package}}.
 #' @param smat the scoring matrix to use (see details)
 #' @param sd Standard deviation to use in distance dependence of NBLAST v1
 #'   algorithm. Ignored when \code{version=2}.
@@ -104,8 +104,7 @@
 #'
 #' @references Kohl, J. Ostrovsky, A.D., Frechter, S., and Jefferis, G.S.X.E
 #'   (2013). A bidirectional circuit switch reroutes pheromone signals in male
-#'   and female brains. Cell 155 (7), 1610--23
-#'   \doi{10.1016/j.cell.2013.11.025}.
+#'   and female brains. Cell 155 (7), 1610--23 \doi{10.1016/j.cell.2013.11.025}.
 #'
 #'   Costa, M., Ostrovsky, A.D., Manton, J.D., Prohaska, S., and Jefferis,
 #'   G.S.X.E. (2014). NBLAST: Rapid, sensitive comparison of neuronal structure
@@ -115,8 +114,7 @@
 #'   Jefferis G.S.X.E., Potter C.J., Chan A.M., Marin E.C., Rohlfing T., Maurer
 #'   C.R.J., and Luo L. (2007). Comprehensive maps of Drosophila higher
 #'   olfactory centers: spatially segregated fruit and pheromone representation.
-#'   Cell 128 (6), 1187--1203.
-#'   \doi{10.1016/j.cell.2007.01.040}
+#'   Cell 128 (6), 1187--1203. \doi{10.1016/j.cell.2007.01.040}
 #'
 #'
 #'
@@ -125,7 +123,7 @@
 #'
 #'
 #'
-#' @seealso \code{\link{nat-package}}, \code{\link{nblast_allbyall}},
+#' @seealso \code{\link[nat]{nat-package}}, \code{\link{nblast_allbyall}},
 #'   \code{\link{create_scoringmatrix}}, \code{\link{smat.fcwb}}
 #' @export
 #' @importFrom nat neuronlist
@@ -199,11 +197,11 @@ nblast <- function(query, target=getOption("nat.default.neuronlist"),
 #' Wrapper function to compute all by all NBLAST scores for a set of neurons
 #'
 #' @description Calls \code{nblast} to compute the actual scores. Can accept
-#'   either a \code{\link{neuronlist}} or neuron names as a character vector. This is a thin
-#'   wrapper around \code{nblast} and its main advantage is the option of "mean"
-#'   normalisation for forward and reverse scores, which is the most sensible
-#'   input to give to a clustering algorithm as well as the choice of returning
-#'   a distance matrix.
+#'   either a \code{\link[nat]{neuronlist}} or neuron names as a character
+#'   vector. This is a thin wrapper around \code{nblast} and its main advantage
+#'   is the option of "mean" normalisation for forward and reverse scores, which
+#'   is the most sensible input to give to a clustering algorithm as well as the
+#'   choice of returning a distance matrix.
 #'
 #' @details Note that \code{nat} already provides a function
 #'   \code{\link{nhclust}} for clustering, which is a wrapper for R's
@@ -212,7 +210,7 @@ nblast <- function(query, target=getOption("nat.default.neuronlist"),
 #'
 #' @section TODO: It would be a good idea in the future to implement a parallel
 #'   version of this function.
-#' @param x Input neurons (\code{\link{neuronlist}} or character vector)
+#' @param x Input neurons (\code{\link[nat]{neuronlist}} or character vector)
 #' @param smat the scoring matrix to use (see details of \code{\link{nblast}}
 #'   for meaning of default \code{NULL} value)
 #' @param ... Additional arguments for methods or \code{nblast}
@@ -226,7 +224,7 @@ nblast <- function(query, target=getOption("nat.default.neuronlist"),
 nblast_allbyall<-function(x, ...) UseMethod("nblast_allbyall")
 
 #' @rdname nblast_allbyall
-#' @param db A \code{\link{neuronlist}} or a character vector naming one.
+#' @param db A \code{\link[nat]{neuronlist}} or a character vector naming one.
 #'   Defaults to value of \code{options("nat.default.neuronlist")}
 #' @export
 nblast_allbyall.character<-function(x, smat=NULL, db=getOption("nat.default.neuronlist"), ...){
@@ -351,10 +349,10 @@ WeightedNNBasedLinesetDistFun<-function(nndists,dotproducts,sd,...){
 #'   objects in \code{dotprops} form were used in the construction of the
 #'   scoring matrices distributed in this package. It is therefore recommended
 #'   to convert \code{neuron} objects to \code{dotprops} objects using the
-#'   \code{\link{dotprops}} function.
+#'   \code{\link[nat]{dotprops}} function.
 #' @rdname WeightedNNBasedLinesetMatching
-#' @param target,query \code{\link{dotprops}} or \code{\link{neuron}} objects to
-#'   compare (must be of the same class)
+#' @param target,query \code{\link[nat]{dotprops}} or \code{\link[nat]{neuron}}
+#'   objects to compare (must be of the same class)
 #' @return Value of \code{NNDistFun} passed to
 #'   \code{WeightedNNBasedLinesetMatching}
 #' @importFrom nabor knn

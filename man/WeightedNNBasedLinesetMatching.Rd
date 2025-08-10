@@ -19,8 +19,8 @@ WeightedNNBasedLinesetMatching(target, query, ...)
 )
 }
 \arguments{
-\item{target, query}{\code{\link{dotprops}} or \code{\link{neuron}} objects to
-compare (must be of the same class)}
+\item{target, query}{\code{\link[nat]{dotprops}} or \code{\link[nat]{neuron}}
+objects to compare (must be of the same class)}
 
 \item{...}{extra arguments to pass to the distance function.}
 
@@ -47,7 +47,7 @@ Value of \code{NNDistFun} passed to
   objects in \code{dotprops} form were used in the construction of the
   scoring matrices distributed in this package. It is therefore recommended
   to convert \code{neuron} objects to \code{dotprops} objects using the
-  \code{\link{dotprops}} function.
+  \code{\link[nat]{dotprops}} function.
 
 \code{UseAlpha} determines whether the alpha values
   \code{(eig1-eig2)/sum(eig1:3)} are passed on to

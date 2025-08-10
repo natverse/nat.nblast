@@ -65,6 +65,6 @@ plot3d(kcs20.hc, k=3, db=kcs20, groups=1:2)
 plot3d(kcs20.hc, k=3, db=kcs20, groups=1:2, colour.selected=TRUE)
 }
 \seealso{
-\code{\link{nhclust}, \link[rgl]{plot3d}, \link{slice},
-\link{colour_clusters}}
+\code{\link{nhclust}, \link[rgl]{plot3d},
+  \link[dendroextras]{slice}, \link[dendroextras]{colour_clusters}}
 }

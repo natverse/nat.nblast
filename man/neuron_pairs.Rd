@@ -7,8 +7,9 @@
 neuron_pairs(query, target, n = NA, ignoreSelf = TRUE)
 }
 \arguments{
-\item{query, target}{either \code{\link{neuronlist}}s or character vectors of
-names. If target is missing, query will be used as both query and target.}
+\item{query, target}{either \code{\link[nat]{neuronlist}}s or character
+vectors of names. If target is missing, query will be used as both query
+and target.}
 
 \item{n}{number of random pairs to draw. When NA, the default, uses
 \code{expand.grid} to draw all pairs.}

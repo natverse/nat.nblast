@@ -21,7 +21,7 @@ nblast(
 
 \item{target}{a \code{\link[nat]{neuronlist}} to compare neuron against.
 Defaults to \code{options("nat.default.neuronlist")}. See
-\code{\link{nat-package}}.}
+\code{\link[nat]{nat-package}}.}
 
 \item{smat}{the scoring matrix to use (see details)}
 
@@ -72,9 +72,9 @@ when \code{smat=NULL} \code{options("nat.nblast.defaultsmat")} will
   Note that when \code{OmitFailures=FALSE} error messages will not be printed
   because the call is wrapped as \code{try(expr, silent=TRUE)}.
 
-  Internally, the \code{\link{plyr}} package is used to provide options for
-  parallelising NBLAST and displaying progress. To display a progress bar as
-  the scores are computed, add \code{.progress="natprogress"} to the
+  Internally, the \code{\link[plyr]{plyr}} package is used to provide options
+  for parallelising NBLAST and displaying progress. To display a progress bar
+  as the scores are computed, add \code{.progress="natprogress"} to the
   arguments (non-text progress bars are available -- see
   \code{\link[plyr]{create_progress_bar}}). To parallelise, add
   \code{.parallel=TRUE} to the arguments. In order to make use of parallel
@@ -172,8 +172,7 @@ stopifnot(all.equal(scores.norm2, scores.norm))
 \references{
 Kohl, J. Ostrovsky, A.D., Frechter, S., and Jefferis, G.S.X.E
   (2013). A bidirectional circuit switch reroutes pheromone signals in male
-  and female brains. Cell 155 (7), 1610--23
-  \doi{10.1016/j.cell.2013.11.025}.
+  and female brains. Cell 155 (7), 1610--23 \doi{10.1016/j.cell.2013.11.025}.
 
   Costa, M., Ostrovsky, A.D., Manton, J.D., Prohaska, S., and Jefferis,
   G.S.X.E. (2014). NBLAST: Rapid, sensitive comparison of neuronal structure
@@ -183,10 +182,9 @@ Kohl, J. Ostrovsky, A.D., Frechter, S., and Jefferis, G.S.X.E
   Jefferis G.S.X.E., Potter C.J., Chan A.M., Marin E.C., Rohlfing T., Maurer
   C.R.J., and Luo L. (2007). Comprehensive maps of Drosophila higher
   olfactory centers: spatially segregated fruit and pheromone representation.
-  Cell 128 (6), 1187--1203.
-  \doi{10.1016/j.cell.2007.01.040}
+  Cell 128 (6), 1187--1203. \doi{10.1016/j.cell.2007.01.040}
 }
 \seealso{
-\code{\link{nat-package}}, \code{\link{nblast_allbyall}},
+\code{\link[nat]{nat-package}}, \code{\link{nblast_allbyall}},
   \code{\link{create_scoringmatrix}}, \code{\link{smat.fcwb}}
 }

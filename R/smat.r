@@ -145,8 +145,9 @@ calc_dists_dotprods <- function(query_neurons, target_neurons, subset=NULL, igno
 
 #' Utility function to generate all or random pairs of neurons
 #'
-#' @param query,target either \code{\link{neuronlist}}s or character vectors of
-#'   names. If target is missing, query will be used as both query and target.
+#' @param query,target either \code{\link[nat]{neuronlist}}s or character
+#'   vectors of names. If target is missing, query will be used as both query
+#'   and target.
 #' @param n number of random pairs to draw. When NA, the default, uses
 #'   \code{expand.grid} to draw all pairs.
 #' @param ignoreSelf Logical indicating whether to omit pairs consisting of the

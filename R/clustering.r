@@ -68,8 +68,8 @@ nhclust <- function(neuron_names, method='ward', scoremat=NULL, distfun=as.dist,
 #' @return A list of \code{rgl} IDs for plotted objects (see
 #'   \code{\link[rgl]{plot3d}}).
 #' @export
-#' @seealso \code{\link{nhclust}, \link[rgl]{plot3d}, \link{slice},
-#' \link{colour_clusters}}
+#' @seealso \code{\link{nhclust}, \link[rgl]{plot3d},
+#'   \link[dendroextras]{slice}, \link[dendroextras]{colour_clusters}}
 #' @importFrom dendroextras slice
 #' @importFrom grDevices rainbow
 #' @examples

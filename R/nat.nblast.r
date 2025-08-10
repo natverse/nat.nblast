@@ -23,10 +23,10 @@
 #'
 #'   Calculating all by all similarity scores is facilitated by the
 #'   \code{\link{nblast_allbyall}} function which can take either a
-#'   \code{\link{neuronlist}} as input or a character vector naming (a subset)
-#'   of neurons in a (large) \code{\link{neuronlist}}. The
-#'   \code{\link{neuronlist}} containing the input neurons should be resident in
-#'   memory i.e. not the \code{\link{neuronlistfh}}.
+#'   \code{\link[nat]{neuronlist}} as input or a character vector naming (a
+#'   subset) of neurons in a (large) \code{\link[nat]{neuronlist}}. The
+#'   \code{\link[nat]{neuronlist}} containing the input neurons should be
+#'   resident in memory i.e. not the \code{\link[nat]{neuronlistfh}}.
 #'
 #' @section Clustering:
 #'
