@@ -6,7 +6,6 @@
 [![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](https://natverse.org/nat.nblast/reference/)
 [![R-CMD-check](https://github.com/natverse/nat.nblast/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/natverse/nat.nblast/actions/workflows/R-CMD-check.yaml)
 [![codecov](https://codecov.io/gh/natverse/nat.nblast/graph/badge.svg?token=VqX3HEdELo)](https://codecov.io/gh/natverse/nat.nblast)
-
 <!-- badges: end -->
 
 **nat.nblast** is part of the [NeuroAnatomy Toolbox](https://jefferislab.github.io/)
@@ -73,16 +72,16 @@ install.packages("nat.nblast")
 ```
 
 ### Development version
-Use **devtools** to install the development version:
+Use **remotes** to install the development version:
 
 ```r
 # install devtools if required
-if (!require("devtools")) install.packages("devtools")
+if (!require("remotes")) install.packages("remotes")
 # then nat.nblast
-devtools::install_github("natverse/nat.nblast")
+remotes::install_github("natverse/nat.nblast")
 ```
 Note that this will also update the [nat package](https://github.com/natverse/nat)
 to the latest development version from github. Windows users need 
-[Rtools](https://www.murdoch-sutherland.com/Rtools/) to install this way.
+[Rtools](https://cran.r-project.org/bin/windows/Rtools/) to install this way.
 
 
