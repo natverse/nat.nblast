@@ -1,3 +1,7 @@
+# nat.nblast 1.6.8
+
+* docs: add missing package anchors as requested by CRAN 
+
 # nat.nblast 1.6.6
 
 * Keep scale factor when normalising (#38)
