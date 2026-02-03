@@ -28,7 +28,7 @@ test_that("plot3d.hclust", {
   clear3d()
   expect_equal(attr(plot3d(hc, h=2, db=testneurons, col='red'),'df')$col,
                rep("red", 5))
-  rgl.close()
+  close3d()
 })
 
 test_that('we can use diagonal attribute on a score matrix',{
