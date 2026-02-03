@@ -1,7 +1,7 @@
-# nat.nblast 1.6.8
+# nat.nblast 1.6.9
 
-This minor release fixes Rd link targets missing package anchors as requested by
-Kurt Hornik on behalf of CRAN on 2025-07-23.
+This minor release fixes a test error due to deprecation of the rgl::rgl.close()
+function in response to an email from Kurt.Hornik for CRAN on 2026-02-03.
 
 With many thanks,
 
