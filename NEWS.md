@@ -1,3 +1,7 @@
+# nat.nblast 1.6.9
+
+* fix: stop using deprecated `rgl::rgl.close()`
+
 # nat.nblast 1.6.8
 
 * docs: add missing package anchors as requested by CRAN 

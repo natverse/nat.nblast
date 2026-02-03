@@ -2,7 +2,7 @@ Package: nat.nblast
 Type: Package
 Title: NeuroAnatomy Toolbox ('nat') Extension for Assessing Neuron Similarity
     and Clustering
-Version: 1.6.8
+Version: 1.6.9
 Authors@R: c(
     person("Gregory", "Jefferis", email= "jefferis@gmail.com",
       role = c("aut", "cre"), comment = c(ORCID = "0000-0002-0587-9355")),
