@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">nat.nblast</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.6.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.6.9</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,8 +40,7 @@
 
       <div class="section-desc"><p>Provides an overview of key functions and classes</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -57,8 +56,7 @@
 
       <div class="section-desc"><p>The main entry points to neuron search and clustering</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -69,13 +67,15 @@
 
         </dt>
         <dd>Calculate similarity score for neuron morphologies</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="nblast_allbyall.html">nblast_allbyall()</a></code>
 
         </dt>
         <dd>Wrapper function to compute all by all NBLAST scores for a set of neurons</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="nhclust.html">nhclust()</a></code>
 
@@ -86,8 +86,7 @@
 
       <div class="section-desc"><p>Visualise pairwise neuron search or clustering results</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -98,13 +97,15 @@
 
         </dt>
         <dd>Methods to identify and plot groups of neurons cut from an <code>hclust</code> object</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="show_similarity.html">show_similarity()</a></code>
 
         </dt>
         <dd>Display two neurons with segments in the query coloured by similarity</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="subset.hclust.html">subset(<i>&lt;hclust&gt;</i>)</a></code>
 
@@ -115,8 +116,7 @@
 
       <div class="section-desc"><p>Calculate the scoring matrices that define NBLAST similarity</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -127,25 +127,29 @@
 
         </dt>
         <dd>Create a scoring matrix given matching and non-matching sets of neurons</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="calc_score_matrix.html">calc_score_matrix()</a></code>
 
         </dt>
         <dd>Calculate scoring matrix from probability matrices for matching and non-matching sets of neurons</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="calc_prob_mat.html">calc_prob_mat()</a></code>
 
         </dt>
         <dd>Calculate probability matrix from distances and dot products between neuron segments</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="calc_dists_dotprods.html">calc_dists_dotprods()</a></code>
 
         </dt>
         <dd>Calculate distances and dot products between two sets of neurons</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="smat.fcwb.html">smat.fcwb</a></code> <code><a href="smat.fcwb.html">smat_alpha.fcwb</a></code>
 
@@ -156,8 +160,7 @@
 
       <div class="section-desc"><p>Functions that you might use to manipulate matrices containing all by all NBLAST results for use with other clustering strategies (besides nhclust)</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -168,13 +171,15 @@
 
         </dt>
         <dd>Return scores (or distances) for given query and target neurons</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="sub_dist_mat.html">sub_dist_mat()</a></code>
 
         </dt>
         <dd>Convert (a subset of) a raw score matrix to a distance matrix</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="sparse_score_mat.html">sparse_score_mat()</a></code>
 
@@ -185,8 +190,7 @@
 
       <div class="section-desc"><p>Intended for developer use</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -197,19 +201,22 @@
 
         </dt>
         <dd>Produce similarity score for neuron morphologies</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="neuron_pairs.html">neuron_pairs()</a></code>
 
         </dt>
         <dd>Utility function to generate all or random pairs of neurons</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="WeightedNNBasedLinesetMatching.html">WeightedNNBasedLinesetMatching()</a></code>
 
         </dt>
         <dd>Compute point &amp; tangent vector similarity score between two linesets</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="fctraces20.html">fctraces20</a></code>
 
@@ -220,8 +227,7 @@
 
       <div class="section-desc"><p>Intended for developer use</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -232,19 +238,22 @@
 
         </dt>
         <dd>Extract diagonal terms from a variety of matrix types</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="extract-methods.html">`[`(<i>&lt;spam&gt;</i>,<i>&lt;character&gt;</i>,<i>&lt;character&gt;</i>,<i>&lt;logical&gt;</i>)</a></code> <code><a href="extract-methods.html">`[`(<i>&lt;spam&gt;</i>,<i>&lt;character&gt;</i>,<i>&lt;character&gt;</i>,<i>&lt;missing&gt;</i>)</a></code> <code><a href="extract-methods.html">`[`(<i>&lt;spam&gt;</i>,<i>&lt;character&gt;</i>,<i>&lt;missing&gt;</i>,<i>&lt;logical&gt;</i>)</a></code> <code><a href="extract-methods.html">`[`(<i>&lt;spam&gt;</i>,<i>&lt;character&gt;</i>,<i>&lt;missing&gt;</i>,<i>&lt;missing&gt;</i>)</a></code> <code><a href="extract-methods.html">`[`(<i>&lt;spam&gt;</i>,<i>&lt;missing&gt;</i>,<i>&lt;character&gt;</i>,<i>&lt;logical&gt;</i>)</a></code> <code><a href="extract-methods.html">`[`(<i>&lt;spam&gt;</i>,<i>&lt;missing&gt;</i>,<i>&lt;character&gt;</i>,<i>&lt;missing&gt;</i>)</a></code>
 
         </dt>
         <dd>Extract parts of a sparse <code>spam</code> matrix</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="fill_in_sparse_score_mat.html">fill_in_sparse_score_mat()</a></code>
 
         </dt>
         <dd>Add one or more submatrices to a sparse score matrix</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="fill_pairs_sparse_score_mat.html">fill_pairs_sparse_score_mat()</a></code>
 
@@ -260,7 +269,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>
