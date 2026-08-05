@@ -1,3 +1,7 @@
+# nat.nblast 1.6.10
+
+* Replace deprecated special argument names in `structure()` calls for R-devel.
+
 # nat.nblast 1.6.9
 
 * fix: stop using deprecated `rgl::rgl.close()`

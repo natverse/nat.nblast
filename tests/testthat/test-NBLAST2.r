@@ -4,20 +4,20 @@ testneurons <- readRDS('testdata/testneurons.rds')
 
 test_that("nblast v2 produces expected scores", {
   scores <- nblast(testneurons[[1]], testneurons, version=2)
-  scores.expected <- structure(c(43518.2468824115, -34509.2778341796, -36608.1290149345, -18366.0246697251, -36782.7167494325), .Names = c("5HT1bMARCM-F000001_seg001", "5HT1bMARCM-F000002_seg001", "5HT1bMARCM-F000003_seg001", "5HT1bMARCM-F000004_seg001", "5HT1bMARCM-F000005_seg001"))
+  scores.expected <- structure(c(43518.2468824115, -34509.2778341796, -36608.1290149345, -18366.0246697251, -36782.7167494325), names = c("5HT1bMARCM-F000001_seg001", "5HT1bMARCM-F000002_seg001", "5HT1bMARCM-F000003_seg001", "5HT1bMARCM-F000004_seg001", "5HT1bMARCM-F000005_seg001"))
 
   expect_equal(scores, scores.expected)
 })
 
 test_that("nblast v2 with alpha produces expected scores", {
   scores <- nblast(testneurons[[1]], testneurons, version=2, UseAlpha=TRUE)
-  scores.expected <- structure(c(22393.1456610767, -33103.620929615, -35603.5457297204, -18717.4612913414, -35799.9999942706), .Names = c("5HT1bMARCM-F000001_seg001", "5HT1bMARCM-F000002_seg001", "5HT1bMARCM-F000003_seg001", "5HT1bMARCM-F000004_seg001", "5HT1bMARCM-F000005_seg001"))
+  scores.expected <- structure(c(22393.1456610767, -33103.620929615, -35603.5457297204, -18717.4612913414, -35799.9999942706), names = c("5HT1bMARCM-F000001_seg001", "5HT1bMARCM-F000002_seg001", "5HT1bMARCM-F000003_seg001", "5HT1bMARCM-F000004_seg001", "5HT1bMARCM-F000005_seg001"))
   expect_equal(scores, scores.expected)
 })
 
 test_that("nblast v2 handles a neuronlist as query", {
   scores <- nblast(testneurons[1:2], testneurons, version=2)
-  scores.expected <- structure(c(43518.2468824115, -34509.2778341796, -36608.1290149345, -18366.0246697251, -36782.7167494325, -14764.1401323446, 30648.4172626457, -22373.118229109, -22772.3018332237, -22918.5324546932), .Dim = c(5L, 2L), .Dimnames = list(c("5HT1bMARCM-F000001_seg001", "5HT1bMARCM-F000002_seg001", "5HT1bMARCM-F000003_seg001", "5HT1bMARCM-F000004_seg001", "5HT1bMARCM-F000005_seg001"), c("5HT1bMARCM-F000001_seg001", "5HT1bMARCM-F000002_seg001")))
+  scores.expected <- structure(c(43518.2468824115, -34509.2778341796, -36608.1290149345, -18366.0246697251, -36782.7167494325, -14764.1401323446, 30648.4172626457, -22373.118229109, -22772.3018332237, -22918.5324546932), dim = c(5L, 2L), dimnames = list(c("5HT1bMARCM-F000001_seg001", "5HT1bMARCM-F000002_seg001", "5HT1bMARCM-F000003_seg001", "5HT1bMARCM-F000004_seg001", "5HT1bMARCM-F000005_seg001"), c("5HT1bMARCM-F000001_seg001", "5HT1bMARCM-F000002_seg001")))
   expect_equal(scores, scores.expected)
 })
 

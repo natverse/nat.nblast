@@ -164,7 +164,7 @@ diagonal.default <- function(x, indices=NULL) {
     if(is.null(indices)) indices=seq_len(nrow(x))
     vidxs=ff::arrayIndex2vectorIndex(cbind(indices,indices),dim=dim(x))
     # by default we don't get the names back
-    structure(x[vidxs], .Names=rownames(x)[indices])
+    structure(x[vidxs], names=rownames(x)[indices])
   } else if(inherits(x,"big.matrix")) {
     fast_disk_diag(x, indices, use.names=TRUE)
   } else if(inherits(x, 'spam')) {
