@@ -53,5 +53,5 @@ fill_pairs_sparse_score_mat(
 ## Value
 
 A sparse matrix (of class
-[`spam`](https://www.math.uzh.ch/pages/spam/reference/spam.html)) with
-the specified score entries filled.
+[`spam`](https://rdrr.io/pkg/spam/man/spam.html)) with the specified
+score entries filled.

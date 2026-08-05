@@ -8,6 +8,7 @@ Toolbox](https://jefferislab.github.io/) suite of R packages.
 For the impatient …
 
 ``` r
+
 # install
 if (!require("devtools")) install.packages("devtools")
 devtools::install_github(c("natverse/nat", "natverse/nat.nblast"))
@@ -68,6 +69,7 @@ especially if you notice a bug.
 ### CRAN release
 
 ``` r
+
 install.packages("nat.nblast")
 ```
 
@@ -76,6 +78,7 @@ install.packages("nat.nblast")
 Use **remotes** to install the development version:
 
 ``` r
+
 # install devtools if required
 if (!require("remotes")) install.packages("remotes")
 # then nat.nblast

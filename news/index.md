@@ -1,6 +1,14 @@
 # Changelog
 
+## nat.nblast 1.6.10
+
+- Replace deprecated special argument names in
+  [`structure()`](https://rdrr.io/r/base/structure.html) calls for
+  R-devel.
+
 ## nat.nblast 1.6.9
+
+CRAN release: 2026-02-03
 
 - fix: stop using deprecated
   [`rgl::rgl.close()`](https://dmurdoch.github.io/rgl/dev/reference/rgl-defunct.html)

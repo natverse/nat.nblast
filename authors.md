@@ -14,12 +14,12 @@ Source:
 
 Jefferis G, Manton J (2026). *nat.nblast: NeuroAnatomy Toolbox ('nat')
 Extension for Assessing Neuron Similarity and Clustering*. R package
-version 1.6.9, <https://natverse.org/nat.nblast/>.
+version 1.6.10, <https://natverse.org/nat.nblast/>.
 
     @Manual{,
       title = {nat.nblast: NeuroAnatomy Toolbox ('nat') Extension for Assessing Neuron Similarity and Clustering},
       author = {Gregory Jefferis and James Manton},
       year = {2026},
-      note = {R package version 1.6.9},
+      note = {R package version 1.6.10},
       url = {https://natverse.org/nat.nblast/},
     }
