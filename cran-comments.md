@@ -1,12 +1,15 @@
-# nat.nblast 1.6.9
+# nat.nblast 1.6.10
 
-This minor release fixes a test error due to deprecation of the rgl::rgl.close()
-function in response to an email from Kurt.Hornik for CRAN on 2026-02-03.
+This minor release replaces deprecated special argument names in `structure()`
+calls reported by R-devel checks.
 
-With many thanks,
+## Test environments
 
-Greg Jefferis.
+* local macOS install, R-4.6.1
+* win-builder (devel)
 
 ## R CMD check results
 
-0 errors | 0 warnings | 0 note
+0 errors | 0 warnings | 0 notes
+
+https://win-builder.r-project.org/1CejXycz2OWW
