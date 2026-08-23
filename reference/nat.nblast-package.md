@@ -126,5 +126,8 @@ structure and construction of neuron family databases. bioRxiv preprint.
 
 Authors:
 
+- Gregory Jefferis <jefferis@gmail.com>
+  ([ORCID](https://orcid.org/0000-0002-0587-9355))
+
 - James Manton <ajd.manton@googlemail.com>
   ([ORCID](https://orcid.org/0000-0001-9260-3156))
