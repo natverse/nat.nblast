@@ -60,7 +60,7 @@ subset(hckcs, k=3)
 \seealso{
 \code{\link{hclust}, \link{dist}}
 
-Other scoremats: 
-\code{\link{sub_dist_mat}()}
+Other scoremats:
+\code{\link[=sub_dist_mat]{sub_dist_mat()}}
 }
 \concept{scoremats}

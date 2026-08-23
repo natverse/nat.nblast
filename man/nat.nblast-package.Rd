@@ -114,6 +114,7 @@ Costa, M., Ostrovsky, A.D., Manton, J.D., Prohaska, S., and
 
 Authors:
 \itemize{
+  \item Gregory Jefferis \email{jefferis@gmail.com} (\href{https://orcid.org/0000-0002-0587-9355}{ORCID})
   \item James Manton \email{ajd.manton@googlemail.com} (\href{https://orcid.org/0000-0001-9260-3156}{ORCID})
 }
 

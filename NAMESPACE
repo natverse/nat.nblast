@@ -30,17 +30,25 @@ export(sub_score_mat)
 exportMethods("[")
 import(methods)
 importFrom(dendroextras,slice)
-importFrom(grDevices,colorRampPalette)
-importFrom(grDevices,rainbow)
+importFrom(grDevices,
+  colorRampPalette,
+  rainbow
+)
 importFrom(nabor,knn)
-importFrom(nat,dotprops)
-importFrom(nat,is.neuronlist)
-importFrom(nat,neuronlist)
+importFrom(nat,
+  dotprops,
+  is.neuronlist,
+  neuronlist
+)
 importFrom(plyr,mlply)
 importFrom(rgl,plot3d)
-importFrom(spam,as.matrix)
-importFrom(spam,diag)
-importFrom(spam,spam)
-importFrom(stats,as.dist)
-importFrom(stats,dnorm)
-importFrom(stats,hclust)
+importFrom(spam,
+  as.matrix,
+  diag,
+  spam
+)
+importFrom(stats,
+  as.dist,
+  dnorm,
+  hclust
+)
