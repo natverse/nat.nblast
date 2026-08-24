@@ -12,4 +12,4 @@ calls reported by R-devel checks.
 
 0 errors | 0 warnings | 0 notes
 
-https://win-builder.r-project.org/1CejXycz2OWW
+Win-builder R-devel: [Status: OK](https://win-builder.r-project.org/uX0aUjfDf5dF)
