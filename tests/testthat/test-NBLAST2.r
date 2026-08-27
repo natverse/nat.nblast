@@ -60,6 +60,10 @@ test_that("we can calculate normalised nblast v2 scores", {
   expect_equal(nblast(testneurons[1], testneurons[3:5], version = 2, normalised = T),
                baseline)
 
+  names(testneurons) <- NULL
+  scoresaba <- nblast_allbyall(testneurons, version=2,
+                               normalisation = 'normalised')
+  expect_equal(dim(scoresaba), c(5, 5))
 })
 
 test_that("we can calculate scores for regular neurons",{
